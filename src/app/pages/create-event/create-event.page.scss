@@ -1,0 +1,31 @@
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+}
+
+.camera-icon {
+  font-size: 40px;
+}
+
+.img-placeholder {
+  background: #000;
+  height: 200px;
+}
+
+img {
+  max-height: 190px;
+}
+
+.container {
+  opacity: 0.9;
+  position: relative;
+  text-align: center;
+  color: #fff;
+}
+
+ion-list-header {
+  background: #f2f2f2;
+}

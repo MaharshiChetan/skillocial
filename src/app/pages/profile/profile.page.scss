@@ -1,0 +1,36 @@
+.profile {
+  background-color: #576370;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin-top: 5px;
+    height: 96px;
+    width: 96px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px gray;
+  }
+  ion-button.button-small {
+    font-size: 10px;
+    margin: 0px;
+  }
+
+  div {
+    text-align: center;
+  }
+  div h3 {
+    display: inline-block;
+    text-align: center;
+    margin: 5px 5px 5px 0px;
+    font-size: 18px;
+    color: #ffffff;
+  }
+  p {
+    color: #ffffff;
+    margin-top: 0px;
+    text-align: center;
+    font-size: 13px;
+  }
+}

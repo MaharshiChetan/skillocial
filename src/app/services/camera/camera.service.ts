@@ -1,0 +1,83 @@
+import { Injectable } from '@angular/core';
+import { Camera } from '@ionic-native/camera/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CameraService {
+  constructor(private camera: Camera, private crop: Crop, private base64: Base64) {}
+
+  getPictureFromCamera(crop: boolean) {
+    return this.getImage(this.camera.PictureSourceType.CAMERA, crop);
+  }
+
+  getPictureFromPhotoLibrary(crop: boolean) {
+    return this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY, crop);
+  }
+
+  async getImage(pictureSourceType, crop = true) {
+    const options = {
+      quality: 75,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: pictureSourceType,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: true,
+      correctOrientation: true,
+      targetHeight: 700,
+      targetWidth: 700,
+    };
+
+    // If set to crop, restricts the image to a square of 600 by 600
+    // if (crop) {
+    //   options['targetWidth'] = 800;
+    //   options['targetHeight'] = 800;
+    // }
+
+    return this.camera
+      .getPicture(options)
+      .then(
+        fileUri => {
+          return this.crop.crop('file://' + fileUri, {
+            quality: 75,
+            targetWidth: -1,
+            targetHeight: -1,
+          });
+        },
+        error => {
+          console.log('CAMERA ERROR -> ' + JSON.stringify(error));
+        }
+      )
+      .then((path: any) => {
+        return this.base64.encodeFile(path);
+      })
+      .then(image => {
+        return image;
+      });
+  }
+
+  generateFromImage(img: any, quality: any, callback: any) {
+    const canvas: any = document.createElement('canvas');
+    const image = new Image();
+
+    image.onload = () => {
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+      const dataUrl = canvas.toDataURL('image/jpeg', quality);
+
+      callback(dataUrl);
+    };
+    image.src = img;
+  }
+
+  getImageSize(data_url: any) {
+    var head = 'data:image/jpeg;base64,';
+    return (((data_url.length - head.length) * 3) / 4 / (1024 * 1024)).toFixed(4);
+  }
+}

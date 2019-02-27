@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar color="primary-two">
+    <ion-buttons slot="primary">
+      <ion-button [disabled]="!eventForm.valid" (click)="updateEvent()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content text-center>
+  <form [formGroup]="eventForm">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Event Details</ion-label>
+      </ion-list-header>
+      <div class="container" (click)="changePicture()">
+        <img
+          alt=""
+          class="cover-image"
+          *ngIf="chosenPicture || eventDetails?.imageUrl"
+          [src]="chosenPicture || eventDetails?.imageUrl"
+        />
+        <div *ngIf="!chosenPicture && !eventDetails?.imageUrl" class="img-placeholder"></div>
+        <div *ngIf="!chosenPicture && !eventDetails?.imageUrl" class="centered">
+          <ion-icon name="camera" class="camera-icon"></ion-icon>
+          <h6 no-margin>Upload Image</h6>
+        </div>
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Event Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Event Description</ion-label>
+        <ion-textarea formControlName="description" rows="3"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Venue (Full Address)</ion-label>
+        <ion-textarea formControlName="location" rows="2"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">State</ion-label>
+        <ion-input formControlName="state"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">City</ion-label>
+        <ion-input formControlName="city"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          <i class="fas fa-rupee-sign"></i>
+          Entry Fees
+        </ion-label>
+        <ion-input type="number" formControlName="entryFees"></ion-input>
+      </ion-item>
+
+      <ion-list-header>
+        <ion-label>Date and Time</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime
+          pickerFormat="DD MMM YYYY"
+          [min]="eventDateAndTime.min"
+          [max]="eventDateAndTime.max"
+          formControlName="startDate"
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>End Date</ion-label>
+        <ion-datetime
+          displayFormat="DD MMM YYYY"
+          [min]="eventDateAndTime.min"
+          [max]="eventDateAndTime.max"
+          formControlName="endDate"
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime
+          displayFormat="h:mm A"
+          pickerFormat="h mm A"
+          formControlName="startTime"
+        ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End Time</ion-label>
+        <ion-datetime
+          displayFormat="h:mm A"
+          pickerFormat="h mm A"
+          formControlName="endTime"
+        ></ion-datetime>
+      </ion-item>
+    </ion-list>
+
+    <!-- <ion-item-group *ngIf="categories.length > 0">
+        <ion-item-divider color="light"
+          >Categories (<ion-icon name="arrow-round-back"></ion-icon> Slide left to remove category)
+        </ion-item-divider>
+        <ion-item-sliding *ngFor="let category of categories; let i = index">
+          <ion-item>
+            {{ category.name }}
+            <div class="float-right"><i class="fas fa-rupee-sign"></i> {{ category.price }}</div>
+          </ion-item>
+          <ion-item-options side="right">
+            <button ion-button color="danger" (click)="removeCategory(i)">
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-item-group>
+      <div padding>
+        <button type="button" block ion-button (click)="addCategories()">
+          Add Categories For Participation
+        </button>
+      </div> -->
+  </form>
+</ion-content>

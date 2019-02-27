@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary-two">
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" name="person-add"></ion-icon>
+      </ion-button>
+      <!-- <ion-button>
+        <ion-icon slot="icon-only" name="ios-water"></ion-icon>
+      </ion-button> -->
+      <!-- <ion-button>
+        <ion-icon slot="icon-only" name="ios-water" class="animated bounce "></ion-icon>
+      </ion-button> -->
+      <ion-button (click)="presentPopover()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ userProfile?.username }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="profile">
+    <div>
+      <img
+        alt=""
+        defaultImage="/assets/default-user.jpeg"
+        [lazyLoad]="userProfile?.profilePhoto"
+        errorImage="/assets/default-user.jpeg"
+        class="cover-image"
+      />
+      <div>
+        <h3>{{ userProfile?.fullName }}</h3>
+        <ion-button size="small" color="success-two" mode="md" class="follow-btn">
+          <ion-icon name="person"></ion-icon>100
+        </ion-button>
+      </div>
+      <p>{{ userProfile?.bio }}</p>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,76 @@
+<ion-content padding class="animated fadeIn login auth-page">
+  <div class="theme-bg"></div>
+  <div class="auth-content">
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
+      <h4 no-margin>
+        <ion-text color="light" class="fw700">
+          5 Elements
+        </ion-text>
+      </h4>
+    </div>
+
+    <!-- Login form -->
+    <form [formGroup]="loginForm" class="list-form">
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="mail" item-start></ion-icon>
+          Email
+        </ion-label>
+        <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="formErrors.email">
+        <ion-text color="warning">{{ formErrors.email }}</ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Password
+        </ion-label>
+        <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="formErrors.password">
+        <ion-text color="warning">{{ formErrors.password }}</ion-text>
+      </p>
+    </form>
+
+    <p text-right tappable (click)="forgotPassword()" class="paz">
+      <ion-text color="light">
+        <strong>Forgot Pass?</strong>
+      </ion-text>
+    </p>
+
+    <div>
+      <ion-button
+        icon-left
+        size="medium"
+        expand="full"
+        shape="round"
+        color="dark"
+        (click)="login()"
+        [disabled]="!loginForm.valid"
+        tappable
+      >
+        <ion-icon name="log-in"></ion-icon>
+        Signin
+      </ion-button>
+
+      <p text-center>
+        <ion-text color="light">
+          Or Signin with:
+        </ion-text>
+      </p>
+
+      <app-social-login [type]="'login'"></app-social-login>
+    </div>
+
+    <!-- Other links -->
+    <div text-center margin-top>
+      <span [routerLink]="['/register']" routerDirection="forward" class="paz" tappable>
+        <ion-text color="light"> New here? <strong>Sign Up</strong> </ion-text>
+      </span>
+    </div>
+  </div>
+</ion-content>

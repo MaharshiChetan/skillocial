@@ -1,0 +1,50 @@
+.vertical-line {
+  border-left: 1px solid lightgray;
+  position: absolute;
+  height: 80%;
+  left: 97%;
+  top: 7px;
+}
+
+.card-content-md {
+  padding: 5px 5px;
+}
+
+ion-card .original {
+  max-height: 170px;
+  width: 100%;
+}
+
+.date {
+  font-weight: bold;
+}
+
+.card-content-ios {
+  padding: 5px 5px;
+}
+
+.grid {
+  padding: 0px;
+}
+
+.card-md p {
+  margin: 0px 0px;
+  color: gray;
+}
+
+.card-ios p {
+  margin: 0px 0px;
+  color: gray;
+}
+
+[col-7] {
+  padding: 5px 10px;
+}
+
+ion-card .placeholder {
+  height: 190px;
+}
+
+ion-skeleton-text.small-skeleton {
+  line-height: 1.1;
+}

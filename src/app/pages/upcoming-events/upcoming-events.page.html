@@ -1,0 +1,83 @@
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionCancel)="onCancel($event)"> </ion-searchbar>
+
+  <ion-refresher *ngIf="events" (ionRefresh)="fetchEvents($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col *ngFor="let event of events" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
+        <ion-card
+          no-margin
+          tappable
+          [routerLink]="['/event-details', event.key]"
+          routerDirection="forward"
+        >
+          <img
+            alt=""
+            [defaultImage]="placeholderImage"
+            [lazyLoad]="event.imageUrl"
+            [errorImage]="event.imageUrl"
+            class="original cover-image"
+          />
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="date" text-center align-self-center size="2">
+                  <ion-text color="danger">
+                    {{ event.startDateAndTime | date: 'MMM d EEE' }}
+                    <div class="vertical-line"></div>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="7">
+                  <h2 style="font-weight: bold;">{{ event.eventName }}</h2>
+                  <p>City: {{ event.eventCity }}</p>
+                  <p>
+                    Time: {{ event.startDateAndTime | date: 'h:mm a' }} -
+                    {{ event.endDateAndTime | date: 'h:mm a' }}
+                  </p>
+                </ion-col>
+                <ion-col class="book" text-end align-self-center size="3">
+                  <ion-button color="danger">Book</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col *ngFor="let i of [1, 2, 3]" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
+        <ion-card no-margin *ngIf="!events">
+          <img alt="" [src]="placeholderImage" class="original cover-image" />
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="date" text-center align-self-center size="2">
+                  <ion-text color="danger">
+                    <ion-skeleton-text class="small-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text class="small-skeleton"></ion-skeleton-text>
+                    <div class="vertical-line"></div>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="7">
+                  <ion-skeleton-text width="170px"></ion-skeleton-text>
+                  <ion-skeleton-text width="150px" class="small-skeleton"></ion-skeleton-text>
+                  <ion-skeleton-text width="130px" class="small-skeleton"></ion-skeleton-text>
+                </ion-col>
+                <ion-col class="book" text-end align-self-center size="3">
+                  <ion-button color="danger">Book</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
+    <ion-fab-button color="success-two" [routerLink]="['/create-event']" routerDirection="forward">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

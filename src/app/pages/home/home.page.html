@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-grid>
+            <ion-row *ngIf="userProfile">
+              <ion-col
+                size-sm="1"
+                size-xs="2"
+                text-center
+                [routerLink]="['/profile']"
+                routerDirection="forward"
+              >
+                <ion-avatar>
+                  <img
+                    alt=""
+                    defaultImage="/assets/default-user.jpeg"
+                    [lazyLoad]="userProfile?.profilePhoto"
+                    errorImage="/assets/default-user.jpeg"
+                  />
+                </ion-avatar>
+              </ion-col>
+              <ion-col>
+                <ion-card-header [routerLink]="['/profile']" routerDirection="forward">
+                  {{ userProfile?.fullName }}
+                </ion-card-header>
+                <ion-button size="small" fill="clear" class="share-thought-btn">
+                  What's on your mind?
+                </ion-button>
+                <hr />
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="!userProfile">
+              <ion-col size-sm="1" size-xs="2" text-center>
+                <ion-avatar><img alt="" src="/assets/gray-placeholder.png"/></ion-avatar>
+              </ion-col>
+              <ion-col>
+                <ion-card-header>
+                  <ion-skeleton-text width="170px"></ion-skeleton-text>
+                </ion-card-header>
+                <ion-button size="small" fill="clear" class="share-thought-btn">
+                  <ion-skeleton-text width="135px"></ion-skeleton-text>
+                </ion-button>
+                <hr />
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col text-right no-padding>
+                <ion-button color="success-two">
+                  DISCOVER PEERS
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

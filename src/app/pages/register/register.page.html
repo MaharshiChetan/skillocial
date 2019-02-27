@@ -1,0 +1,91 @@
+<ion-content padding class="animated fadeIn login auth-page">
+  <div class="auth-content">
+    <!-- Logo -->
+    <div padding-horizontal text-center class="animated fadeInDown">
+      <div class="logo"></div>
+      <h3 no-margin>
+        <ion-text color="light" class="fw700">
+          <ion-text color="secondary">Register</ion-text>
+        </ion-text>
+      </h3>
+    </div>
+
+    <!-- Register form -->
+    <form [formGroup]="registerForm" class="list-form">
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="person" item-start></ion-icon>
+          Full Name
+        </ion-label>
+        <ion-input color="secondary" type="text" formControlName="fullName"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="formErrors.fullName">
+        <ion-text color="warning">{{ formErrors.fullName }}</ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="contact" item-start></ion-icon>
+          Username
+        </ion-label>
+        <ion-input color="secondary" type="text" formControlName="username"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="formErrors.username">
+        <ion-text color="warning">{{ formErrors.username }}</ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="mail" item-start></ion-icon>
+          Email
+        </ion-label>
+        <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <p ion-text class="text08" *ngIf="formErrors.email">
+        <ion-text color="warning">{{ formErrors.email }}</ion-text>
+      </p>
+
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Password
+        </ion-label>
+        <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <p ion-text color="warning" class="text08" *ngIf="formErrors.password">
+        <ion-text color="warning">{{ formErrors.password }}</ion-text>
+      </p>
+    </form>
+
+    <div margin-top>
+      <ion-button
+        icon-left
+        size="medium"
+        expand="full"
+        shape="round"
+        color="dark"
+        (click)="signUp()"
+        [disabled]="!registerForm.valid"
+        tappable
+      >
+        <ion-icon name="log-in"></ion-icon>
+        Sign Up
+      </ion-button>
+
+      <p text-center>
+        <ion-text color="light">
+          Or Sign Up with:
+        </ion-text>
+      </p>
+
+      <app-social-login [type]="'register'"></app-social-login>
+    </div>
+
+    <!-- Other links -->
+    <div text-center margin-top>
+      <span [routerLink]="['login']" routerDirection="root" tappable>
+        <ion-text color="light"> Already have an account? <strong>Login</strong> </ion-text>
+      </span>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,5 @@
+Additional packages
+
+1. firebase: "^5.8.4",
+2. @angular/fire: "^5.1.1",
+3.

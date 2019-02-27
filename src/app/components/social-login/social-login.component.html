@@ -1,0 +1,57 @@
+<ion-grid class="btn-group" *ngIf="type === 'login'">
+  <ion-row>
+    <ion-col size="4">
+      <ion-button shape="round" expand="full" color="secondary" (click)="facebookLogin()">
+        <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button shape="round" expand="full" color="secondary" (click)="twitterLogin()">
+        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button shape="round" expand="full" color="secondary" (click)="googleLogin()">
+        <ion-icon slot="icon-only" name="logo-googleplus"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid class="btn-group" *ngIf="type === 'register'">
+  <ion-row>
+    <ion-col size="4">
+      <ion-button
+        shape="round"
+        expand="full"
+        fill="outline"
+        color="tertiary"
+        (click)="facebookLogin()"
+      >
+        <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button
+        shape="round"
+        expand="full"
+        fill="outline"
+        color="tertiary"
+        (click)="twitterLogin()"
+      >
+        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button
+        shape="round"
+        expand="full"
+        fill="outline"
+        color="tertiary"
+        (click)="googleLogin()"
+      >
+        <ion-icon slot="icon-only" name="logo-googleplus"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary-two">
+    <ion-buttons slot="primary">
+      <ion-button [disabled]="!userProfileForm.valid" (click)="submitForm()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content text-center>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col no-padding *ngIf="userProfile">
+        <form [formGroup]="userProfileForm">
+          <ion-list>
+            <div (click)="changeProfilePhoto()" margin-top>
+              <img
+                alt=""
+                class="image cover-image"
+                [src]="chosenPicture || userProfile.thumbnail || userProfile.profilePhoto"
+                onerror="this.src='userProfile.profilePhoto'"
+              />
+            </div>
+            <ion-button fill="clear" color="blue" class="button-inner" (click)="changePicture()">
+              Change Photo
+            </ion-button>
+
+            <ion-item>
+              <ion-label position="stacked">Username</ion-label>
+              <ion-input type="text" formControlName="username"></ion-input>
+            </ion-item>
+            <p text-left color="danger" class="text08 error" *ngIf="formErrors.username">
+              <ion-text color="danger">{{ formErrors.username }}</ion-text>
+            </p>
+
+            <ion-item>
+              <ion-label position="stacked">Full Name</ion-label>
+              <ion-input type="text" formControlName="fullName"></ion-input>
+            </ion-item>
+            <p text-left color="danger" class="text08 error" *ngIf="formErrors.fullName">
+              <ion-text color="danger">{{ formErrors.fullName }}</ion-text>
+            </p>
+            <ion-item>
+              <ion-label position="stacked">Bio</ion-label>
+              <ion-input type="text" formControlName="bio" maxlength="120"></ion-input>
+            </ion-item>
+            <p text-left color="danger" class="text08 error" *ngIf="formErrors.bio">
+              <ion-text color="danger">{{ formErrors.bio }}</ion-text>
+            </p>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
