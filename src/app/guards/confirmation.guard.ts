@@ -11,8 +11,6 @@ export class ConfirmationGuard implements ConfirmationGuard {
 
   constructor(private alertCtrl: AlertController, private navCtrl: NavController) {}
   async canDeactivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    console.log(this.showAlertMessage);
-
     if (this.showAlertMessage) {
       let alertPopup = await this.alertCtrl.create({
         header: 'Discard Event?',

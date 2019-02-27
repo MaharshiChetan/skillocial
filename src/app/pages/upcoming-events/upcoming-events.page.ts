@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventsService } from '../../services/event/event.service';
 import { NavController } from '@ionic/angular';
+import { Event } from 'src/app/models/event';
 
 @Component({
   selector: 'app-upcoming-events',
@@ -9,7 +10,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./upcoming-events.page.scss'],
 })
 export class UpcomingEventsPage implements OnInit {
-  events: any[];
+  upcomingEvents: Event[];
   searchTerm: string;
   searchEvents: any[];
   placeholderImage = 'assets/placeholder.jpg';
@@ -20,15 +21,14 @@ export class UpcomingEventsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.tabsPage.showFabButton();
-    this.fetchEvents();
+    this.getEvents();
   }
 
-  fetchEvents(refresher?: any) {
-    const subscription = this.eventService.fetchEvents().subscribe(events => {
+  getEvents(refresher?: any) {
+    const subscription = this.eventService.getEvents().subscribe((events: any) => {
       subscription.unsubscribe();
-      this.events = events;
-      this.searchEvents = this.events;
+      this.upcomingEvents = events;
+      this.searchEvents = this.upcomingEvents;
       if (refresher) refresher.target.complete();
     });
   }

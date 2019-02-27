@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Event } from 'src/app/models/event';
 import { Platform, ActionSheetController, NavController } from '@ionic/angular';
@@ -18,7 +18,7 @@ import { ConfirmationGuard } from 'src/app/guards/confirmation.guard';
   templateUrl: './create-event.page.html',
   styleUrls: ['./create-event.page.scss'],
 })
-export class CreateEventPage implements OnInit {
+export class CreateEventPage implements OnInit, OnDestroy {
   eventForm: FormGroup;
   eventDetails: Event;
   chosenPicture: any;
@@ -54,6 +54,10 @@ export class CreateEventPage implements OnInit {
     this.buildForm();
     if (this.eventId) this.getEventDetails();
     console.log(this.eventDateAndTime);
+  }
+
+  ngOnDestroy() {
+    this.confirmationGuard.showAlertMessage = true;
   }
 
   currentDate() {
@@ -112,6 +116,10 @@ export class CreateEventPage implements OnInit {
     const uid = this.authService.currentUserId;
     let imageId = this.eventId ? this.eventId : this.afStore.createId();
     let event = this.eventForm.value;
+    event.startDateTime =
+      this.eventForm.get('startDate').value + ' ' + this.eventForm.get('startTime').value;
+    event.endDateTime =
+      this.eventForm.get('endDate').value + ' ' + this.eventForm.get('endTime').value;
     event.uid = uid;
     event.imageId = imageId;
     this.imageStore = this.afStorage.storage.ref('eventImages').child(`${uid}/${imageId}`);
@@ -186,7 +194,7 @@ export class CreateEventPage implements OnInit {
   async takePicture() {
     this.loadingService.show();
     try {
-      const picture = await this.cameraService.getPictureFromCamera(true);
+      const picture = await this.cameraService.getPictureFromCamera(false);
       if (picture) {
         const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
         this.cameraService.generateFromImage(picture, quality, (data: any) => {
@@ -209,7 +217,7 @@ export class CreateEventPage implements OnInit {
   async getPicture() {
     this.loadingService.show();
     try {
-      const picture = await this.cameraService.getPictureFromPhotoLibrary(true);
+      const picture = await this.cameraService.getPictureFromPhotoLibrary(false);
       if (picture) {
         const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
         this.cameraService.generateFromImage(picture, quality, (data: any) => {

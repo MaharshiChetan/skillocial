@@ -17,7 +17,7 @@ export class CameraService {
     return this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY, crop);
   }
 
-  async getImage(pictureSourceType, crop = true) {
+  async getImage(pictureSourceType: any, crop = true) {
     const options = {
       quality: 75,
       destinationType: this.camera.DestinationType.FILE_URI,
@@ -26,16 +26,13 @@ export class CameraService {
       mediaType: this.camera.MediaType.PICTURE,
       saveToPhotoAlbum: true,
       correctOrientation: true,
-      targetHeight: 700,
-      targetWidth: 700,
     };
 
     // If set to crop, restricts the image to a square of 600 by 600
-    // if (crop) {
-    //   options['targetWidth'] = 800;
-    //   options['targetHeight'] = 800;
-    // }
-
+    if (crop) {
+      options['targetWidth'] = 700;
+      options['targetHeight'] = 700;
+    }
     return this.camera
       .getPicture(options)
       .then(

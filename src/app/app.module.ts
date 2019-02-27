@@ -33,7 +33,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'five-elements'),
-    AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,

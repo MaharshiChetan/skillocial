@@ -1,17 +1,23 @@
 <ion-content>
   <ion-searchbar [(ngModel)]="searchTerm" (ionCancel)="onCancel($event)"> </ion-searchbar>
 
-  <ion-refresher *ngIf="events" (ionRefresh)="fetchEvents($event)">
+  <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="fetchEvents($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <ion-grid no-padding>
     <ion-row>
-      <ion-col *ngFor="let event of events" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
+      <ion-col
+        *ngFor="let event of upcomingEvents"
+        size-xs="12"
+        size-sm="6"
+        size-lg="4"
+        size-xl="3"
+      >
         <ion-card
           no-margin
           tappable
-          [routerLink]="['/event-details', event.key]"
+          [routerLink]="['/event-details', event.id]"
           routerDirection="forward"
         >
           <img
@@ -26,16 +32,16 @@
               <ion-row>
                 <ion-col class="date" text-center align-self-center size="2">
                   <ion-text color="danger">
-                    {{ event.startDateAndTime | date: 'MMM d EEE' }}
+                    {{ event.startDateTime | date: 'MMM d EEE' }}
                     <div class="vertical-line"></div>
                   </ion-text>
                 </ion-col>
                 <ion-col size="7">
-                  <h2 style="font-weight: bold;">{{ event.eventName }}</h2>
-                  <p>City: {{ event.eventCity }}</p>
+                  <h2 style="font-weight: bold;">{{ event.name }}</h2>
+                  <p>City: {{ event.city }}</p>
                   <p>
-                    Time: {{ event.startDateAndTime | date: 'h:mm a' }} -
-                    {{ event.endDateAndTime | date: 'h:mm a' }}
+                    Time: {{ event.startDateTime | date: 'h:mm a' }} -
+                    {{ event.endDateTime | date: 'h:mm a' }}
                   </p>
                 </ion-col>
                 <ion-col class="book" text-end align-self-center size="3">
@@ -47,7 +53,7 @@
         </ion-card>
       </ion-col>
       <ion-col *ngFor="let i of [1, 2, 3]" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
-        <ion-card no-margin *ngIf="!events">
+        <ion-card no-margin *ngIf="!upcomingEvents">
           <img alt="" [src]="placeholderImage" class="original cover-image" />
           <ion-card-content>
             <ion-grid>
