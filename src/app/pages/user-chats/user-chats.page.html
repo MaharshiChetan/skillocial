@@ -1,9 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/chat-settings']" routerDirection="forward">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>user-chats</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
-</ion-content>
+<ion-content padding> </ion-content>

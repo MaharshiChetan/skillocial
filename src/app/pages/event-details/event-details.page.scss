@@ -1,0 +1,44 @@
+.vertical-line {
+  border-left: 1px solid lightgray;
+  position: absolute;
+  height: 100%;
+  left: 97%;
+  top: 0px;
+}
+
+.event-card {
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+ion-card .original {
+  max-height: 170px;
+  width: 100%;
+}
+
+.date-time {
+  padding: 5px;
+}
+
+ion-card .placeholder {
+  height: 190px;
+}
+
+hr {
+  border-top: 1px solid lightgray;
+  margin: 0px;
+}
+
+.interested-going {
+  margin: 0px;
+}
+
+.glow {
+  animation: glow 1s linear infinite;
+}
+
+@keyframes glow {
+  50% {
+    opacity: 0;
+  }
+}

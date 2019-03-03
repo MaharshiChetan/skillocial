@@ -12,7 +12,7 @@ export class HomePage implements OnInit {
   userProfile: User;
   constructor(private userService: UserService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getCurrentUserProfile();
   }
 
@@ -23,6 +23,8 @@ export class HomePage implements OnInit {
       .subscribe((user: User) => {
         subscription.unsubscribe();
         this.userProfile = user;
+        console.log(this.userProfile);
+
         if (refresher) refresher.target.complete();
       });
   }

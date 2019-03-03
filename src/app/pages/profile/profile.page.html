@@ -1,15 +1,9 @@
 <ion-header>
-  <ion-toolbar color="primary-two">
+  <ion-toolbar color="black">
     <ion-buttons slot="primary">
       <ion-button>
         <ion-icon slot="icon-only" name="person-add"></ion-icon>
       </ion-button>
-      <!-- <ion-button>
-        <ion-icon slot="icon-only" name="ios-water"></ion-icon>
-      </ion-button> -->
-      <!-- <ion-button>
-        <ion-icon slot="icon-only" name="ios-water" class="animated bounce "></ion-icon>
-      </ion-button> -->
       <ion-button (click)="presentPopover()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
       </ion-button>
@@ -25,7 +19,7 @@
   <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="profile">
+  <div class="profile" *ngIf="userProfile">
     <div>
       <img
         alt=""
@@ -36,7 +30,7 @@
       />
       <div>
         <h3>{{ userProfile?.fullName }}</h3>
-        <ion-button size="small" color="success-two" mode="md" class="follow-btn">
+        <ion-button size="small" color="success" mode="md" class="follow-btn">
           <ion-icon name="person"></ion-icon>100
         </ion-button>
       </div>

@@ -19,13 +19,11 @@ export class PopoverComponent implements OnInit {
   fillPopoverOptions(currentUser: boolean): any {
     if (currentUser) {
       this.options = [
-        'Leaderboard',
-        'Invite Friends',
-        'Share',
-        'My Events',
-        'My Requests',
-        'Edit Profile',
-        'Settings',
+        { name: 'Invite Friends', route: 'invite-friends' },
+        { name: 'My Events', route: 'my-events' },
+        { name: 'My Requests', route: 'my-requests' },
+        { name: 'Edit Profile', route: 'edit-profile' },
+        { name: 'Settings', route: 'settings' },
       ];
       return;
     }

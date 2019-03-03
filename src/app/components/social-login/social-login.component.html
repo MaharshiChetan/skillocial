@@ -1,17 +1,17 @@
 <ion-grid class="btn-group" *ngIf="type === 'login'">
   <ion-row>
     <ion-col size="4">
-      <ion-button shape="round" expand="full" color="secondary" (click)="facebookLogin()">
+      <ion-button shape="round" expand="full" color="facebook" (click)="facebookLogin()">
         <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col size="4">
-      <ion-button shape="round" expand="full" color="secondary" (click)="twitterLogin()">
+      <ion-button shape="round" expand="full" color="twitter" (click)="twitterLogin()">
         <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col size="4">
-      <ion-button shape="round" expand="full" color="secondary" (click)="googleLogin()">
+      <ion-button shape="round" expand="full" color="google" (click)="googleLogin()">
         <ion-icon slot="icon-only" name="logo-googleplus"></ion-icon>
       </ion-button>
     </ion-col>
@@ -25,7 +25,7 @@
         shape="round"
         expand="full"
         fill="outline"
-        color="tertiary"
+        color="facebook"
         (click)="facebookLogin()"
       >
         <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
@@ -36,20 +36,14 @@
         shape="round"
         expand="full"
         fill="outline"
-        color="tertiary"
+        color="twitter"
         (click)="twitterLogin()"
       >
         <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
       </ion-button>
     </ion-col>
     <ion-col size="4">
-      <ion-button
-        shape="round"
-        expand="full"
-        fill="outline"
-        color="tertiary"
-        (click)="googleLogin()"
-      >
+      <ion-button shape="round" expand="full" fill="outline" color="google" (click)="googleLogin()">
         <ion-icon slot="icon-only" name="logo-googleplus"></ion-icon>
       </ion-button>
     </ion-col>

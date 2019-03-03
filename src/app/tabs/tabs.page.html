@@ -1,30 +1,18 @@
-<ion-tabs (ionTabsWillChange)="tabChanged($event)">
-  <ion-header>
-    <ion-toolbar color="primary-two">
-      <ion-buttons slot="secondary">
-        <ion-button [routerLink]="['/profile/' + userProfile?.uid]" routerDirection="forward">
-          <ion-icon slot="icon-only" name="contact"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="primary">
-        <ion-button>
-          <ion-icon slot="icon-only" name="more"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>{{ navbarTitle }}</ion-title>
-    </ion-toolbar>
-    <ion-tab-bar color="primary-two">
-      <ion-tab-button tab="upcoming-events">
-        <ion-icon name="calendar"></ion-icon>
-      </ion-tab-button>
+<ion-tabs mode="md">
+  <ion-tab-bar mode="md">
+    <ion-tab-button tab="upcoming-events" mode="md">
+      <ion-icon class="far fa-calendar-alt" name="calendar"></ion-icon>
+      <ion-label>Events</ion-label>
+    </ion-tab-button>
 
-      <ion-tab-button tab="home">
-        <ion-icon name="home"></ion-icon>
-      </ion-tab-button>
+    <ion-tab-button tab="home" mode="md">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
 
-      <ion-tab-button tab="chat-list">
-        <ion-icon name="chatbubbles"></ion-icon>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-header>
+    <ion-tab-button tab="notifications" mode="md">
+      <ion-icon class="far fa-bell" name="notifications-outline"></ion-icon>
+      <ion-label>Notifications</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
 </ion-tabs>

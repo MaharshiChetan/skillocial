@@ -5,6 +5,12 @@ import { ConfirmationGuard } from './guards/confirmation.guard';
 
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
+  // {
+  //   path: 'event-details/5uiXhmvuvVCoUL4RqqJL',
+  //   loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule',
+  //   canActivate: [AuthGuard],
+  // },
+  // { path: '', redirectTo: '/event-details/5uiXhmvuvVCoUL4RqqJL', pathMatch: 'full' },
   {
     path: 'register',
     loadChildren: './pages/register/register.module#RegisterPageModule',
@@ -115,6 +121,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
+  { path: 'users-list', loadChildren: './users-list/users-list.module#UsersListPageModule' },
+  { path: 'my-events', loadChildren: './my-events/my-events.module#MyEventsPageModule' },
+  { path: 'my-requests', loadChildren: './my-requests/my-requests.module#MyRequestsPageModule' },
+  { path: 'chat-settings', loadChildren: './chat-settings/chat-settings.module#ChatSettingsPageModule' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

@@ -1,3 +1,18 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/profile/' + userProfile?.uid]" routerDirection="forward">
+        <ion-icon slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/chat-list']" routerDirection="forward">
+        <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -8,14 +23,12 @@
         <ion-card no-margin>
           <ion-grid>
             <ion-row *ngIf="userProfile">
-              <ion-col
-                size-sm="1"
-                size-xs="2"
-                text-center
-                [routerLink]="['/profile']"
-                routerDirection="forward"
-              >
-                <ion-avatar>
+              <ion-col size-sm="1" size-xs="2" text-center>
+                <ion-avatar
+                  [routerLink]="['/profile']"
+                  routerDirection="forward"
+                  class="no-outline"
+                >
                   <img
                     alt=""
                     defaultImage="/assets/default-user.jpeg"
@@ -25,10 +38,14 @@
                 </ion-avatar>
               </ion-col>
               <ion-col>
-                <ion-card-header [routerLink]="['/profile']" routerDirection="forward">
+                <ion-card-header
+                  [routerLink]="['/profile']"
+                  routerDirection="forward"
+                  class="fullName no-outline"
+                >
                   {{ userProfile?.fullName }}
                 </ion-card-header>
-                <ion-button size="small" fill="clear" class="share-thought-btn">
+                <ion-button color="medium" size="small" fill="clear" class="share-thought-btn">
                   What's on your mind?
                 </ion-button>
                 <hr />
@@ -39,18 +56,22 @@
                 <ion-avatar><img alt="" src="/assets/gray-placeholder.png"/></ion-avatar>
               </ion-col>
               <ion-col>
-                <ion-card-header>
-                  <ion-skeleton-text width="170px"></ion-skeleton-text>
+                <ion-card-header class="fullName">
+                  <ion-skeleton-text
+                    class="skeleton18"
+                    size="large"
+                    width="170px"
+                  ></ion-skeleton-text>
                 </ion-card-header>
                 <ion-button size="small" fill="clear" class="share-thought-btn">
-                  <ion-skeleton-text width="135px"></ion-skeleton-text>
+                  <ion-skeleton-text class="skeleton16" width="135px"></ion-skeleton-text>
                 </ion-button>
                 <hr />
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col text-right no-padding>
-                <ion-button color="success-two">
+                <ion-button color="success">
                   DISCOVER PEERS
                 </ion-button>
               </ion-col>

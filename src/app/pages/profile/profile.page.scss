@@ -1,5 +1,8 @@
+.sc-ion-buttons-ios-s ion-icon[slot='icon-only'] {
+  font-size: 25px;
+}
 .profile {
-  background-color: #576370;
+  background: var(--ion-color-primary, #1c1c1c);
   color: #fff;
   display: flex;
   align-items: center;

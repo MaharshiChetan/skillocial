@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController, NavController } from '@ionic/angular';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 import { ActivatedRoute } from '@angular/router';
 import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
@@ -19,7 +19,8 @@ export class ProfilePage implements OnInit {
     private userService: UserService,
     private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) {}
 
   async ngOnInit() {
@@ -50,7 +51,7 @@ export class ProfilePage implements OnInit {
 
     const value = await popover.onWillDismiss();
     console.log(value);
-    if (value.data === 'Edit Profile') {
+    if (value.data.name === 'Edit Profile') {
       const modal = await this.modalCtrl.create({
         component: EditProfileComponent,
         componentProps: {
@@ -61,8 +62,8 @@ export class ProfilePage implements OnInit {
       modal.onWillDismiss().then(data => {
         if (data) this.getCurrentUserProfile();
       });
-    } else if (value.data === 'My Events') {
-    } else if (value.data === 'Setttings') {
+    } else {
+      this.navCtrl.navigateForward([value.data.route]);
     }
   }
 }

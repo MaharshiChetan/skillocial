@@ -1,7 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/profile/' + userProfile?.uid]" routerDirection="forward">
+        <ion-icon slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/chat-list']" routerDirection="forward">
+        <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Upcoming Events</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-searchbar [(ngModel)]="searchTerm" (ionCancel)="onCancel($event)"> </ion-searchbar>
+  <ion-searchbar class="searchbar" animated [(ngModel)]="searchTerm" (ionCancel)="onCancel($event)">
+  </ion-searchbar>
 
-  <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="fetchEvents($event)">
+  <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="getEvents($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
@@ -19,6 +35,7 @@
           tappable
           [routerLink]="['/event-details', event.id]"
           routerDirection="forward"
+          class="no-outline"
         >
           <img
             alt=""
@@ -37,7 +54,7 @@
                   </ion-text>
                 </ion-col>
                 <ion-col size="7">
-                  <h2 style="font-weight: bold;">{{ event.name }}</h2>
+                  <h2 class="text12 fw700 text-black">{{ event.name }}</h2>
                   <p>City: {{ event.city }}</p>
                   <p>
                     Time: {{ event.startDateTime | date: 'h:mm a' }} -
@@ -60,15 +77,15 @@
               <ion-row>
                 <ion-col class="date" text-center align-self-center size="2">
                   <ion-text color="danger">
-                    <ion-skeleton-text class="small-skeleton"></ion-skeleton-text>
-                    <ion-skeleton-text class="small-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text class="skeleton11"></ion-skeleton-text>
+                    <ion-skeleton-text class="skeleton11"></ion-skeleton-text>
                     <div class="vertical-line"></div>
                   </ion-text>
                 </ion-col>
                 <ion-col size="7">
-                  <ion-skeleton-text width="170px"></ion-skeleton-text>
-                  <ion-skeleton-text width="150px" class="small-skeleton"></ion-skeleton-text>
-                  <ion-skeleton-text width="130px" class="small-skeleton"></ion-skeleton-text>
+                  <ion-skeleton-text class="skeleton18" width="175px"></ion-skeleton-text>
+                  <ion-skeleton-text class="skeleton14" width="140px"></ion-skeleton-text>
+                  <ion-skeleton-text class="skeleton14" width="110px"></ion-skeleton-text>
                 </ion-col>
                 <ion-col class="book" text-end align-self-center size="3">
                   <ion-button color="danger">Book</ion-button>
@@ -82,7 +99,12 @@
   </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
-    <ion-fab-button color="success-two" [routerLink]="['/create-event']" routerDirection="forward">
+    <ion-fab-button
+      color="secondary"
+      [routerLink]="['/create-event']"
+      routerDirection="forward"
+      class="no-outline"
+    >
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

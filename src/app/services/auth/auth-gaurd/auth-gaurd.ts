@@ -12,16 +12,16 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  ): Promise<boolean> | boolean {
     this.userService
       .getCurrentUser()
       .then(user => {
-        if (user) {
-          return true;
-        } else {
+        if (!user) {
           console.log('access denied!');
           this.navCtrl.navigateRoot(['login']);
           return false;
+        } else {
+          return true;
         }
       })
       .catch(error => {

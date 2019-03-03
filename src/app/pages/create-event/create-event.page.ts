@@ -124,39 +124,27 @@ export class CreateEventPage implements OnInit, OnDestroy {
     event.imageId = imageId;
     this.imageStore = this.afStorage.storage.ref('eventImages').child(`${uid}/${imageId}`);
 
-    if (this.eventId) {
-      try {
-        if (this.chosenPicture) {
-          await this.imageStore.putString(this.chosenPicture, 'data_url');
-          const imageUrl = await this.imageStore.getDownloadURL();
-          event.imageUrl = imageUrl;
-        }
-        event.imageUrl = this.eventDetails.imageUrl;
-        await this.eventService.updateEvent(event, this.eventId);
-        this.loadingService.hide();
-        this.toastService.showToast('Successfully updated event!', 'top');
-        this.confirmationGuard.showAlertMessage = false;
-        this.navCtrl.navigateBack(['/tabs/upcoming-events']);
-      } catch (error) {
-        this.loadingService.hide();
-        this.toastService.showToast('Failed to update event!', 'top');
-        alert(error);
-      }
-    } else {
-      try {
+    try {
+      if (this.chosenPicture) {
         await this.imageStore.putString(this.chosenPicture, 'data_url');
         const imageUrl = await this.imageStore.getDownloadURL();
         event.imageUrl = imageUrl;
-        await this.eventService.createEvent(event, imageId);
-        await this.loadingService.hide();
-        await this.toastService.showToast('Successfully created event!', 'top');
-        this.confirmationGuard.showAlertMessage = false;
-        this.navCtrl.navigateBack(['/tabs/upcoming-events']);
-      } catch (error) {
-        this.loadingService.hide();
-        this.toastService.showToast('Failed to update event!', 'top');
-        alert(error);
+      } else {
+        event.imageUrl = this.eventDetails.imageUrl;
       }
+      if (this.eventId) {
+        await this.eventService.updateEvent(event, this.eventId);
+      } else {
+        await this.eventService.createEvent(event);
+      }
+      this.loadingService.hide();
+      this.toastService.showToast('Successfully updated event!', 'top');
+      this.confirmationGuard.showAlertMessage = false;
+      this.navCtrl.navigateBack(['/tabs/upcoming-events']);
+    } catch (error) {
+      this.loadingService.hide();
+      this.toastService.showToast('Failed to update event!', 'top');
+      alert(error);
     }
   }
 

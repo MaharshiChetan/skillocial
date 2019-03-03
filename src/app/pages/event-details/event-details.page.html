@@ -1,9 +1,143 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>event-details</ion-title>
+  <ion-toolbar color="black">
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" color="danger" class="glow" name="radio-button-on"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ event?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content *ngIf="event" class="gray-background">
+  <ion-grid no-padding>
+    <ion-row>
+      <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" no-padding> -->
+      <ion-col no-padding>
+        <ion-card no-margin tappable class="no-outline event-card">
+          <img
+            alt=""
+            defaultImage="/assets/placeholder.jpg"
+            [lazyLoad]="event.imageUrl"
+            [errorImage]="event.imageUrl"
+            class="original cover-image"
+          />
+          <ion-card-content no-padding>
+            <ion-grid no-padding>
+              <ion-row class="date-time">
+                <ion-col class="fw700" text-center align-self-center size="2">
+                  <ion-text color="danger">
+                    {{ event.startDateTime | date: 'MMM d EEE' }}
+                  </ion-text>
+                  <div class="vertical-line"></div>
+                </ion-col>
+                <ion-col size="7">
+                  <h2 class="text12 fw700 text-black">{{ event.name }}</h2>
+                  <p>City: {{ event.city }}</p>
+                  <p>
+                    Time: {{ event.startDateTime | date: 'h:mm a' }} -
+                    {{ event.endDateTime | date: 'h:mm a' }}
+                  </p>
+                </ion-col>
+                <ion-col class="book" text-end align-self-center size="3">
+                  <ion-button color="danger">Book</ion-button>
+                </ion-col>
+              </ion-row>
+              <hr />
+              <ion-row text-center class="white-background">
+                <ion-col>
+                  <div *ngIf="!isInterested" (click)="addInterested()" tappable>
+                    <ion-icon class="text16" color="medium-shade" name="star-outline"> </ion-icon>
+                    <div class="interested-going">INTERESTED</div>
+                  </div>
+                  <div *ngIf="isInterested" (click)="removeInterested()">
+                    <ion-icon class="text16" color="black" name="star"></ion-icon>
+                    <p class="interested-going fw700 text-black">INTERESTED</p>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div *ngIf="!isGoing" (click)="addGoing()" tappable>
+                    <ion-icon
+                      class="text16"
+                      color="medium-shade"
+                      name="ios-checkmark-circle-outline"
+                    ></ion-icon>
+                    <div class="interested-going">GOING</div>
+                  </div>
+                  <div *ngIf="isGoing" (click)="removeGoing()">
+                    <ion-icon class="text16" color="black" name="ios-checkmark-circle"></ion-icon>
+                    <p class="interested-going fw700 text-black">GOING</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <hr />
+              <ion-row class="time-location text-black">
+                <ion-col size="1" text-center>
+                  <ion-icon class="text15" name="md-time"></ion-icon>
+                </ion-col>
+                <ion-col>
+                  {{ event.startDateTime | date: 'mediumDate' }} -
+                  {{ event.endDateTime | date: 'mediumDate' }}
+                </ion-col>
+              </ion-row>
+              <ion-row class="time-location text-black">
+                <ion-col size="1" text-center>
+                  <ion-icon class="text15" name="pin"></ion-icon>
+                </ion-col>
+                <ion-col>
+                  {{ event.city }} <br />
+                  <div class="location">{{ event.location }}</div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
+            <hr />
+            <ion-row text-center class="fw700">
+              <ion-col
+                tappable
+                class="click text-black no-outline"
+                *ngIf="interestedUsers || interestedUsers == 0"
+                [routerLink]="['/users-list']"
+                routerDirection="forward"
+              >
+                Interested ({{ interestedUsers }})
+              </ion-col>
+              <ion-col *ngIf="!interestedUsers && interestedUsers != 0">
+                <ion-spinner></ion-spinner>
+              </ion-col>
+              <ion-col
+                class="click text-black no-outline"
+                *ngIf="goingUsers || goingUsers == 0"
+                [routerLink]="['/users-list']"
+                routerDirection="forward"
+              >
+                Going ({{ goingUsers }})
+              </ion-col>
+              <ion-col *ngIf="!goingUsers && goingUsers != 0">
+                <ion-spinner></ion-spinner>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary">
+      <ion-icon name="share"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="instagram">
+        <ion-icon name="logo-instagram"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="whatsapp">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="facebook"><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

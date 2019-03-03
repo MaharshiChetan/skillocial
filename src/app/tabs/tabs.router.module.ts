@@ -22,9 +22,12 @@ const routes: Routes = [
         children: [{ path: '', loadChildren: '../pages/home/home.module#HomePageModule' }],
       },
       {
-        path: 'chat-list',
+        path: 'notifications',
         children: [
-          { path: '', loadChildren: '../pages/chat-list/chat-list.module#ChatListPageModule' },
+          {
+            path: '',
+            loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule',
+          },
         ],
       },
       { path: '', redirectTo: '/tabs/home', pathMatch: 'full' },

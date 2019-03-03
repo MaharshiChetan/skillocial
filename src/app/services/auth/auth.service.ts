@@ -22,7 +22,6 @@ export class AuthService {
   ) {
     afAuth.authState.subscribe((authState: any) => {
       this.authState = authState;
-      console.log(this.authState);
     });
   }
 
