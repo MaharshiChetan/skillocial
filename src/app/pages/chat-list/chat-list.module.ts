@@ -6,12 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChatListPage } from './chat-list.page';
+import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
     path: '',
-    component: ChatListPage
-  }
+    component: ChatListPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset,
+    }),
   ],
-  declarations: [ChatListPage]
+  declarations: [ChatListPage],
 })
 export class ChatListPageModule {}

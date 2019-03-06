@@ -25,9 +25,15 @@ export class PopoverComponent implements OnInit {
         { name: 'Edit Profile', route: 'edit-profile' },
         { name: 'Settings', route: 'settings' },
       ];
-      return;
+    } else {
+      this.options = [
+        { name: 'Drop' },
+        { name: 'Message', route: 'user-chats' },
+        { name: 'Share' },
+        { name: 'Report', route: 'report' },
+        { name: 'Block' },
+      ];
     }
-    this.options = ['Drop', 'Message', 'Share', 'Report', 'Block'];
   }
 
   optionSelected(option: any) {

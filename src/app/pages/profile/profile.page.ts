@@ -26,17 +26,20 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.uid = this.route.snapshot.paramMap.get('id');
     this.currentUserProfile = await this.userService.getCurrentUser();
-    this.getCurrentUserProfile();
+    if (this.uid) {
+      this.getUserProfile();
+    } else {
+      this.uid = this.currentUserProfile.uid;
+      this.getUserProfile();
+    }
   }
 
-  getCurrentUserProfile(refresher?: any) {
-    const subscription = this.userService
-      .getUserByUID(this.currentUserProfile.uid)
-      .subscribe((user: User) => {
-        this.userProfile = user;
-        if (refresher) refresher.target.complete();
-        subscription.unsubscribe();
-      });
+  getUserProfile(refresher?: any) {
+    const subscription = this.userService.getUserByUID(this.uid).subscribe((user: User) => {
+      this.userProfile = user;
+      if (refresher) refresher.target.complete();
+      subscription.unsubscribe();
+    });
   }
 
   async presentPopover() {
@@ -51,19 +54,23 @@ export class ProfilePage implements OnInit {
 
     const value = await popover.onWillDismiss();
     console.log(value);
-    if (value.data.name === 'Edit Profile') {
-      const modal = await this.modalCtrl.create({
-        component: EditProfileComponent,
-        componentProps: {
-          userProfile: this.userProfile,
-        },
-      });
-      modal.present();
-      modal.onWillDismiss().then(data => {
-        if (data) this.getCurrentUserProfile();
-      });
-    } else {
-      this.navCtrl.navigateForward([value.data.route]);
+    if (value.role !== 'backdrop') {
+      if (value.data.name === 'Edit Profile') {
+        const modal = await this.modalCtrl.create({
+          component: EditProfileComponent,
+          componentProps: {
+            userProfile: this.userProfile,
+          },
+        });
+        modal.present();
+        modal.onWillDismiss().then(data => {
+          if (data) this.getUserProfile();
+        });
+      } else if (value.data.name === 'Message') {
+        this.navCtrl.navigateForward([`${value.data.route}/${this.uid}`]);
+      } else {
+        this.navCtrl.navigateForward([value.data.route]);
+      }
     }
   }
 }

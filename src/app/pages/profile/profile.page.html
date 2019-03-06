@@ -16,7 +16,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
+  <ion-refresher *ngIf="userProfile" (ionRefresh)="getUserProfile($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="profile" *ngIf="userProfile">

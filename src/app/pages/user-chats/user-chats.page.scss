@@ -1,0 +1,39 @@
+.toolbar-button {
+  font-size: 20px;
+  padding-bottom: 4px;
+  background: transparent;
+}
+
+ion-col {
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+textarea::placeholder {
+  font-size: 16.6px;
+}
+
+textarea {
+  font-size: 16.6px;
+  box-shadow: none;
+  border: 1px solid;
+  border-radius: 10px;
+  margin: 0px 7px;
+  border-color: lightgrey;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #f8f8f8;
+  width: calc(100% - 13px);
+}
+
+.sc-ion-buttons-ios-s ion-button {
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --padding-bottom: 0px;
+}
+
+.sc-ion-buttons-md-s ion-button {
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --padding-bottom: 0px;
+}

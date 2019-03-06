@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="black">
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ navTitle }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item
+      class="click user-lists"
+      *ngFor="let user of users"
+      (click)="dismissModal()"
+      [routerLink]="['/profile/' + user.uid]"
+      routerDirection="forward"
+    >
+      <ion-avatar slot="start">
+        <img
+          alt=""
+          class="cover-image animated fadeIn delay-3s"
+          defaultImage="../../../assets/default-user.jpeg"
+          [lazyLoad]="user.thumbnail || user.profilePhoto"
+          [errorImage]="user.profilePhoto"
+        />
+      </ion-avatar>
+      <ion-label>
+        <h3 class="full_name">{{ user.fullName }}</h3>
+        <h5 class="user_name">{{ user.username }}</h5>
+      </ion-label>
+    </ion-item>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingText="Loading more users...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
+</ion-content>

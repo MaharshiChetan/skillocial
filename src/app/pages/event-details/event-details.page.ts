@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Event } from 'src/app/models/event';
-import { NavController, IonContent } from '@ionic/angular';
+import { NavController, IonContent, ModalController } from '@ionic/angular';
 import { EventsService } from 'src/app/services/event/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { LoadingService } from 'src/app/services/loading/loading.service';
+import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
+import { User } from 'src/app/models/user';
+import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
 
 @Component({
   selector: 'app-event-details',
@@ -17,27 +19,28 @@ export class EventDetailsPage implements OnInit {
   eventId: string;
   isGoing: any;
   isInterested: any;
+  interestedUsersCount: any;
   interestedUsers: any;
+  goingUsersCount: any;
   goingUsers: any;
-  uid: any;
+  user: User;
 
   constructor(
     private eventService: EventsService,
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private userService: UserService,
-    private loadingService: LoadingService
+    private activeUsersInEventService: ActiveUsersInEventService,
+    private modalCtrl: ModalController
   ) {}
 
   async ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
-    const user = await this.userService.getCurrentUser();
-    this.uid = user.uid;
-    // this.eventId = '5uiXhmvuvVCoUL4RqqJL';
+    this.user = await this.userService.getCurrentUser();
     this.getEvent();
+    this.isUserInterested();
+    this.isUserGoing();
     this.getActiveUsersCount();
-    this.isCurrentUserInterested();
-    this.isCurrentUserGoing();
   }
 
   getEvent(refresher?: any) {
@@ -48,126 +51,137 @@ export class EventDetailsPage implements OnInit {
     });
   }
 
-  async addInterested() {
-    if (this.uid) {
-      try {
-        this.loadingService.show();
-        if (this.isGoing) this.removeGoing();
-        await this.eventService.addUserToInterested(this.uid, this.eventId);
-        this.incrementActiveUsersCount('interested');
-      } catch (error) {
-        this.loadingService.hide();
-        console.log(error);
-      }
-    }
-  }
-
-  async addGoing() {
-    if (this.uid) {
-      try {
-        this.loadingService.show();
-        if (this.isInterested) this.removeInterested();
-        await this.eventService.addUserToGoing(this.uid, this.eventId);
-        this.incrementActiveUsersCount('going');
-      } catch (error) {
-        this.loadingService.hide();
-        console.log(error);
-      }
-    }
-  }
-
-  async incrementActiveUsersCount(type: string) {
-    try {
-      if (type === 'interested') {
-        await this.eventService.updateActiveUsersCount(
-          this.eventId,
-          ++this.interestedUsers,
-          this.goingUsers
-        );
-      } else {
-        await this.eventService.updateActiveUsersCount(
-          this.eventId,
-          this.interestedUsers,
-          ++this.goingUsers
-        );
-      }
-      this.loadingService.hide();
-    } catch (error) {
-      this.loadingService.hide();
-      console.log(error);
-    }
-  }
-
-  async decrementActiveUsersCount(type: string) {
-    try {
-      if (type === 'interested') {
-        await this.eventService.updateActiveUsersCount(
-          this.eventId,
-          --this.interestedUsers,
-          this.goingUsers
-        );
-        this.loadingService.hide();
-      } else {
-        await this.eventService.updateActiveUsersCount(
-          this.eventId,
-          this.interestedUsers,
-          --this.goingUsers
-        );
-        this.loadingService.hide();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   getActiveUsersCount() {
-    this.eventService.getActiveUsersCount(this.eventId).subscribe((activeUsersCount: any) => {
-      this.interestedUsers = activeUsersCount ? activeUsersCount.interestedUsers : 0;
-      this.goingUsers = activeUsersCount ? activeUsersCount.goingUsers : 0;
+    const subscription = this.activeUsersInEventService
+      .getActiveUsersCount(this.eventId)
+      .subscribe((data: any) => {
+        subscription.unsubscribe();
+        this.interestedUsersCount = data ? data.interested : 0;
+        this.goingUsersCount = data ? data.going : 0;
+      });
+  }
+
+  getInterestedUsersInEvent() {
+    const subscription = this.activeUsersInEventService
+      .getActiveUsersInEvent(this.eventId, 'interested')
+      .subscribe(users => {
+        subscription.unsubscribe();
+        this.interestedUsers = users;
+        this.interestedUsersCount = users.length;
+        this.activeUsersInEventService.updateActiveUsersCount(this.eventId, {
+          interested: users.length,
+        });
+      });
+  }
+
+  getGoingUsersInEvent() {
+    const subscription = this.activeUsersInEventService
+      .getActiveUsersInEvent(this.eventId, 'going')
+      .subscribe(users => {
+        subscription.unsubscribe();
+        this.goingUsers = users;
+        this.goingUsersCount = users.length;
+        this.activeUsersInEventService.updateActiveUsersCount(this.eventId, {
+          going: users.length,
+        });
+      });
+  }
+
+  async addInterestedOrGoing(type: string) {
+    try {
+      if (type === 'going') ++this.goingUsersCount;
+      else ++this.interestedUsersCount;
+      await this.activeUsersInEventService.addInterestedOrGoing(this.eventId, this.user.uid, type);
+      if (type === 'going') this.getGoingUsersInEvent();
+      else this.getInterestedUsersInEvent();
+    } catch (e) {
+      if (type === 'going') --this.goingUsersCount;
+      else --this.interestedUsersCount;
+      alert(e);
+    }
+  }
+
+  async removeInterestedOrGoing(type: string) {
+    try {
+      if (type === 'going') --this.goingUsersCount;
+      else --this.interestedUsersCount;
+      await this.activeUsersInEventService.removeInterestedOrGoing(
+        this.eventId,
+        this.user.uid,
+        type
+      );
+      if (type === 'going') this.getGoingUsersInEvent();
+      else this.getInterestedUsersInEvent();
+    } catch (e) {
+      if (type === 'going') ++this.goingUsersCount;
+      else ++this.interestedUsersCount;
+      alert(e);
+    }
+  }
+
+  isUserInterested() {
+    this.activeUsersInEventService
+      .isInterestedOrGoing(this.eventId, this.user.uid, 'interested')
+      .subscribe((data: any) => {
+        this.isInterested = data ? true : false;
+      });
+  }
+
+  isUserGoing() {
+    this.activeUsersInEventService
+      .isInterestedOrGoing(this.eventId, this.user.uid, 'going')
+      .subscribe((data: any) => {
+        this.isGoing = data ? true : false;
+      });
+  }
+
+  showInterestedUsers() {
+    if (this.interestedUsers) {
+      this.showModal('interestedUsers');
+    } else {
+      const subscription = this.activeUsersInEventService
+        .getActiveUsersInEvent(this.eventId, 'interested')
+        .subscribe(users => {
+          subscription.unsubscribe();
+          this.interestedUsers = users;
+          this.interestedUsersCount = users.length;
+          this.activeUsersInEventService.updateActiveUsersCount(this.eventId, {
+            interested: users.length,
+          });
+          this.showModal('interestedUsers');
+        });
+    }
+  }
+
+  showGoingUsers() {
+    if (this.goingUsers) {
+      this.showModal('goingUsers');
+    } else {
+      const subscription = this.activeUsersInEventService
+        .getActiveUsersInEvent(this.eventId, 'going')
+        .subscribe(users => {
+          subscription.unsubscribe();
+          this.goingUsers = users;
+          this.goingUsersCount = users.length;
+          this.activeUsersInEventService.updateActiveUsersCount(this.eventId, {
+            going: users.length,
+          });
+          this.showModal('goingUsers');
+        });
+    }
+  }
+
+  async showModal(type: string) {
+    const modal = await this.modalCtrl.create({
+      component: UsersListComponent,
+      componentProps: {
+        usersUID: type === 'interestedUsers' ? this.interestedUsers : this.goingUsers,
+        navTitle: type === 'interestedUsers' ? 'Interested' : 'Going',
+      },
     });
-  }
-
-  isCurrentUserGoing() {
-    if (this.uid) {
-      this.eventService.isUserGoing(this.uid, this.eventId).subscribe(data => {
-        if (!data || data.length === 0) {
-          this.isGoing = false;
-        } else {
-          this.isGoing = data;
-        }
-      });
-    }
-  }
-
-  isCurrentUserInterested() {
-    if (this.uid) {
-      this.eventService.isUserInterested(this.uid, this.eventId).subscribe(data => {
-        if (!data || data.length === 0) {
-          this.isInterested = false;
-        } else {
-          this.isInterested = data;
-        }
-      });
-    }
-  }
-
-  async removeInterested() {
-    try {
-      await this.eventService.removeInterested(this.isInterested[0].id);
-      this.decrementActiveUsersCount('interested');
-    } catch (error) {
-      this.loadingService.hide();
-      console.log(error);
-    }
-  }
-
-  async removeGoing() {
-    try {
-      await this.eventService.removeGoing(this.isGoing[0].id);
-      this.decrementActiveUsersCount('going');
-    } catch (error) {
-      this.loadingService.hide();
-      console.log(error);
-    }
+    modal.present();
+    modal.onWillDismiss().then(data => {
+      console.log(data);
+    });
   }
 }

@@ -116,15 +116,21 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'user-chats',
+    path: 'user-chats/:id',
     loadChildren: './pages/user-chats/user-chats.module#UserChatsPageModule',
     canActivate: [AuthGuard],
   },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
-  { path: 'users-list', loadChildren: './users-list/users-list.module#UsersListPageModule' },
-  { path: 'my-events', loadChildren: './my-events/my-events.module#MyEventsPageModule' },
-  { path: 'my-requests', loadChildren: './my-requests/my-requests.module#MyRequestsPageModule' },
-  { path: 'chat-settings', loadChildren: './chat-settings/chat-settings.module#ChatSettingsPageModule' },
+  { path: 'my-events', loadChildren: './pages/my-events/my-events.module#MyEventsPageModule' },
+  {
+    path: 'my-requests',
+    loadChildren: './pages/my-requests/my-requests.module#MyRequestsPageModule',
+  },
+  {
+    path: 'chat-settings',
+    loadChildren: './pages/chat-settings/chat-settings.module#ChatSettingsPageModule',
+  },
+  { path: 'search-user', loadChildren: './pages/search-user/search-user.module#SearchUserPageModule' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

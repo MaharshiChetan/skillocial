@@ -6,12 +6,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { UserChatsPage } from './user-chats.page';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { AutosizeModule } from 'ngx-autosize';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserChatsPage
-  }
+    component: UserChatsPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +21,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentsModule,
+    AutosizeModule,
   ],
-  declarations: [UserChatsPage]
+  declarations: [UserChatsPage],
 })
 export class UserChatsPageModule {}

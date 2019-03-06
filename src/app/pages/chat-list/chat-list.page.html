@@ -7,8 +7,100 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-button (click)="onLogout()">Logout</ion-button>
+  <ion-refresher *ngIf="displayMessages" (ionRefresh)="getDisplayMessages($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-row *ngIf="displayMessages?.length === 0 && !messages" text-center padding>
+    <ion-col text-center class="no-chat">
+      <i class="far fa-sad-tear text20"></i>
+      <h3 class="no-message">No messages</h3>
+      <p class="start-conversation-text">
+        Start tour first conversation
+      </p>
+      <ion-button
+        color="secondary"
+        expand="block"
+        [routerLink]="['/search-user']"
+        routerDirection="forward"
+      >
+        Get Started
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-list no-lines>
+    <ion-searchbar
+      *ngIf="messages"
+      [(ngModel)]="searchTerm"
+      [showCancelButton]="shouldShowCancel"
+      (ionChange)="setFilteredItems($event)"
+      (ionCancel)="onCancel($event)"
+    >
+    </ion-searchbar>
+    <div *ngIf="!displayMessages" text-center padding-top><ion-spinner></ion-spinner></div>
+    <ion-item
+      tappable
+      class="click"
+      *ngFor="let message of displayMessages"
+      [routerLink]="['/user-chats/' + message.id]"
+      routerDirection="forward"
+      class="no-outline user-lists"
+      (press)="showActionSheet(message)"
+    >
+      <ion-avatar slot="start" *ngIf="message">
+        <img
+          alt=""
+          defaultImage="/assets/default-user.jpeg"
+          [lazyLoad]="message?.thumbnail || message?.profilePhoto"
+          [errorImage]="message?.profilePhoto"
+          class="cover-image"
+          onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
+        />
+      </ion-avatar>
+
+      <ion-label>
+        <h2 *ngIf="message.username" class="text">{{ message.username }}</h2>
+        <p *ngIf="userProfile.uid !== message.sentBy && message.message">{{ message?.message }}</p>
+        <p *ngIf="userProfile.uid !== message.sentBy && message.imageUrl">Photo</p>
+        <p *ngIf="message.message && userProfile.uid === message.sentBy">
+          You: {{ message?.message }}
+        </p>
+        <p *ngIf="message.message && userProfile.uid === message.imageUrl">You: Photo</p>
+      </ion-label>
+      <ion-note slot="end">{{ message.timeStamp | date: 'h:mm a' }}</ion-note>
+    </ion-item>
+    <!--
+                <img
+                  *ngIf="message.userDetails.status == 'online'"
+                  class="after"
+                  src="http://worldartsme.com/images/green-circle-clipart-1.jpg"
+                />
+                <img
+                  *ngIf="message.userDetails.status == 'away'"
+                  class="after"
+                  src="http://www.join4jason.com/images/orange-dot.png?crc=208854078"
+                />
+              -->
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+        [loadingSpinner]="loader"
+        [loadingText]="loadingText"
+      ></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab *ngIf="messages">
+    <ion-fab-button
+      color="secondary"
+      [routerLink]="['/search-user']"
+      routerDirection="forward"
+      class="no-outline"
+    >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- <ion-button (click)="onLogout()">Logout</ion-button>
 
   <br />
-  <ion-button (click)="pay()">Pay</ion-button>
+  <ion-button (click)="pay()">Pay</ion-button> -->
 </ion-content>

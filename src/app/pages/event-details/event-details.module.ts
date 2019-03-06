@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { EventDetailsPage } from './event-details.page';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset,
     }),
+    ComponentsModule,
   ],
   declarations: [EventDetailsPage],
 })

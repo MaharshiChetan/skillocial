@@ -49,27 +49,31 @@
               <hr />
               <ion-row text-center class="white-background">
                 <ion-col>
-                  <div *ngIf="!isInterested" (click)="addInterested()" tappable>
-                    <ion-icon class="text16" color="medium-shade" name="star-outline"> </ion-icon>
-                    <div class="interested-going">INTERESTED</div>
+                  <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')" tappable>
+                    <!-- <ion-icon class="text16" color="medium-shade" name="star-outline"> </ion-icon> -->
+                    <i class="far fa-star text15" style="color: #989aa2"></i>
+                    <div>INTERESTED</div>
                   </div>
-                  <div *ngIf="isInterested" (click)="removeInterested()">
-                    <ion-icon class="text16" color="black" name="star"></ion-icon>
-                    <p class="interested-going fw700 text-black">INTERESTED</p>
+                  <div *ngIf="isInterested" (click)="removeInterestedOrGoing('interested')">
+                    <!-- <ion-icon class="text16" color="black" name="star"></ion-icon> -->
+                    <i class="fas fa-star text15" style="color: #ff0062"></i>
+                    <p class="fw700 text-black">INTERESTED</p>
                   </div>
                 </ion-col>
                 <ion-col>
-                  <div *ngIf="!isGoing" (click)="addGoing()" tappable>
-                    <ion-icon
+                  <div *ngIf="!isGoing" (click)="addInterestedOrGoing('going')" tappable>
+                    <!-- <ion-icon
                       class="text16"
                       color="medium-shade"
                       name="ios-checkmark-circle-outline"
-                    ></ion-icon>
-                    <div class="interested-going">GOING</div>
+                    ></ion-icon> -->
+                    <i class="far fa-check-circle text15" style="color: #989aa2"></i>
+                    <div>GOING</div>
                   </div>
-                  <div *ngIf="isGoing" (click)="removeGoing()">
-                    <ion-icon class="text16" color="black" name="ios-checkmark-circle"></ion-icon>
-                    <p class="interested-going fw700 text-black">GOING</p>
+                  <div *ngIf="isGoing" (click)="removeInterestedOrGoing('going')">
+                    <!-- <ion-icon class="text16" color="black" name="ios-checkmark-circle"></ion-icon> -->
+                    <i class="fas fa-check-circle text15" style="color: #ff0062"></i>
+                    <p class="fw700 text-black">GOING</p>
                   </div>
                 </ion-col>
               </ion-row>
@@ -99,24 +103,22 @@
               <ion-col
                 tappable
                 class="click text-black no-outline"
-                *ngIf="interestedUsers || interestedUsers == 0"
-                [routerLink]="['/users-list']"
-                routerDirection="forward"
+                *ngIf="interestedUsersCount || interestedUsersCount == 0"
+                (click)="showInterestedUsers()"
               >
-                Interested ({{ interestedUsers }})
+                Interested ({{ interestedUsersCount }})
               </ion-col>
-              <ion-col *ngIf="!interestedUsers && interestedUsers != 0">
+              <ion-col *ngIf="!interestedUsersCount && interestedUsersCount != 0">
                 <ion-spinner></ion-spinner>
               </ion-col>
               <ion-col
                 class="click text-black no-outline"
-                *ngIf="goingUsers || goingUsers == 0"
-                [routerLink]="['/users-list']"
-                routerDirection="forward"
+                *ngIf="goingUsersCount || goingUsersCount == 0"
+                (click)="showGoingUsers()"
               >
-                Going ({{ goingUsers }})
+                Going ({{ goingUsersCount }})
               </ion-col>
-              <ion-col *ngIf="!goingUsers && goingUsers != 0">
+              <ion-col *ngIf="!goingUsersCount && goingUsersCount != 0">
                 <ion-spinner></ion-spinner>
               </ion-col>
             </ion-row>

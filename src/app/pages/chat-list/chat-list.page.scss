@@ -1,0 +1,32 @@
+ion-note {
+  font-size: 13px;
+  align-self: flex-start;
+  margin-top: 14px;
+}
+
+h3.no-message {
+  margin-bottom: 0px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  color: var(--ion-color-secondary);
+}
+
+p.start-conversation-text {
+  margin: 4px 0px 10px;
+  color: #808080;
+}
+
+.item-md {
+  display: -webkit-inline-box;
+  border-radius: 6px;
+}
+
+.no-chat {
+  padding: 50% 0%;
+}

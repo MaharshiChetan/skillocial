@@ -38,12 +38,12 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Event Description</ion-label>
-        <ion-textarea formControlName="description" rows="3"></ion-textarea>
+        <ion-textarea autosize [maxRows]="7" formControlName="description"></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label position="stacked">Venue (Full Address)</ion-label>
-        <ion-textarea formControlName="location" rows="2"></ion-textarea>
+        <ion-textarea autosize [maxRows]="7" formControlName="location"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">State</ion-label>
