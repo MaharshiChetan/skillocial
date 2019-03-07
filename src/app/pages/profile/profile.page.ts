@@ -5,6 +5,7 @@ import { PopoverController, ModalController, NavController } from '@ionic/angula
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 import { ActivatedRoute } from '@angular/router';
 import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,8 @@ export class ProfilePage implements OnInit {
     private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
     private route: ActivatedRoute,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private photoViewer: PhotoViewer
   ) {}
 
   async ngOnInit() {
@@ -32,6 +34,10 @@ export class ProfilePage implements OnInit {
       this.uid = this.currentUserProfile.uid;
       this.getUserProfile();
     }
+  }
+
+  showPhoto(imageUrl: string, title: string) {
+    this.photoViewer.show(imageUrl, title, { share: false });
   }
 
   getUserProfile(refresher?: any) {

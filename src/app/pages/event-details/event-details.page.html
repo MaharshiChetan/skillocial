@@ -24,6 +24,7 @@
             [lazyLoad]="event.imageUrl"
             [errorImage]="event.imageUrl"
             class="original cover-image"
+            (click)="showPhoto(event.imageUrl, event.name)"
           />
           <ion-card-content no-padding>
             <ion-grid no-padding>
@@ -93,7 +94,7 @@
                 </ion-col>
                 <ion-col>
                   {{ event.city }} <br />
-                  <div class="location">{{ event.location }}</div>
+                  <div class="location text-gray">{{ event.location }}</div>
                 </ion-col>
               </ion-row>
             </ion-grid>

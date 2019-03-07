@@ -4,12 +4,13 @@
     <img
       alt=""
       tappable
-      (click)="goToProfilePage(otherUserProfile)"
       class="profile-pic left cover-image"
       [defaultImage]="grayPlaceholder"
       [lazyLoad]="otherUserProfile.thumbnail || otherUserProfile.profilePhoto"
       [errorImage]="otherUserProfile.profilePhoto"
       onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
+      [routerLink]="['/profile/' + otherUserProfile.uid]"
+      routerDirection="forward"
     />
 
     <div *ngIf="message.message" class="chat-bubble left" (press)="presentPopover(message)">
@@ -22,7 +23,7 @@
     <div *ngIf="message.imageUrl" class="chat-bubble-img  left" (press)="presentPopover(message)">
       <img
         alt=""
-        [defaultImage]="grayPlaceholder"
+        defaultImage="/assets/gray-placeholder.png"
         [lazyLoad]="message.thumbnail || message.imageUrl"
         [errorImage]="message.imageUrl"
         class="cover-image"
@@ -44,7 +45,7 @@
     <div *ngIf="message.imageUrl" class="chat-bubble-img  right" (press)="presentPopover(message)">
       <img
         alt=""
-        [defaultImage]="grayPlaceholder"
+        defaultImage="/assets/gray-placeholder.png"
         [lazyLoad]="message.thumbnail || message.imageUrl"
         [errorImage]="message.imageUrl"
         class="cover-image"

@@ -27,7 +27,7 @@
       </ion-button>
     </ion-col>
   </ion-row>
-  <ion-list no-lines>
+  <ion-list>
     <ion-searchbar
       *ngIf="messages"
       [(ngModel)]="searchTerm"
@@ -39,11 +39,10 @@
     <div *ngIf="!displayMessages" text-center padding-top><ion-spinner></ion-spinner></div>
     <ion-item
       tappable
-      class="click"
+      class="click no-outline"
       *ngFor="let message of displayMessages"
       [routerLink]="['/user-chats/' + message.id]"
       routerDirection="forward"
-      class="no-outline user-lists"
       (press)="showActionSheet(message)"
     >
       <ion-avatar slot="start" *ngIf="message">

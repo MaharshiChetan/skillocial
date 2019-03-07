@@ -28,10 +28,6 @@
   --background: #f1f1f1;
 }
 
-ion-item.user-lists {
-  height: 60px;
-}
-
 .white-background {
   --background: #fff;
 }
@@ -91,11 +87,6 @@ ion-item {
   background-image: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
 }
 
-ion-avatar {
-  height: 52px;
-  width: 52px;
-}
-
 // Helpers //
 .w100 {
   width: 100%;
@@ -136,6 +127,10 @@ ion-avatar {
 
 .text-white {
   color: #fff;
+}
+
+.text-gray {
+  color: #808080;
 }
 
 .text-primary {
@@ -190,7 +185,7 @@ ion-avatar {
 .user_name {
   margin: 0;
   color: rgba(var(--ion-color-dark-rgb), 0.4);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .no-outline {

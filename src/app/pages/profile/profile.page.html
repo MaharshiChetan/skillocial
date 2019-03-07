@@ -27,6 +27,7 @@
         [lazyLoad]="userProfile?.profilePhoto"
         errorImage="/assets/default-user.jpeg"
         class="cover-image"
+        (click)="showPhoto(userProfile?.profilePhoto, userProfile.fullName)"
       />
       <div>
         <h3>{{ userProfile?.fullName }}</h3>

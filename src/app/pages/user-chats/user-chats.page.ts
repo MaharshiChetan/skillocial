@@ -170,6 +170,7 @@ export class UserChatsPage implements OnInit {
             parseFloat(this.cameraService.getImageSize(data))
               ? data
               : picture;
+          this.sendImageMessage();
         });
       } else {
         await this.loadingService.hide();
@@ -193,6 +194,7 @@ export class UserChatsPage implements OnInit {
             parseFloat(this.cameraService.getImageSize(data))
               ? data
               : picture;
+          this.sendImageMessage();
         });
       } else {
         await this.loadingService.hide();

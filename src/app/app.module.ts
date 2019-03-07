@@ -15,20 +15,23 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 // Ionic Native imports
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios',
+    }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'five-elements'),
     AngularFirestoreModule,
@@ -46,6 +49,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     GooglePlus,
     NativeStorage,
     Facebook,
+    PhotoViewer,
   ],
   bootstrap: [AppComponent],
 })

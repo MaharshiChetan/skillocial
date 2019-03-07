@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
 import { User } from 'src/app/models/user';
 import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
   selector: 'app-event-details',
@@ -31,7 +32,8 @@ export class EventDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private activeUsersInEventService: ActiveUsersInEventService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private photoViewer: PhotoViewer
   ) {}
 
   async ngOnInit() {
@@ -41,6 +43,10 @@ export class EventDetailsPage implements OnInit {
     this.isUserInterested();
     this.isUserGoing();
     this.getActiveUsersCount();
+  }
+
+  showPhoto(imageUrl: string, title: string) {
+    this.photoViewer.show(imageUrl, title);
   }
 
   getEvent(refresher?: any) {

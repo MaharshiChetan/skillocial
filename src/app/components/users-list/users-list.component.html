@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-item
-      class="click user-lists"
+      class="click"
       *ngFor="let user of users"
       (click)="dismissModal()"
       [routerLink]="['/profile/' + user.uid]"
@@ -22,7 +22,7 @@
         <img
           alt=""
           class="cover-image animated fadeIn delay-3s"
-          defaultImage="../../../assets/default-user.jpeg"
+          defaultImage="/assets/default-user.jpeg"
           [lazyLoad]="user.thumbnail || user.profilePhoto"
           [errorImage]="user.profilePhoto"
         />
