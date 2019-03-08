@@ -56,8 +56,8 @@ export class EventDetailsPage implements OnInit {
       .getActiveUsersCount(this.eventId)
       .subscribe((data: any) => {
         subscription.unsubscribe();
-        this.interestedUsersCount = data.interested;
-        this.goingUsersCount = data.going;
+        this.interestedUsersCount = data ? data.interested : 0;
+        this.goingUsersCount = data ? data.going : 0;
       });
   }
 

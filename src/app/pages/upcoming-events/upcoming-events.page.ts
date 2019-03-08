@@ -16,7 +16,6 @@ export class UpcomingEventsPage implements OnInit {
   upcomingEvents: Event[];
   searchTerm: string;
   searchEvents: any[];
-  placeholderImage = 'assets/placeholder.jpg';
   userProfile: User;
 
   constructor(
