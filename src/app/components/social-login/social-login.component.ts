@@ -4,7 +4,7 @@ import { NavController, Platform } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import * as firebase from 'firebase';
 import { FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { TwitterConnectResponse } from '@ionic-native/twitter-connect/ngx';
+// import { TwitterConnectResponse } from '@ionic-native/twitter-connect/ngx';
 import { UserService } from 'src/app/services/user/user.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
@@ -27,7 +27,7 @@ export class SocialLoginComponent implements OnInit {
   ngOnInit() {}
 
   async googleLogin() {
-    this.loadingService.show();
+    await this.loadingService.show();
     if (!this.platform.is('cordova')) {
       try {
         const googleUser: firebase.auth.UserCredential = await this.authService.simpleGoogleLogin();
@@ -77,7 +77,7 @@ export class SocialLoginComponent implements OnInit {
   }
 
   async facebookLogin() {
-    this.loadingService.show();
+    await this.loadingService.show();
     if (!this.platform.is('cordova')) {
       try {
         const facebookUser: firebase.auth.UserCredential = await this.authService.simpleFacebookLogin();
@@ -129,8 +129,8 @@ export class SocialLoginComponent implements OnInit {
     }
   }
 
-  async twitterLogin() {
-    this.loadingService.show();
+  /* async twitterLogin() {
+    await this.loadingService.show();
     try {
       const response: TwitterConnectResponse = await this.authService.cordovaTwitterLogin();
       const twitterCredential: firebase.auth.AuthCredential = firebase.auth.TwitterAuthProvider.credential(
@@ -144,5 +144,5 @@ export class SocialLoginComponent implements OnInit {
       await this.loadingService.hide();
       alert(error);
     }
-  }
+  } */
 }

@@ -49,7 +49,13 @@
             </p>
             <ion-item>
               <ion-label position="stacked">Bio</ion-label>
-              <ion-input type="text" formControlName="bio" maxlength="120"></ion-input>
+              <ion-textarea
+                type="text"
+                formControlName="bio"
+                maxlength="200"
+                autosize
+                [maxRows]="7"
+              ></ion-textarea>
             </ion-item>
             <p text-left color="danger" class="text08 error" *ngIf="formErrors.bio">
               <ion-text color="danger">{{ formErrors.bio }}</ion-text>

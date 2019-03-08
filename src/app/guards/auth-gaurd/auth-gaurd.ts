@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NavController } from '@ionic/angular';
-import { UserService } from '../../user/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Injectable({
   providedIn: 'root',

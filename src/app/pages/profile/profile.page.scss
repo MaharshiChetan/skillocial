@@ -1,6 +1,53 @@
 .sc-ion-buttons-ios-s ion-icon[slot='icon-only'] {
   font-size: 25px;
 }
+
+.profile-image {
+  border-radius: 8px;
+  min-height: 90px;
+}
+
+.post-image {
+  border-radius: 8px;
+  min-height: 90px;
+}
+
+.stat-value {
+  display: block;
+  padding-bottom: 5px;
+  color: var(--ion-color-dark-shade);
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.state-name {
+  font-size: 16px;
+  color: var(--ion-color-medium, #989aa2);
+}
+
+ion-card-header {
+  font-size: 18px;
+}
+
+ion-card-content {
+  font-size: 14px;
+  padding-right: 0px;
+}
+
+.user-stats-section {
+  --ion-grid-column-padding: 12px;
+  margin: calc(var(--page-margin) * 2) var(--page-margin) var(--page-margin);
+  padding-bottom: var(--page-margin);
+  border-bottom: 1px solid var(--ion-color-light-shade);
+}
+
+.see-all {
+  float: right;
+  padding-right: 10px;
+  font-weight: normal;
+  color: var(--ion-color-secondary);
+}
+
 .profile {
   background: var(--ion-color-primary, #1c1c1c);
   color: #fff;

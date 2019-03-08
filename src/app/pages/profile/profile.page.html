@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar color="black">
     <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon slot="icon-only" name="person-add"></ion-icon>
-      </ion-button>
       <ion-button (click)="presentPopover()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
       </ion-button>
@@ -19,7 +16,7 @@
   <ion-refresher *ngIf="userProfile" (ionRefresh)="getUserProfile($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="profile" *ngIf="userProfile">
+  <!-- <div class="profile" *ngIf="userProfile">
     <div>
       <img
         alt=""
@@ -27,7 +24,6 @@
         [lazyLoad]="userProfile?.profilePhoto"
         errorImage="/assets/default-user.jpeg"
         class="cover-image"
-        (click)="showPhoto(userProfile?.profilePhoto, userProfile.fullName)"
       />
       <div>
         <h3>{{ userProfile?.fullName }}</h3>
@@ -37,5 +33,246 @@
       </div>
       <p>{{ userProfile?.bio }}</p>
     </div>
-  </div>
+  </div> -->
+  <ion-grid *ngIf="userProfile">
+    <ion-row>
+      <ion-col size-xs="3.5" size-sm="3.5" size-lg="2" size-xl="2">
+        <img
+          alt=""
+          defaultImage="/assets/default-user.jpeg"
+          [lazyLoad]="userProfile?.profilePhoto"
+          errorImage="/assets/default-user.jpeg"
+          class="cover-image profile-image"
+        />
+      </ion-col>
+      <ion-col>
+        <ion-row justify-content-between>
+          <ion-col>
+            <h3 class="text12 fw700" no-margin>{{ userProfile?.fullName }}</h3>
+            <p class="text-gray" no-margin>{{ userProfile?.username }}</p>
+          </ion-col>
+          <ion-col size="2" no-padding>
+            <ion-buttons>
+              <ion-button
+                size="small"
+                color="secondary"
+                [routerLink]="['/search-user']"
+                routerDirection="forward"
+              >
+                <ion-icon *ngIf="uid === currentUserProfile?.uid" name="person-add"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-end>
+          <ion-col no-padding>
+            <ion-button
+              *ngIf="uid !== currentUserProfile?.uid && !isFollowing"
+              size="small"
+              (click)="follow()"
+            >
+              FOLLOW
+            </ion-button>
+            <ion-button
+              *ngIf="uid !== currentUserProfile?.uid && isFollowing"
+              size="small"
+              (click)="unfollow()"
+            >
+              FOLLOWING
+            </ion-button>
+            <ion-button
+              *ngIf="uid === currentUserProfile?.uid"
+              size="small"
+              (click)="editProfile()"
+            >
+              EDIT PROFILE
+            </ion-button>
+            <ion-button
+              *ngIf="uid !== currentUserProfile?.uid"
+              size="small"
+              color="medium"
+              [routerLink]="['/user-chats/' + uid]"
+              routerDirection="forward"
+            >
+              MESSAGE
+            </ion-button>
+          </ion-col>
+          <ion-col size="2" no-padding>
+            <ion-buttons>
+              <ion-button size="small" color="medium" fill="clear">
+                <ion-icon name="more"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center margin-vertical padding-bottom class="user-stats-section">
+      <ion-col (click)="showModal()">
+        <span class="stat-value fw700">1553</span>
+        <span class="stat-name text-gray" padding-bottom>Likes</span>
+      </ion-col>
+      <ion-col (click)="showFollowers()">
+        <span class="stat-value fw700">{{ followersCount || 0 }}</span>
+        <span class="stat-name text-gray">Followers</span>
+      </ion-col>
+      <ion-col (click)="showFollowings()">
+        <span class="stat-value fw700">{{ followingsCount || 0 }}</span>
+        <span class="stat-name text-gray">Following</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-card-header class="text-black fw700" no-padding padding-top padding-start>
+            About
+          </ion-card-header>
+          <ion-card-content class="text-black">
+            {{ userProfile?.bio || "Hey! I'm using five elements." }}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-between>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-card-header
+            class="text-black fw700"
+            no-padding
+            padding-top
+            padding-start
+            justify-content-between
+          >
+            Photos
+            <span class="see-all">See all</span>
+          </ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col
+                *ngFor="let i of [1, 2, 3, 4, 5, 6]"
+                size-xs="4"
+                size-sm="4"
+                size-lg="2"
+                size-xl="2"
+              >
+                <img
+                  alt=""
+                  defaultImage="/assets/gray-placeholder.png"
+                  [lazyLoad]="userProfile?.profilePhoto"
+                  errorImage="/assets/gray-placeholder.png"
+                  class="cover-image profile-image"
+                />
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!userProfile" slot="fixed">
+    <ion-row>
+      <ion-col size="3.5">
+        <img alt="" src="assets/gray-placeholder.png" class="profile-image skeleton-color" />
+      </ion-col>
+      <ion-col>
+        <ion-row justify-content-between>
+          <ion-col>
+            <ion-skeleton-text class="skeleton20" width="135px"></ion-skeleton-text>
+            <ion-skeleton-text class="skeleton14" width="170px"></ion-skeleton-text>
+          </ion-col>
+          <ion-col size="2" no-padding>
+            <ion-buttons>
+              <ion-button size="small" color="secondary">
+                <ion-icon *ngIf="uid === currentUserProfile?.uid" name="person-add"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-end>
+          <ion-col no-padding>
+            <ion-button *ngIf="uid !== currentUserProfile?.uid" size="small">FOLLOW</ion-button>
+            <!-- <ion-button *ngIf="uid !== currentUserProfile?.uid" size="small">FOLLOWING</ion-button> -->
+            <ion-button *ngIf="uid === currentUserProfile?.uid" size="small">
+              EDIT PROFILE
+            </ion-button>
+            <ion-button size="small" color="medium" *ngIf="uid !== currentUserProfile?.uid">
+              MESSAGE
+            </ion-button>
+          </ion-col>
+          <ion-col size="2" no-padding>
+            <ion-buttons>
+              <ion-button size="small" color="medium" fill="clear">
+                <ion-icon name="more"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row text-center margin-vertical padding-bottom class="user-stats-section">
+      <ion-col>
+        <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
+        <span class="stat-name text-gray" padding-bottom>Likes</span>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
+        <span class="stat-name text-gray">Followers</span>
+      </ion-col>
+      <ion-col>
+        <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
+        <span class="stat-name text-gray">Following</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-card-header class="text-black fw700" no-padding padding-top padding-start>
+            About
+          </ion-card-header>
+          <ion-card-content class="text-black">
+            <ion-skeleton-text class="skeleton12" width="160px"></ion-skeleton-text>
+            <ion-skeleton-text class="skeleton12" width="200px"></ion-skeleton-text>
+            <ion-skeleton-text class="skeleton12" width="240px"></ion-skeleton-text>
+            <ion-skeleton-text class="skeleton12" width="280px"></ion-skeleton-text>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-between>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-card-header
+            class="text-black fw700"
+            no-padding
+            padding-top
+            padding-start
+            justify-content-between
+          >
+            Photos
+            <span class="see-all">See all</span>
+          </ion-card-header>
+          <ion-grid>
+            <ion-row>
+              <ion-col
+                *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                size-xs="4"
+                size-sm="4"
+                size-lg="2"
+                size-xl="2"
+              >
+                <img alt="" src="assets/gray-placeholder.png" class="post-image skeleton-color" />
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
+    <ion-fab-button color="secondary" class="no-outline">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

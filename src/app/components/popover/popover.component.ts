@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
 import { ViewController } from '@ionic/core';
+import { FollowService } from 'src/app/services/follow/follow.service';
 
 @Component({
   selector: 'app-popover',
@@ -9,7 +10,11 @@ import { ViewController } from '@ionic/core';
 })
 export class PopoverComponent implements OnInit {
   options: any;
-  constructor(private navParams: NavParams, private popoverCtrl: PopoverController) {}
+  constructor(
+    private navParams: NavParams,
+    private popoverCtrl: PopoverController,
+    private followService: FollowService
+  ) {}
 
   ngOnInit() {
     const currentUser: boolean = this.navParams.get('currentUser');
@@ -17,6 +22,8 @@ export class PopoverComponent implements OnInit {
   }
 
   fillPopoverOptions(currentUser: boolean): any {
+    console.log(this.followService.isFollowing);
+
     if (currentUser) {
       this.options = [
         { name: 'Invite Friends', route: 'invite-friends' },
@@ -27,7 +34,7 @@ export class PopoverComponent implements OnInit {
       ];
     } else {
       this.options = [
-        { name: 'Drop' },
+        this.followService.isFollowing ? { name: 'Unfollow' } : { name: 'Follow' },
         { name: 'Message', route: 'user-chats' },
         { name: 'Share' },
         { name: 'Report', route: 'report' },

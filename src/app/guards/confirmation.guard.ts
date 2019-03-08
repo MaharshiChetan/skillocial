@@ -16,6 +16,7 @@ export class ConfirmationGuard implements ConfirmationGuard {
         header: 'Discard Event?',
         message: "The changes for event made won't be get saved.",
         buttons: [
+          { text: 'Cancel', role: 'cancel' },
           {
             text: 'Discard Event',
             handler: async () => {
@@ -23,10 +24,6 @@ export class ConfirmationGuard implements ConfirmationGuard {
               this.exitPage();
               return false;
             },
-          },
-          {
-            text: 'Cancel',
-            handler: () => {},
           },
         ],
       });

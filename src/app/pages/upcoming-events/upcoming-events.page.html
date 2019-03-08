@@ -14,7 +14,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar class="searchbar" animated [(ngModel)]="searchTerm" (ionCancel)="onCancel($event)">
+  <ion-searchbar
+    class="searchbar"
+    animated
+    [(ngModel)]="searchTerm"
+    (ionCancel)="onCancel($event)"
+    (ionChange)="setFilteredItems($event)"
+  >
   </ion-searchbar>
 
   <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="getEvents($event)">
@@ -33,9 +39,9 @@
         <ion-card
           no-margin
           tappable
+          class="no-outline"
           [routerLink]="['/event-details', event.id]"
           routerDirection="forward"
-          class="no-outline"
         >
           <img
             alt=""

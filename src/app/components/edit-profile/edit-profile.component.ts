@@ -186,7 +186,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   async takePicture() {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       const picture = await this.cameraService.getPictureFromCamera(true);
       if (picture) {
@@ -209,7 +209,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   async getPicture() {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       const picture = await this.cameraService.getPictureFromPhotoLibrary(true);
       if (picture) {

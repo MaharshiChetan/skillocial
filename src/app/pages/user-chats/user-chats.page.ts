@@ -113,7 +113,7 @@ export class UserChatsPage implements OnInit {
 
   async sendImageMessage() {
     if (this.chosenPicture) {
-      this.loadingService.show();
+      await this.loadingService.show();
       let imageId = this.db.createPushId();
       const imageStore = this.afStorage.storage
         .ref('/ChatImages')
@@ -159,7 +159,7 @@ export class UserChatsPage implements OnInit {
   }
 
   async takePicture() {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       const picture = await this.cameraService.getPictureFromCamera(true);
       if (picture) {
@@ -183,7 +183,7 @@ export class UserChatsPage implements OnInit {
   }
 
   async getPicture() {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       const picture = await this.cameraService.getPictureFromPhotoLibrary(true);
       if (picture) {

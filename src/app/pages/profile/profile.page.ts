@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
-import { PopoverController, ModalController, NavController } from '@ionic/angular';
+import { PopoverController, ModalController, NavController, AlertController } from '@ionic/angular';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 import { ActivatedRoute } from '@angular/router';
 import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { FollowService } from 'src/app/services/follow/follow.service';
+import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
+import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,13 +18,21 @@ export class ProfilePage implements OnInit {
   uid: string;
   userProfile: User;
   currentUserProfile: User;
+  followersCount: any;
+  followers: { uid: string }[];
+  followings: { uid: string }[];
+  followingsCount: number;
+  isFollowing: boolean;
+
   constructor(
     private userService: UserService,
     private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private photoViewer: PhotoViewer
+    private followService: FollowService,
+    private loadingService: LoadingService,
+    private alertCtrl: AlertController
   ) {}
 
   async ngOnInit() {
@@ -36,16 +46,14 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  showPhoto(imageUrl: string, title: string) {
-    this.photoViewer.show(imageUrl, title, { share: false });
-  }
-
   getUserProfile(refresher?: any) {
     const subscription = this.userService.getUserByUID(this.uid).subscribe((user: User) => {
       this.userProfile = user;
       if (refresher) refresher.target.complete();
       subscription.unsubscribe();
     });
+    this.getFollowCount();
+    this.isUserFollowing();
   }
 
   async presentPopover() {
@@ -62,21 +70,146 @@ export class ProfilePage implements OnInit {
     console.log(value);
     if (value.role !== 'backdrop') {
       if (value.data.name === 'Edit Profile') {
-        const modal = await this.modalCtrl.create({
-          component: EditProfileComponent,
-          componentProps: {
-            userProfile: this.userProfile,
-          },
-        });
-        modal.present();
-        modal.onWillDismiss().then(data => {
-          if (data) this.getUserProfile();
-        });
+        this.editProfile();
       } else if (value.data.name === 'Message') {
         this.navCtrl.navigateForward([`${value.data.route}/${this.uid}`]);
+      } else if (value.data.name === 'Unfollow') {
+        this.unfollow();
+      } else if (value.data.name === 'Follow') {
+        this.follow();
       } else {
         this.navCtrl.navigateForward([value.data.route]);
       }
     }
+  }
+
+  getFollowCount() {
+    const subscription = this.followService.getFollowCount(this.uid).subscribe((data: any) => {
+      subscription.unsubscribe();
+      if (data) {
+        this.followersCount = data.followersCount;
+        this.followingsCount = data.followingsCount;
+      }
+    });
+  }
+
+  isUserFollowing() {
+    this.followService
+      .isUserFollowing(this.currentUserProfile.uid, this.uid)
+      .subscribe((data: any) => {
+        this.isFollowing = data ? true : false;
+        this.followService.isFollowing = this.isFollowing;
+      });
+  }
+
+  updateFollowCount() {
+    const followersSubscription = this.followService.getFollowers(this.uid).subscribe(followers => {
+      const followingsSubscription = this.followService
+        .getFollowings(this.currentUserProfile.uid)
+        .subscribe(followings => {
+          followersSubscription.unsubscribe();
+          followingsSubscription.unsubscribe();
+          this.followersCount = followers.length;
+          this.followers = followers;
+
+          this.followService.updateFollowCount(this.currentUserProfile.uid, this.uid, {
+            followersCount: followers.length,
+            followingsCount: followings.length,
+          });
+        });
+    });
+  }
+
+  follow() {
+    try {
+      ++this.followersCount;
+      this.followService.follow(this.currentUserProfile.uid, this.userProfile.uid);
+      this.updateFollowCount();
+    } catch (error) {
+      --this.followersCount;
+      console.log(error);
+    }
+  }
+
+  async unfollow() {
+    let alertPopup = await this.alertCtrl.create({
+      header: 'Unfollow?',
+      message: `Are you sure for not following ${this.userProfile.username} any more!`,
+      buttons: [
+        { text: 'Cancel', role: 'cancel' },
+        {
+          text: 'Unfollow',
+          handler: async () => {
+            try {
+              --this.followersCount;
+              this.followService.unfollow(this.currentUserProfile.uid, this.userProfile.uid);
+              this.updateFollowCount();
+            } catch (error) {
+              ++this.followersCount;
+              console.log(error);
+            }
+          },
+        },
+      ],
+    });
+    await alertPopup.present();
+  }
+
+  async editProfile() {
+    const modal = await this.modalCtrl.create({
+      component: EditProfileComponent,
+      componentProps: {
+        userProfile: this.userProfile,
+      },
+    });
+    modal.present();
+    modal.onWillDismiss().then(data => {
+      if (data) this.getUserProfile();
+    });
+  }
+
+  async showFollowers() {
+    await this.loadingService.show();
+    if (this.followers) {
+      this.showModal('followers');
+    } else {
+      const subscription = this.followService.getFollowers(this.uid).subscribe(followers => {
+        subscription.unsubscribe();
+        this.followers = followers;
+        this.followersCount = followers.length;
+        this.showModal('followers');
+      });
+    }
+  }
+
+  async showFollowings() {
+    await this.loadingService.show();
+    if (this.followings) {
+      this.showModal('followings');
+    } else {
+      const subscription = this.followService.getFollowings(this.uid).subscribe(followings => {
+        subscription.unsubscribe();
+        this.followings = followings;
+        this.followingsCount = followings.length;
+        this.showModal('followings');
+      });
+    }
+  }
+
+  async showModal(type: string) {
+    console.log('hide');
+
+    await this.loadingService.hide();
+    const modal = await this.modalCtrl.create({
+      component: UsersListComponent,
+      componentProps: {
+        usersUID: type === 'followers' ? this.followers : this.followings,
+        navTitle: type === 'followers' ? 'Followers' : 'Followings',
+      },
+    });
+    modal.present();
+    modal.onWillDismiss().then(data => {
+      console.log(data);
+    });
   }
 }

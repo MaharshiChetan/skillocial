@@ -169,6 +169,10 @@ ion-item {
   line-height: 14px;
 }
 
+.skeleton-color {
+  background: rgba(var(--background-rgb, var(--ion-text-color-rgb, 0, 0, 0)), 0.065);
+}
+
 .skeleton12 {
   line-height: 12px;
 }

@@ -51,7 +51,7 @@
           defaultImage="/assets/default-user.jpeg"
           [lazyLoad]="message?.thumbnail || message?.profilePhoto"
           [errorImage]="message?.profilePhoto"
-          class="cover-image"
+          class="cover-image skeleton-color"
           onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
         />
       </ion-avatar>

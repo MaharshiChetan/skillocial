@@ -10,6 +10,7 @@ import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-ima
 import { RouterModule } from '@angular/router';
 import { ChatBubbleComponent } from './chat-bubble/chat-bubble.component';
 import { MomentModule } from 'ngx-moment';
+import { AutosizeModule } from 'ngx-autosize';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MomentModule } from 'ngx-moment';
     }),
     RouterModule,
     MomentModule,
+    AutosizeModule,
   ],
   exports: [
     SocialLoginComponent,

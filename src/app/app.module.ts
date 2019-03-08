@@ -22,7 +22,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,7 +48,6 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     GooglePlus,
     NativeStorage,
     Facebook,
-    PhotoViewer,
   ],
   bootstrap: [AppComponent],
 })

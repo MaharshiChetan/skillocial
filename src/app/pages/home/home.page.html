@@ -31,6 +31,7 @@
                 >
                   <img
                     alt=""
+                    class="cover-image"
                     defaultImage="/assets/default-user.jpeg"
                     [lazyLoad]="userProfile?.profilePhoto"
                     errorImage="/assets/default-user.jpeg"
@@ -53,7 +54,7 @@
             </ion-row>
             <ion-row *ngIf="!userProfile">
               <ion-col size-sm="1" size-xs="2" text-center>
-                <ion-avatar><img alt="" src="/assets/gray-placeholder.png"/></ion-avatar>
+                <ion-avatar><img alt="" src="" class="skeleton-color"/></ion-avatar>
               </ion-col>
               <ion-col>
                 <ion-card-header class="fullName">

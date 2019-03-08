@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { Event } from 'src/app/models/event';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user/user.service';
+import { FilterService } from 'src/app/services/filter/filter.service';
 
 @Component({
   selector: 'app-upcoming-events',
@@ -22,6 +23,7 @@ export class UpcomingEventsPage implements OnInit {
     private eventService: EventsService,
     private router: Router,
     private navCtrl: NavController,
+    private filterService: FilterService,
     private userService: UserService
   ) {}
 
@@ -43,12 +45,7 @@ export class UpcomingEventsPage implements OnInit {
     alert(card.title + ' was shared.');
   }
 
-  goToCreateEventPage() {
-    // this.loadingService.show();
-    // this.app.getRootNav().push('CreateEventPage');
-  }
-
-  setFilteredItems(event) {
-    // this.events = this.dataService.filterEvents(this.searchEvents, this.searchTerm);
+  setFilteredItems(event: Event) {
+    this.upcomingEvents = this.filterService.filterEvents(this.searchEvents, this.searchTerm);
   }
 }

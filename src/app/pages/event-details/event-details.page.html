@@ -24,7 +24,6 @@
             [lazyLoad]="event.imageUrl"
             [errorImage]="event.imageUrl"
             class="original cover-image"
-            (click)="showPhoto(event.imageUrl, event.name)"
           />
           <ion-card-content no-padding>
             <ion-grid no-padding>
@@ -47,82 +46,94 @@
                   <ion-button color="danger">Book</ion-button>
                 </ion-col>
               </ion-row>
-              <hr />
-              <ion-row text-center class="white-background">
-                <ion-col>
-                  <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')" tappable>
-                    <!-- <ion-icon class="text16" color="medium-shade" name="star-outline"> </ion-icon> -->
-                    <i class="far fa-star text15" style="color: #989aa2"></i>
-                    <div>INTERESTED</div>
-                  </div>
-                  <div *ngIf="isInterested" (click)="removeInterestedOrGoing('interested')">
-                    <!-- <ion-icon class="text16" color="black" name="star"></ion-icon> -->
-                    <i class="fas fa-star text15" style="color: #ff0062"></i>
-                    <p class="fw700 text-black">INTERESTED</p>
-                  </div>
-                </ion-col>
-                <ion-col>
-                  <div *ngIf="!isGoing" (click)="addInterestedOrGoing('going')" tappable>
-                    <!-- <ion-icon
-                      class="text16"
-                      color="medium-shade"
-                      name="ios-checkmark-circle-outline"
-                    ></ion-icon> -->
-                    <i class="far fa-check-circle text15" style="color: #989aa2"></i>
-                    <div>GOING</div>
-                  </div>
-                  <div *ngIf="isGoing" (click)="removeInterestedOrGoing('going')">
-                    <!-- <ion-icon class="text16" color="black" name="ios-checkmark-circle"></ion-icon> -->
-                    <i class="fas fa-check-circle text15" style="color: #ff0062"></i>
-                    <p class="fw700 text-black">GOING</p>
-                  </div>
-                </ion-col>
-              </ion-row>
-              <hr />
-              <ion-row class="time-location text-black">
-                <ion-col size="1" text-center>
-                  <ion-icon class="text15" name="md-time"></ion-icon>
-                </ion-col>
-                <ion-col>
-                  {{ event.startDateTime | date: 'mediumDate' }} -
-                  {{ event.endDateTime | date: 'mediumDate' }}
-                </ion-col>
-              </ion-row>
-              <ion-row class="time-location text-black">
-                <ion-col size="1" text-center>
-                  <ion-icon class="text15" name="pin"></ion-icon>
-                </ion-col>
-                <ion-col>
-                  {{ event.city }} <br />
-                  <div class="location text-gray">{{ event.location }}</div>
-                </ion-col>
-              </ion-row>
             </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card no-margin>
+          <ion-row text-center class="white-background">
+            <ion-col>
+              <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')" tappable>
+                <i class="far fa-star text15" style="color: #989aa2; margin: 8px 0px;"></i>
+                <div style="margin-bottom: 4px">INTERESTED</div>
+              </div>
+              <div *ngIf="isInterested" (click)="removeInterestedOrGoing('interested')">
+                <i class="fas fa-star text15" style="color: #ff0062; margin: 8px 0px;"></i>
+                <div class="fw700 text-black" style="margin-bottom: 4px">INTERESTED</div>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div *ngIf="!isGoing" (click)="addInterestedOrGoing('going')" tappable>
+                <i class="far fa-check-circle text15" style="color: #989aa2; margin: 8px 0px"></i>
+                <div style="margin-bottom: 4px">GOING</div>
+              </div>
+              <div *ngIf="isGoing" (click)="removeInterestedOrGoing('going')">
+                <i class="fas fa-check-circle text15" style="color: #ff0062; margin: 8px 0px;"></i>
+                <div class="fw700 text-black" style="margin-bottom: 4px">GOING</div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <hr />
+          <ion-row class="time-location text-black">
+            <ion-col size="1" text-center>
+              <ion-icon class="text15" name="md-time"></ion-icon>
+            </ion-col>
+            <ion-col>
+              {{ event.startDateTime | date: 'mediumDate' }} -
+              {{ event.endDateTime | date: 'mediumDate' }}
+            </ion-col>
+          </ion-row>
+          <ion-row class="time-location text-black">
+            <ion-col size="1" text-center>
+              <ion-icon class="text15" name="pin"></ion-icon>
+            </ion-col>
+            <ion-col>
+              {{ event.city }} <br />
+              <div class="location text-gray">{{ event.location }}</div>
+            </ion-col>
+          </ion-row>
+          <hr />
+          <ion-row text-center class="fw700">
+            <ion-col
+              tappable
+              padding
+              class="click text-black no-outline text1"
+              *ngIf="interestedUsersCount || interestedUsersCount == 0"
+              (click)="showInterestedUsers()"
+            >
+              Interested ({{ interestedUsersCount || 0 }})
+            </ion-col>
+            <ion-col *ngIf="!interestedUsersCount && interestedUsersCount != 0">
+              <ion-spinner></ion-spinner>
+            </ion-col>
+            <ion-col
+              padding
+              tappable
+              class="click text-black no-outline text1"
+              *ngIf="goingUsersCount || goingUsersCount == 0"
+              (click)="showGoingUsers()"
+            >
+              Going ({{ goingUsersCount || 0 }})
+            </ion-col>
+            <ion-col *ngIf="!goingUsersCount && goingUsersCount != 0">
+              <ion-spinner></ion-spinner>
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card no-margin class="no-outline">
+          <ion-card-header no-padding padding-top padding-start>
+            <ion-card-subtitle color="primary" class="text1">Details</ion-card-subtitle>
+          </ion-card-header>
 
-            <hr />
-            <ion-row text-center class="fw700">
-              <ion-col
-                tappable
-                class="click text-black no-outline"
-                *ngIf="interestedUsersCount || interestedUsersCount == 0"
-                (click)="showInterestedUsers()"
-              >
-                Interested ({{ interestedUsersCount }})
-              </ion-col>
-              <ion-col *ngIf="!interestedUsersCount && interestedUsersCount != 0">
-                <ion-spinner></ion-spinner>
-              </ion-col>
-              <ion-col
-                class="click text-black no-outline"
-                *ngIf="goingUsersCount || goingUsersCount == 0"
-                (click)="showGoingUsers()"
-              >
-                Going ({{ goingUsersCount }})
-              </ion-col>
-              <ion-col *ngIf="!goingUsersCount && goingUsersCount != 0">
-                <ion-spinner></ion-spinner>
-              </ion-col>
-            </ion-row>
+          <ion-card-content class="text-black" style="white-space: pre-wrap">
+            {{ event.description }}
           </ion-card-content>
         </ion-card>
       </ion-col>

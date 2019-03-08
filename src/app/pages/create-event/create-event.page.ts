@@ -180,7 +180,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
   }
 
   async takePicture() {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       const picture = await this.cameraService.getPictureFromCamera(false);
       if (picture) {
@@ -203,7 +203,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
   }
 
   async getPicture() {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       const picture = await this.cameraService.getPictureFromPhotoLibrary(false);
       if (picture) {

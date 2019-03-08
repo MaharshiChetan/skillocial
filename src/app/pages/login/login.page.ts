@@ -121,7 +121,7 @@ export class LoginPage implements OnInit {
   }
 
   async sendResetPasswordLink(email: string): Promise<void> {
-    this.loadingService.show();
+    await this.loadingService.show();
     try {
       await this.authService.resetPassword(email);
       await this.loadingService.hide();

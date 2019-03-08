@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './services/auth/auth-gaurd/auth-gaurd';
 import { ConfirmationGuard } from './guards/confirmation.guard';
+import { AuthGuard } from './guards/auth-gaurd/auth-gaurd';
 
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
@@ -130,7 +130,10 @@ const routes: Routes = [
     path: 'chat-settings',
     loadChildren: './pages/chat-settings/chat-settings.module#ChatSettingsPageModule',
   },
-  { path: 'search-user', loadChildren: './pages/search-user/search-user.module#SearchUserPageModule' },
+  {
+    path: 'search-user',
+    loadChildren: './pages/search-user/search-user.module#SearchUserPageModule',
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
