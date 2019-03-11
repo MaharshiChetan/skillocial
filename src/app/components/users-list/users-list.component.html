@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="users.length === 0 || !users" text-center padding-top>
+    <ion-spinner></ion-spinner>
+  </div>
   <ion-list>
     <ion-item
       class="click"

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/user';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class ChatService {
       imageUrl: image.imageUrl,
       imageId: image.imageId,
       sentBy: sender.uid,
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
     this.db.object(`displayChats/${sender.uid}/${receiver.uid}`).update({
       imageUrl: image.imageUrl,
@@ -24,13 +25,13 @@ export class ChatService {
       profilePhoto: receiver.profilePhoto,
       fullName: receiver.fullName,
       bio: receiver.bio || '',
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
     this.db.list(`chats/${receiver.uid}/${sender.uid}`).push({
       imageUrl: image.imageUrl,
       imageId: image.imageId,
       sentBy: sender.uid,
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
     this.db.object(`displayChats/${receiver.uid}/${sender.uid}`).update({
       imageUrl: image.imageUrl,
@@ -40,7 +41,7 @@ export class ChatService {
       profilePhoto: sender.profilePhoto,
       fullName: sender.fullName,
       bio: sender.bio || '',
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
   }
 
@@ -48,7 +49,7 @@ export class ChatService {
     this.db.list(`chats/${sender.uid}/${receiver.uid}`).push({
       message: message,
       sentBy: sender.uid,
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
     this.db.object(`displayChats/${sender.uid}/${receiver.uid}`).update({
       message: message,
@@ -58,12 +59,12 @@ export class ChatService {
       thumbnail: receiver.thumbnail || receiver.profilePhoto,
       fullName: receiver.fullName,
       bio: receiver.bio || '',
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
     this.db.list(`chats/${receiver.uid}/${sender.uid}`).push({
       message: message,
       sentBy: sender.uid,
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
     this.db.object(`displayChats/${receiver.uid}/${sender.uid}`).update({
       message: message,
@@ -73,7 +74,7 @@ export class ChatService {
       thumbnail: sender.thumbnail || sender.profilePhoto,
       fullName: sender.fullName,
       bio: sender.bio || '',
-      timeStamp: '' + new Date(),
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
     });
   }
 

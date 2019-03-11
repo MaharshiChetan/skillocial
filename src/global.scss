@@ -105,6 +105,10 @@ ion-item {
   font-size: 0.8rem;
 }
 
+.text09 {
+  font-size: 0.9rem;
+}
+
 .text1 {
   font-size: 1rem !important;
 }
@@ -130,7 +134,7 @@ ion-item {
 }
 
 .text-gray {
-  color: #808080;
+  color: rgba(var(--ion-color-dark-rgb), 0.4);
 }
 
 .text-primary {
@@ -213,7 +217,7 @@ ion-toolbar.user-profile {
 }
 
 // Custom toolbar (overriding Shadow DOM)
-ion-toolbar {
+/* ion-toolbar {
   &.ion-color-primary {
     --ion-color-base: linear-gradient(
       135deg,
@@ -222,7 +226,7 @@ ion-toolbar {
     ) !important;
   }
 }
-
+ */
 // Android card shadow
 ion-card {
   &.sc-ion-card-md-h {

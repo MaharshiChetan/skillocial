@@ -26,7 +26,8 @@ export class ChatBubbleComponent implements OnInit {
 
   grayPlaceholder: string = 'assets/gray-placeholder.png';
 
-  async presentPopover(message: any) {
+  async presentPopover(message: any, event?: any) {
+    if (event) event.preventDefault();
     const actionsheet = await this.actionSheetCtrl.create({
       header: 'Take Action',
       buttons: [

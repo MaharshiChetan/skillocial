@@ -20,15 +20,22 @@
       <ion-col no-padding *ngIf="userProfile">
         <form [formGroup]="userProfileForm">
           <ion-list>
-            <div (click)="changeProfilePhoto()" margin-top>
+            <ion-avatar (click)="cameraService.changePicture()">
               <img
                 alt=""
                 class="image cover-image"
-                [src]="chosenPicture || userProfile.thumbnail || userProfile.profilePhoto"
+                [src]="
+                  cameraService.chosenPicture || userProfile.thumbnail || userProfile.profilePhoto
+                "
                 onerror="this.src='userProfile.profilePhoto'"
               />
-            </div>
-            <ion-button fill="clear" color="blue" class="button-inner" (click)="changePicture()">
+            </ion-avatar>
+            <ion-button
+              fill="clear"
+              color="blue"
+              class="fw700"
+              (click)="cameraService.changePicture()"
+            >
               Change Photo
             </ion-button>
 

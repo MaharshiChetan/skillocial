@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Event } from 'src/app/models/event';
-import { Platform, ActionSheetController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 import { CameraService } from 'src/app/services/camera/camera.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -21,7 +21,6 @@ import { ConfirmationGuard } from 'src/app/guards/confirmation.guard';
 export class CreateEventPage implements OnInit, OnDestroy {
   eventForm: FormGroup;
   eventDetails: Event;
-  chosenPicture: any;
   eventId: string;
   eventDateAndTime = {
     startTime: '10:00',
@@ -33,11 +32,9 @@ export class CreateEventPage implements OnInit, OnDestroy {
   };
   imageStore: firebase.storage.Reference;
   constructor(
+    public cameraService: CameraService,
     private formBuilder: FormBuilder,
     private loadingService: LoadingService,
-    private cameraService: CameraService,
-    private actionsheetCtrl: ActionSheetController,
-    private platform: Platform,
     private toastService: ToastService,
     private eventService: EventsService,
     private route: ActivatedRoute,
@@ -53,11 +50,11 @@ export class CreateEventPage implements OnInit, OnDestroy {
     console.log(this.eventId);
     this.buildForm();
     if (this.eventId) this.getEventDetails();
-    console.log(this.eventDateAndTime);
   }
 
   ngOnDestroy() {
     this.confirmationGuard.showAlertMessage = true;
+    this.cameraService.chosenPicture = null;
   }
 
   currentDate() {
@@ -108,7 +105,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
   }
 
   async updateEvent() {
-    if (!(this.chosenPicture || this.eventId)) {
+    if (!(this.cameraService.chosenPicture || this.eventId)) {
       this.toastService.showToast('Please upload event image, Its mandatory!', 'top');
       return;
     }
@@ -125,8 +122,8 @@ export class CreateEventPage implements OnInit, OnDestroy {
     this.imageStore = this.afStorage.storage.ref('eventImages').child(`${uid}/${imageId}`);
 
     try {
-      if (this.chosenPicture) {
-        await this.imageStore.putString(this.chosenPicture, 'data_url');
+      if (this.cameraService.chosenPicture) {
+        await this.imageStore.putString(this.cameraService.chosenPicture, 'data_url');
         const imageUrl = await this.imageStore.getDownloadURL();
         event.imageUrl = imageUrl;
       } else {
@@ -144,83 +141,6 @@ export class CreateEventPage implements OnInit, OnDestroy {
     } catch (error) {
       this.loadingService.hide();
       this.toastService.showToast('Failed to update event!', 'top');
-      alert(error);
-    }
-  }
-
-  async changePicture() {
-    const actionsheetCtrl = await this.actionsheetCtrl.create({
-      header: 'Upload picture',
-      buttons: [
-        {
-          text: 'Camera',
-          icon: !this.platform.is('ios') ? 'camera' : null,
-          handler: () => {
-            this.takePicture();
-          },
-        },
-        {
-          text: !this.platform.is('ios') ? 'Gallery' : 'Camera roll',
-          icon: !this.platform.is('ios') ? 'image' : null,
-          handler: () => {
-            this.getPicture();
-          },
-        },
-        {
-          text: 'Cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          role: 'destructive',
-          handler: () => {
-            console.log('the user has cancelled the interaction.');
-          },
-        },
-      ],
-    });
-    return await actionsheetCtrl.present();
-  }
-
-  async takePicture() {
-    await this.loadingService.show();
-    try {
-      const picture = await this.cameraService.getPictureFromCamera(false);
-      if (picture) {
-        const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
-        this.cameraService.generateFromImage(picture, quality, (data: any) => {
-          this.chosenPicture =
-            parseFloat(this.cameraService.getImageSize(picture)) >
-            parseFloat(this.cameraService.getImageSize(data))
-              ? data
-              : picture;
-        });
-      } else {
-        await this.loadingService.hide();
-      }
-      await this.loadingService.hide();
-    } catch (error) {
-      await this.loadingService.hide();
-      alert(error);
-    }
-  }
-
-  async getPicture() {
-    await this.loadingService.show();
-    try {
-      const picture = await this.cameraService.getPictureFromPhotoLibrary(false);
-      if (picture) {
-        const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
-        this.cameraService.generateFromImage(picture, quality, (data: any) => {
-          this.chosenPicture =
-            parseFloat(this.cameraService.getImageSize(picture)) >
-            parseFloat(this.cameraService.getImageSize(data))
-              ? data
-              : picture;
-        });
-      } else {
-        await this.loadingService.hide();
-      }
-      await this.loadingService.hide();
-    } catch (error) {
-      await this.loadingService.hide();
       alert(error);
     }
   }

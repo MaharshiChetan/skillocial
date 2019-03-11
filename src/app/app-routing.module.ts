@@ -96,6 +96,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'user-posts/:id',
+    loadChildren: './pages/user-posts/user-posts.module#UserPostsPageModule',
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'voting-categories',
     loadChildren: './pages/voting-categories/voting-categories.module#VotingCategoriesPageModule',
     canActivate: [AuthGuard],
@@ -133,6 +138,14 @@ const routes: Routes = [
   {
     path: 'search-user',
     loadChildren: './pages/search-user/search-user.module#SearchUserPageModule',
+  },
+  {
+    path: 'single-post',
+    loadChildren: './pages/single-post/single-post.module#SinglePostPageModule',
+  },
+  {
+    path: 'single-post/:id',
+    loadChildren: './pages/single-post/single-post.module#SinglePostPageModule',
   },
 ];
 @NgModule({

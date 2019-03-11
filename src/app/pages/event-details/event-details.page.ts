@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Event } from 'src/app/models/event';
-import { NavController, IonContent, ModalController } from '@ionic/angular';
+import { IonContent, ModalController } from '@ionic/angular';
 import { EventsService } from 'src/app/services/event/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
 import { User } from 'src/app/models/user';
 import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
+import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
   selector: 'app-event-details',
@@ -27,8 +28,9 @@ export class EventDetailsPage implements OnInit {
 
   constructor(
     private eventService: EventsService,
-    private navCtrl: NavController,
+    private loadingService: LoadingService,
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private activeUsersInEventService: ActiveUsersInEventService,
     private modalCtrl: ModalController
@@ -135,13 +137,14 @@ export class EventDetailsPage implements OnInit {
       });
   }
 
-  showInterestedUsers() {
+  async showInterestedUsers() {
     if (this.interestedUsers) {
       this.showModal('interestedUsers');
     } else {
+      await this.loadingService.show();
       const subscription = this.activeUsersInEventService
         .getActiveUsersInEvent(this.eventId, 'interested')
-        .subscribe(users => {
+        .subscribe(async users => {
           subscription.unsubscribe();
           this.interestedUsers = users;
           this.interestedUsersCount = users.length;
@@ -149,17 +152,19 @@ export class EventDetailsPage implements OnInit {
             interested: users.length,
           });
           this.showModal('interestedUsers');
+          await this.loadingService.hide();
         });
     }
   }
 
-  showGoingUsers() {
+  async showGoingUsers() {
     if (this.goingUsers) {
       this.showModal('goingUsers');
     } else {
+      await this.loadingService.show();
       const subscription = this.activeUsersInEventService
         .getActiveUsersInEvent(this.eventId, 'going')
-        .subscribe(users => {
+        .subscribe(async users => {
           subscription.unsubscribe();
           this.goingUsers = users;
           this.goingUsersCount = users.length;
@@ -167,6 +172,7 @@ export class EventDetailsPage implements OnInit {
             going: users.length,
           });
           this.showModal('goingUsers');
+          await this.loadingService.hide();
         });
     }
   }
@@ -183,5 +189,9 @@ export class EventDetailsPage implements OnInit {
     modal.onWillDismiss().then(data => {
       console.log(data);
     });
+  }
+
+  async popBack() {
+    await this.router.navigate(['tabs/upcoming-events']);
   }
 }

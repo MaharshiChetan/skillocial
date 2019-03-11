@@ -7,6 +7,8 @@ import { FilterService } from 'src/app/services/filter/filter.service';
 import { User } from 'src/app/models/user';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { RoutingService } from 'src/app/services/routing/routing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-list',
@@ -27,7 +29,9 @@ export class ChatListPage implements OnInit {
     private chatService: ChatService,
     private filterService: FilterService,
     private authService: AuthService,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private routingService: RoutingService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -40,9 +44,7 @@ export class ChatListPage implements OnInit {
     const subscription = this.chatService
       .getDisplayMessages(this.userProfile.uid)
       .subscribe(displayMessages => {
-        console.log(displayMessages);
-
-        subscription.unsubscribe();
+        // subscription.unsubscribe();
         if (displayMessages.length > 0) this.messages = true;
         else this.messages = false;
         if (event) event.target.complete();
@@ -158,5 +160,9 @@ export class ChatListPage implements OnInit {
     };
 
     RazorpayCheckout.open(options, successCallback, cancelCallback);
+  }
+
+  popBack() {
+    this.router.navigate([this.routingService.tabsLastUrl]);
   }
 }

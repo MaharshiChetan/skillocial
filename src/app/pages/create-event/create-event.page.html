@@ -18,15 +18,18 @@
       <ion-list-header>
         <ion-label>Event Details</ion-label>
       </ion-list-header>
-      <div class="container" (click)="changePicture()">
+      <div class="container" (click)="cameraService.changePicture()">
         <img
           alt=""
           class="cover-image"
-          *ngIf="chosenPicture || eventDetails?.imageUrl"
-          [src]="chosenPicture || eventDetails?.imageUrl"
+          *ngIf="cameraService.chosenPicture || eventDetails?.imageUrl"
+          [src]="cameraService.chosenPicture || eventDetails?.imageUrl"
         />
-        <div *ngIf="!chosenPicture && !eventDetails?.imageUrl" class="img-placeholder"></div>
-        <div *ngIf="!chosenPicture && !eventDetails?.imageUrl" class="centered">
+        <div
+          *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl"
+          class="img-placeholder"
+        ></div>
+        <div *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl" class="centered">
           <ion-icon name="camera" class="camera-icon"></ion-icon>
           <h6 no-margin>Upload Image</h6>
         </div>

@@ -1,9 +1,36 @@
 <ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Posts</ion-title>
+  </ion-toolbar>
   <ion-toolbar>
-    <ion-title>user-posts</ion-title>
+    <ion-segment [(ngModel)]="type">
+      <ion-segment-button value="thumbnail">
+        <ion-icon name="grid"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="post">
+        <ion-icon name="filing"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'thumbnail'">
+      <ion-refresher *ngIf="posts" (ionRefresh)="getPosts($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <app-thumbnail-posts [posts]="posts"></app-thumbnail-posts>
+    </div>
 
+    <div *ngSwitchCase="'post'">
+      <ion-refresher *ngIf="posts" (ionRefresh)="getPosts($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <app-posts [posts]="posts"></app-posts>
+    </div>
+  </div>
 </ion-content>

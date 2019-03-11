@@ -22,6 +22,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
+import { Network } from '@ionic-native/network/ngx';
+import { HeaderColor } from '@ionic-native/header-color/ngx';
+import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +33,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     BrowserModule,
     IonicModule.forRoot({
       mode: 'ios',
+      animated: false,
     }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'five-elements'),
@@ -37,6 +41,9 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset,
+    }),
     IonicStorageModule.forRoot(),
   ],
   providers: [
@@ -48,6 +55,8 @@ import { Facebook } from '@ionic-native/facebook/ngx';
     GooglePlus,
     NativeStorage,
     Facebook,
+    Network,
+    HeaderColor,
   ],
   bootstrap: [AppComponent],
 })

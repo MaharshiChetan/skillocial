@@ -1,9 +1,112 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>create-title</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="primary">
+      <ion-button [disabled]="!titleForm.valid" (click)="addTitle()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Title</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <ion-grid text-center>
+    <ion-row>
+      <ion-col no-padding>
+        <ion-card no-margin>
+          <ion-avatar (click)="cameraService.changePicture()">
+            <img
+              alt=""
+              class="image cover-image"
+              [src]="cameraService.chosenPicture || title?.imageUrl || defaultPicture"
+            />
+          </ion-avatar>
+          <ion-button
+            fill="clear"
+            color="blue"
+            class="fw700"
+            (click)="cameraService.changePicture()"
+            >Change Photo</ion-button
+          >
 
+          <form [formGroup]="titleForm">
+            <ion-list>
+              <ion-item>
+                <ion-label position="stacked">Title</ion-label>
+                <ion-input type="text" formControlName="title"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Description</ion-label>
+                <ion-textarea
+                  autosize
+                  [maxRows]="7"
+                  type="text"
+                  formControlName="description"
+                ></ion-textarea>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Location(City)</ion-label>
+                <ion-input type="text" formControlName="location"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>Position</ion-label>
+                <ion-select formControlName="winningPosition">
+                  <ion-select-option value="First">First (1st)</ion-select-option>
+                  <ion-select-option value="Second">Runner Up(2nd)</ion-select-option>
+                  <ion-select-option value="Third">Second Runner Up (3rd)</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>Category</ion-label>
+                <ion-select formControlName="category" (ionChange)="change($event)">
+                  <ion-select-option value="Breaking">Breaking</ion-select-option>
+                  <ion-select-option value="Old School">Old School</ion-select-option>
+                  <ion-select-option value="Middle School">Middle School</ion-select-option>
+                  <ion-select-option value="New School">New School</ion-select-option>
+                  <ion-select-option value="House">House</ion-select-option>
+                  <ion-select-option value="Locking">Locking</ion-select-option>
+                  <ion-select-option value="Popping">Popping</ion-select-option>
+                  <ion-select-option value="Krump">Krump</ion-select-option>
+                  <ion-select-option value="DJ">DJ</ion-select-option>
+                  <ion-select-option value="Graffiti">Graffiti</ion-select-option>
+                  <ion-select-option value="Other">{{ otherCategory }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Type</ion-label>
+                <ion-select formControlName="type">
+                  <ion-select-option value="Solo">Solo</ion-select-option>
+                  <ion-select-option value="Duet">Duet</ion-select-option>
+                  <ion-select-option value="Trio">Trio</ion-select-option>
+                  <ion-select-option value="Group">Group</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Year</ion-label>
+                <ion-datetime
+                  pickerFormat="YYYY"
+                  formControlName="year"
+                  placeholder="Select Year"
+                ></ion-datetime>
+              </ion-item>
+              <ion-button
+                expand="block"
+                color="secondary"
+                [disabled]="!titleForm.valid"
+                (click)="addTitle()"
+              >
+                Submit
+              </ion-button>
+            </ion-list>
+          </form>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

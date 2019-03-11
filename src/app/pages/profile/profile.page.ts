@@ -3,11 +3,16 @@ import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
 import { PopoverController, ModalController, NavController, AlertController } from '@ionic/angular';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
 import { FollowService } from 'src/app/services/follow/follow.service';
 import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
 import { LoadingService } from 'src/app/services/loading/loading.service';
+import { RoutingService } from 'src/app/services/routing/routing.service';
+import { TitleService } from 'src/app/services/title/title.service';
+import { Title } from '@angular/platform-browser';
+import { PostService } from 'src/app/services/post/post.service';
+import { Post } from 'src/app/models/post';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +22,15 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 export class ProfilePage implements OnInit {
   uid: string;
   userProfile: User;
+  type: string = 'posts';
   currentUserProfile: User;
   followersCount: any;
   followers: { uid: string }[];
   followings: { uid: string }[];
   followingsCount: number;
   isFollowing: boolean;
+  titles: Title[];
+  posts: Post[];
 
   constructor(
     private userService: UserService,
@@ -30,9 +38,13 @@ export class ProfilePage implements OnInit {
     private modalCtrl: ModalController,
     private route: ActivatedRoute,
     private navCtrl: NavController,
+    private routingService: RoutingService,
+    private router: Router,
     private followService: FollowService,
     private loadingService: LoadingService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private titleService: TitleService,
+    private postService: PostService
   ) {}
 
   async ngOnInit() {
@@ -54,6 +66,8 @@ export class ProfilePage implements OnInit {
     });
     this.getFollowCount();
     this.isUserFollowing();
+    this.getTitles();
+    this.getPosts();
   }
 
   async presentPopover() {
@@ -162,10 +176,9 @@ export class ProfilePage implements OnInit {
         userProfile: this.userProfile,
       },
     });
-    modal.present();
-    modal.onWillDismiss().then(data => {
-      if (data) this.getUserProfile();
-    });
+    await modal.present();
+    const data = await modal.onWillDismiss();
+    if (data) this.getUserProfile();
   }
 
   async showFollowers() {
@@ -197,8 +210,6 @@ export class ProfilePage implements OnInit {
   }
 
   async showModal(type: string) {
-    console.log('hide');
-
     await this.loadingService.hide();
     const modal = await this.modalCtrl.create({
       component: UsersListComponent,
@@ -211,5 +222,25 @@ export class ProfilePage implements OnInit {
     modal.onWillDismiss().then(data => {
       console.log(data);
     });
+  }
+
+  getTitles() {
+    const subscription = this.titleService.getTitles(this.uid).subscribe((titles: any) => {
+      subscription.unsubscribe();
+      this.titles = titles;
+    });
+  }
+
+  getPosts() {
+    const subscription = this.postService.getPosts(this.uid).subscribe((posts: any) => {
+      subscription.unsubscribe();
+      this.posts = posts;
+    });
+  }
+
+  popBack() {
+    if (this.uid === this.currentUserProfile.uid) {
+      this.router.navigate([this.routingService.tabsLastUrl]);
+    }
   }
 }

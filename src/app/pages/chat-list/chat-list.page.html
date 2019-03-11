@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="black">
     <ion-buttons slot="secondary">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="popBack()"></ion-back-button>
     </ion-buttons>
     <ion-title>Chats</ion-title>
   </ion-toolbar>
@@ -79,11 +79,8 @@
                   src="http://www.join4jason.com/images/orange-dot.png?crc=208854078"
                 />
               -->
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content
-        [loadingSpinner]="loader"
-        [loadingText]="loadingText"
-      ></ion-infinite-scroll-content>
+    <ion-infinite-scroll>
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-list>
 

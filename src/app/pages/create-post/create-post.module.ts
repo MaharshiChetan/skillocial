@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CreatePostPage } from './create-post.page';
+import { AutosizeModule } from 'ngx-autosize';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreatePostPage
-  }
+    component: CreatePostPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AutosizeModule,
+    ReactiveFormsModule,
   ],
-  declarations: [CreatePostPage]
+  declarations: [CreatePostPage],
 })
 export class CreatePostPageModule {}

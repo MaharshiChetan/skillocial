@@ -1,9 +1,57 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>create-post</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="addPost()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Create Post</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-grid>
+    <ion-card no-margin>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="postForm">
+            <ion-item no-padding>
+              <ion-thumbnail slot="start" class="container">
+                <div
+                  class="img-placeholder"
+                  *ngIf="!cameraService.chosenPicture"
+                  (click)="cameraService.changePicture()"
+                >
+                  <div class="centered">
+                    <ion-icon name="camera" class="camera-icon"></ion-icon>
+                  </div>
+                </div>
+                <img
+                  alt=""
+                  *ngIf="cameraService.chosenPicture || userPost?.imageUrl"
+                  [src]="cameraService.chosenPicture || userPost?.imageUrl"
+                  class="cover-image"
+                  (press)="cameraService.changePicture()"
+                />
+              </ion-thumbnail>
+              <ion-textarea
+                placeholder="Write Something..."
+                autosize
+                [maxRows]="16"
+                formControlName="textualContent"
+              ></ion-textarea>
+            </ion-item>
+          </form>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="secondary" (click)="addPost()">Create Post</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
 </ion-content>

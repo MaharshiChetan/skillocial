@@ -1,0 +1,24 @@
+ion-thumbnail {
+  height: 65px;
+  width: 65px;
+}
+
+.centered {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+}
+
+.img-placeholder {
+  background: #383a3e;
+  height: 65px;
+}
+
+.container {
+  opacity: 0.9;
+  position: relative;
+  text-align: center;
+  color: #fff;
+}

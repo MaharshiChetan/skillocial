@@ -1,12 +1,8 @@
-.image {
-  margin: auto;
+ion-avatar {
+  height: 100px;
   width: 100px;
-  border-radius: 50%;
+  margin: 12px auto -7px;
   box-shadow: 0 0 5px gray;
-}
-
-.button-inner {
-  font-weight: bold;
 }
 
 p.error {

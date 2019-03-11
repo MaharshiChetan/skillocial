@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavParams, ActionSheetController, Platform, ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -13,8 +13,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
 })
-export class EditProfileComponent implements OnInit {
-  chosenPicture: any;
+export class EditProfileComponent implements OnInit, OnDestroy {
   userProfile: any;
   userProfileForm: FormGroup;
   currentUserProfile: any;
@@ -40,14 +39,12 @@ export class EditProfileComponent implements OnInit {
   updatedProfile: boolean = false;
 
   constructor(
+    public cameraService: CameraService,
     private modalCtrl: ModalController,
     private loadingService: LoadingService,
-    private actionsheetCtrl: ActionSheetController,
-    private platform: Platform,
     private formBuilder: FormBuilder,
     private navParams: NavParams,
     private afStorage: AngularFireStorage,
-    private cameraService: CameraService,
     private userService: UserService,
     private toastService: ToastService
   ) {}
@@ -59,6 +56,10 @@ export class EditProfileComponent implements OnInit {
     if (!this.userProfile) {
       this.getCurrentUserProfile();
     }
+  }
+
+  ngOnDestroy() {
+    this.cameraService.chosenPicture = null;
   }
 
   buildForm() {
@@ -135,11 +136,11 @@ export class EditProfileComponent implements OnInit {
 
   async updateUserProfile(userProfile: any) {
     try {
-      if (this.chosenPicture) {
+      if (this.cameraService.chosenPicture) {
         const imageStore = this.afStorage.storage
           .ref('userProfilePhoto')
           .child(this.userProfile.uid);
-        await imageStore.putString(this.chosenPicture, 'data_url');
+        await imageStore.putString(this.cameraService.chosenPicture, 'data_url');
         const imageUrl = await imageStore.getDownloadURL();
         userProfile.profilePhoto = imageUrl;
       }
@@ -151,83 +152,6 @@ export class EditProfileComponent implements OnInit {
     } catch (error) {
       await this.loadingService.hide();
       this.toastService.showToast('Failed to updated your profile!', 'top');
-    }
-  }
-
-  async changePicture() {
-    const actionsheetCtrl = await this.actionsheetCtrl.create({
-      header: 'Upload picture',
-      buttons: [
-        {
-          text: 'Camera',
-          icon: !this.platform.is('ios') ? 'camera' : null,
-          handler: () => {
-            this.takePicture();
-          },
-        },
-        {
-          text: !this.platform.is('ios') ? 'Gallery' : 'Camera roll',
-          icon: !this.platform.is('ios') ? 'image' : null,
-          handler: () => {
-            this.getPicture();
-          },
-        },
-        {
-          text: 'Cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          role: 'destructive',
-          handler: () => {
-            console.log('the user has cancelled the interaction.');
-          },
-        },
-      ],
-    });
-    return await actionsheetCtrl.present();
-  }
-
-  async takePicture() {
-    await this.loadingService.show();
-    try {
-      const picture = await this.cameraService.getPictureFromCamera(true);
-      if (picture) {
-        const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
-        this.cameraService.generateFromImage(picture, quality, (data: any) => {
-          this.chosenPicture =
-            parseFloat(this.cameraService.getImageSize(picture)) >
-            parseFloat(this.cameraService.getImageSize(data))
-              ? data
-              : picture;
-        });
-      } else {
-        await this.loadingService.hide();
-      }
-      await this.loadingService.hide();
-    } catch (error) {
-      await this.loadingService.hide();
-      alert(error);
-    }
-  }
-
-  async getPicture() {
-    await this.loadingService.show();
-    try {
-      const picture = await this.cameraService.getPictureFromPhotoLibrary(true);
-      if (picture) {
-        const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
-        this.cameraService.generateFromImage(picture, quality, (data: any) => {
-          this.chosenPicture =
-            parseFloat(this.cameraService.getImageSize(picture)) >
-            parseFloat(this.cameraService.getImageSize(data))
-              ? data
-              : picture;
-        });
-      } else {
-        await this.loadingService.hide();
-      }
-      await this.loadingService.hide();
-    } catch (error) {
-      await this.loadingService.hide();
-      alert(error);
     }
   }
 

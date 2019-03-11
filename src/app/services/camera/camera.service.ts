@@ -2,12 +2,99 @@ import { Injectable } from '@angular/core';
 import { Camera } from '@ionic-native/camera/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
+import { LoadingService } from '../loading/loading.service';
+import { ActionSheetController, Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CameraService {
-  constructor(private camera: Camera, private crop: Crop, private base64: Base64) {}
+  public chosenPicture: any;
+
+  constructor(
+    private camera: Camera,
+    private platform: Platform,
+    private crop: Crop,
+    private base64: Base64,
+    private loadingService: LoadingService,
+    private actionsheetCtrl: ActionSheetController
+  ) {}
+
+  async changePicture(event?: any) {
+    if (event) event.preventDefault();
+    const actionsheetCtrl = await this.actionsheetCtrl.create({
+      header: 'Upload picture',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: !this.platform.is('ios') ? 'camera' : null,
+          handler: () => {
+            this.takePicture();
+          },
+        },
+        {
+          text: !this.platform.is('ios') ? 'Gallery' : 'Camera roll',
+          icon: !this.platform.is('ios') ? 'image' : null,
+          handler: () => {
+            this.getPicture();
+          },
+        },
+        {
+          text: 'Cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          role: 'destructive',
+          handler: () => {
+            console.log('the user has cancelled the interaction.');
+          },
+        },
+      ],
+    });
+    return await actionsheetCtrl.present();
+  }
+
+  async takePicture() {
+    await this.loadingService.show();
+    try {
+      const picture = await this.getPictureFromCamera(true);
+      if (picture) {
+        const quality = 6 < parseFloat(this.getImageSize(picture)) ? 0.5 : 0.8;
+        this.generateFromImage(picture, quality, (data: any) => {
+          this.chosenPicture =
+            parseFloat(this.getImageSize(picture)) > parseFloat(this.getImageSize(data))
+              ? data
+              : picture;
+        });
+      } else {
+        await this.loadingService.hide();
+      }
+      await this.loadingService.hide();
+    } catch (error) {
+      await this.loadingService.hide();
+      alert(error);
+    }
+  }
+
+  async getPicture() {
+    await this.loadingService.show();
+    try {
+      const picture = await this.getPictureFromPhotoLibrary(true);
+      if (picture) {
+        const quality = 6 < parseFloat(this.getImageSize(picture)) ? 0.5 : 0.8;
+        this.generateFromImage(picture, quality, (data: any) => {
+          this.chosenPicture =
+            parseFloat(this.getImageSize(picture)) > parseFloat(this.getImageSize(data))
+              ? data
+              : picture;
+        });
+      } else {
+        await this.loadingService.hide();
+      }
+      await this.loadingService.hide();
+    } catch (error) {
+      await this.loadingService.hide();
+      alert(error);
+    }
+  }
 
   getPictureFromCamera(crop: boolean) {
     return this.getImage(this.camera.PictureSourceType.CAMERA, crop);

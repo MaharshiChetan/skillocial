@@ -11,6 +11,9 @@ import { RouterModule } from '@angular/router';
 import { ChatBubbleComponent } from './chat-bubble/chat-bubble.component';
 import { MomentModule } from 'ngx-moment';
 import { AutosizeModule } from 'ngx-autosize';
+import { ThumbnailPostsComponent } from './thumbnail-posts/thumbnail-posts.component';
+import { PostsComponent } from './posts/posts.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +22,18 @@ import { AutosizeModule } from 'ngx-autosize';
     EditProfileComponent,
     UsersListComponent,
     ChatBubbleComponent,
+    ThumbnailPostsComponent,
+    PostsComponent,
+    CommentsComponent,
   ],
   entryComponents: [
     PopoverComponent,
     EditProfileComponent,
     UsersListComponent,
     ChatBubbleComponent,
+    ThumbnailPostsComponent,
+    PostsComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +52,9 @@ import { AutosizeModule } from 'ngx-autosize';
     EditProfileComponent,
     UsersListComponent,
     ChatBubbleComponent,
+    ThumbnailPostsComponent,
+    PostsComponent,
+    CommentsComponent,
   ],
 })
 export class ComponentsModule {}

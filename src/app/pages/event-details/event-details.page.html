@@ -6,14 +6,17 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="secondary">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="popBack()"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ event?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="event" class="gray-background">
-  <ion-grid no-padding>
+<ion-content class="gray-background">
+  <ion-refresher *ngIf="event" (ionRefresh)="getEvent($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid *ngIf="event" no-padding>
     <ion-row>
       <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" no-padding> -->
       <ion-col no-padding>
@@ -132,7 +135,7 @@
             <ion-card-subtitle color="primary" class="text1">Details</ion-card-subtitle>
           </ion-card-header>
 
-          <ion-card-content class="text-black" style="white-space: pre-wrap">
+          <ion-card-content class="text-black text09" style="white-space: pre-wrap">
             {{ event.description }}
           </ion-card-content>
         </ion-card>
@@ -141,7 +144,7 @@
   </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="secondary">
+    <ion-fab-button color="secondary" class="no-outline">
       <ion-icon name="share"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">

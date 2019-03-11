@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CreateTitlePage } from './create-title.page';
+import { AutosizeModule } from 'ngx-autosize';
 
 const routes: Routes = [
   {
     path: '',
-    component: CreateTitlePage
-  }
+    component: CreateTitlePage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    AutosizeModule,
   ],
-  declarations: [CreateTitlePage]
+  declarations: [CreateTitlePage],
 })
 export class CreateTitlePageModule {}
