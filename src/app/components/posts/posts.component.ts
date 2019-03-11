@@ -24,9 +24,8 @@ import { UsersListComponent } from '../users-list/users-list.component';
 export class PostsComponent implements OnInit {
   @Input('posts') posts: Post[];
   showMore: boolean = false;
-  fetched: any;
   uid: string;
-  userProfile: User;
+  currentUserProfile: User;
 
   constructor(
     private navCtrl: NavController,
@@ -46,42 +45,35 @@ export class PostsComponent implements OnInit {
   }
 
   async getUserProfile() {
-    this.userProfile = await this.userService.getCurrentUser();
-    this.uid = this.userProfile.uid;
+    this.currentUserProfile = await this.userService.getCurrentUser();
+    this.uid = this.currentUserProfile.uid;
     this.getPostsDetail();
   }
 
   getPostsDetail() {
-    if (!this.fetched) {
-      this.posts.forEach((post: any, i: number) => {
-        const subscription = this.userService.getUserByUID(post.uid).subscribe((user: User) => {
-          this.posts[i].createdAt = post.createdAt.toDate();
-          subscription.unsubscribe();
-          console.log(user);
-          this.posts[i].userDetails = user;
-          if (post.uid === user.uid) {
-            this.posts[i].myPost = true;
-          }
-          this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
-            this.posts[i].isLiking = data.key ? true : false;
-            const likeSubscription = this.postLikeService
-              .getTotalLikes(post.id)
-              .subscribe(likes => {
-                this.posts[i].likes = likes;
-                this.posts[i].totalLikes = likes.length;
-                likeSubscription.unsubscribe();
-              });
+    this.posts.forEach((post: any, i: number) => {
+      const subscription = this.userService.getUserByUID(post.uid).subscribe((user: User) => {
+        this.posts[i].createdAt = post.createdAt.toDate();
+        subscription.unsubscribe();
+        this.posts[i].userDetails = user;
+        this.posts[i].myPost = post.uid === this.uid;
+        this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
+          this.posts[i].isLiking = data.key ? true : false;
+          const likeSubscription = this.postLikeService.getTotalLikes(post.id).subscribe(likes => {
+            this.posts[i].likes = likes;
+            this.posts[i].likesCount = likes.length;
+            likeSubscription.unsubscribe();
           });
+          const commentSubscription = this.postCommentService
+            .getTotalComments(post.id)
+            .subscribe(comments => {
+              this.posts[i].comments = comments;
+              this.posts[i].commentsCount = comments.length;
+              commentSubscription.unsubscribe();
+            });
         });
-        const commentSubscription = this.postCommentService
-          .getTotalComments(post.id)
-          .subscribe(comments => {
-            this.posts[i].totalComments = comments.length;
-            commentSubscription.unsubscribe();
-          });
       });
-    }
-    this.fetched = true;
+    });
   }
 
   async showModal(users: any) {
@@ -132,9 +124,6 @@ export class PostsComponent implements OnInit {
           text: 'Cancel',
           icon: !this.platform.is('ios') ? 'close' : null,
           role: 'destructive',
-          handler: () => {
-            console.log('the user has cancelled the interaction.');
-          },
         },
       ],
     });
@@ -168,14 +157,19 @@ export class PostsComponent implements OnInit {
   }
 
   async deletePost(post: Post) {
-    await this.loadingService.show('Deleting post...');
-    this.postService.deletePost(post.id);
-    this.postLikeService.removePostLikes(post.id);
-    this.postCommentService.removePostComments(post.id);
-    if (this.posts.length < 3) {
-      this.navCtrl.pop();
+    try {
+      await this.loadingService.show('Deleting post...');
+      this.postService.deletePost(post.id);
+      this.postLikeService.removePostLikes(post.id);
+      this.postCommentService.removePostComments(post.id);
+      if (this.posts.length < 3) {
+        this.navCtrl.pop();
+      }
+      await this.loadingService.hide();
+    } catch (error) {
+      await this.loadingService.hide();
+      console.log(error);
     }
-    await this.loadingService.hide();
   }
 
   async openCommentsModal(post: any) {
@@ -183,7 +177,7 @@ export class PostsComponent implements OnInit {
       component: CommentsComponent,
       componentProps: {
         post: post,
-        userProfile: this.userProfile,
+        currentUserProfile: this.currentUserProfile,
       },
     });
     await modal.present();

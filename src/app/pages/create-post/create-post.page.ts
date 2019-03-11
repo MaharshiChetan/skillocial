@@ -42,7 +42,6 @@ export class CreatePostPage implements OnInit, OnDestroy {
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
     this.postId = this.route.snapshot.paramMap.get('id');
-    console.log(this.postId);
     if (this.postId) this.getPost();
   }
 

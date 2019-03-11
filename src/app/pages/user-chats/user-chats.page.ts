@@ -78,6 +78,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
       this.chatSubscription.unsubscribe();
     }
   }
+
   getUserProfile() {
     const subscription = this.userService
       .getUserByUID(`${this.uid}`)
@@ -114,18 +115,25 @@ export class UserChatsPage implements OnInit, OnDestroy {
     });
   }
 
-  async sendImageMessage() {
+  async sendImageMessage(event?: any) {
+    event.preventDefault();
+    await this.cameraService.changePicture();
     if (this.cameraService.chosenPicture) {
-      await this.loadingService.show();
-      let imageId = this.db.createPushId();
-      const imageStore = this.afStorage.storage
-        .ref('/chatImages')
-        .child(`${this.currentUserProfile.uid}/${this.otherUserProfile.uid}/${imageId}`);
-      await imageStore.putString(this.cameraService.chosenPicture, 'data_url');
-      const imageUrl = await imageStore.getDownloadURL();
-      const image = { imageUrl: imageUrl, imageId: imageId };
-      this.chatService.sendImageMessage(this.currentUserProfile, this.otherUserProfile, image);
-      this.loadingService.hide();
+      try {
+        await this.loadingService.show();
+        let imageId = this.db.createPushId();
+        const imageStore = this.afStorage.storage
+          .ref('/chatImages')
+          .child(`${this.currentUserProfile.uid}/${this.otherUserProfile.uid}/${imageId}`);
+        await imageStore.putString(this.cameraService.chosenPicture, 'data_url');
+        const imageUrl = await imageStore.getDownloadURL();
+        const image = { imageUrl: imageUrl, imageId: imageId };
+        this.chatService.sendImageMessage(this.currentUserProfile, this.otherUserProfile, image);
+        await this.loadingService.hide();
+      } catch (error) {
+        await this.loadingService.hide();
+        alert(error);
+      }
     }
   }
 

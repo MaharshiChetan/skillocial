@@ -75,9 +75,6 @@ export class ChatListPage implements OnInit {
           text: 'Cancel',
           icon: !this.platform.is('ios') ? 'close' : null,
           role: 'destructive',
-          handler: () => {
-            console.log('the user has cancelled the interaction.');
-          },
         },
       ],
     });

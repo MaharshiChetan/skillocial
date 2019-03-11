@@ -44,7 +44,6 @@ export class CreateTitlePage implements OnInit, OnDestroy {
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
     this.titleId = this.route.snapshot.paramMap.get('id');
-    console.log(this.titleId);
     this.buildForm();
     if (this.titleId) this.getTitleDetails();
   }
@@ -97,7 +96,7 @@ export class CreateTitlePage implements OnInit, OnDestroy {
       message: 'Please enter the category in which you have won!',
       inputs: [{ name: 'category', placeholder: 'Category(other)' }],
       buttons: [
-        { text: 'Cancel', role: 'cancel' },
+        { text: 'Cancel', role: 'destructive' },
         {
           text: 'Perfect',
           handler: data => {

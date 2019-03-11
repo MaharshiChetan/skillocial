@@ -23,8 +23,6 @@ export class UserPostsPage implements OnInit {
     const subscription = this.postService.getPosts(this.uid).subscribe((posts: any) => {
       subscription.unsubscribe();
       this.posts = posts;
-      console.log(this.posts);
-
       if (event) event.target.complete();
     });
   }

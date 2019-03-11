@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
-import { ViewController } from '@ionic/core';
 import { FollowService } from 'src/app/services/follow/follow.service';
 
 @Component({
@@ -22,8 +21,6 @@ export class PopoverComponent implements OnInit {
   }
 
   fillPopoverOptions(currentUser: boolean): any {
-    console.log(this.followService.isFollowing);
-
     if (currentUser) {
       this.options = [
         { name: 'Invite Friends', route: 'invite-friends' },

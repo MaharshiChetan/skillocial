@@ -33,7 +33,6 @@ export class UsersListComponent implements OnInit {
         .getUserByUID(`${this.usersUID[i].uid}`)
         .subscribe(data => {
           subscription.unsubscribe();
-          console.log(data);
           this.users.push(data);
         });
     }

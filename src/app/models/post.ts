@@ -11,6 +11,7 @@ export class Post {
   myPost?: boolean;
   isLiking?: boolean;
   likes?: any;
-  totalLikes?: number;
-  totalComments?: number;
+  likesCount?: number;
+  comments?: any;
+  commentsCount?: number;
 }

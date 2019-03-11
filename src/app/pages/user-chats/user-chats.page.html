@@ -25,7 +25,7 @@
     <ion-row align-items-center>
       <ion-col size="1">
         <ion-buttons>
-          <ion-button class="toolbar-button" (touchstart)="cameraService.changePicture($event)">
+          <ion-button class="toolbar-button" (touchstart)="sendImageMessage($event)">
             <ion-icon name="images"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -50,7 +50,6 @@
             class="toolbar-button"
             fill="clear"
             [disabled]="!message"
-            slot="icon-only"
             color="primary"
             (touchstart)="sendMessage($event)"
           >

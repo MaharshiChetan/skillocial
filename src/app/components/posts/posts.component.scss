@@ -1,20 +1,19 @@
-.likes {
-  right: 2px;
-  position: absolute;
-}
-
-.read-more {
-  color: gray;
-}
-
 .hidden {
   display: none;
 }
 
-ion-card-content {
-  padding: 10px 5px 20px 10px;
-}
-
 .icon {
   font-size: 17px;
+}
+
+.sc-ion-card-ios-h {
+  box-shadow: none;
+}
+
+.like-counts {
+  margin-top: -8px;
+}
+
+.textual-content {
+  padding: 10px 8px 0px 10px;
 }

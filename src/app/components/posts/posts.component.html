@@ -1,5 +1,5 @@
 <ion-row *ngFor="let post of posts">
-  <ion-col>
+  <ion-col no-padding>
     <ion-card *ngIf="post.userDetails" no-margin>
       <ion-item lines="none">
         <ion-avatar
@@ -17,13 +17,13 @@
           />
         </ion-avatar>
         <ion-label>
-          <h3
+          <h2
             class="full_name text-black no-outline text1"
             [routerLink]="['/profile/' + post.userDetails.uid]"
             routerDirection="forward"
           >
             {{ post.userDetails.username }}
-          </h3>
+          </h2>
           <p class="text-gray">
             {{ post.createdAt | date: 'mediumDate' }} at {{ post.createdAt | date: 'shortTime' }}
           </p>
@@ -35,99 +35,72 @@
         </ion-buttons>
       </ion-item>
 
-      <ion-row>
-        <ion-col no-padding>
-          <img
-            alt=""
-            *ngIf="!eventId"
-            class="contain-image click"
-            [defaultImage]="post.thumbnail || post.imageUrl"
-            [lazyLoad]="post.imageUrl"
-            [errorImage]="post.imageUrl"
-            [useSrcset]="true"
-            offset="100"
-          />
-          <img alt="" *ngIf="post.imageUrl" [src]="post.imageUrl" style="display: none" #image />
-        </ion-col>
-      </ion-row>
-
-      <ion-card-content class="text-black">
-        <div
-          *ngIf="!showMore"
-          [ngClass]="{
-            'textual-content': !post.imageUrl,
-            'textual-content-image': post.imageUrl
-          }"
-        >
-          {{ post.textualContent.substring(0, 120) }}
-          <div
-            tappable
-            (click)="changeContentLength()"
-            [ngClass]="{
-              'read-more click': post.textualContent.length > 120,
-              hidden: 120 >= post.textualContent.length
-            }"
-          >
-            Read more...
-          </div>
-        </div>
-        <div
-          *ngIf="showMore"
-          [ngClass]="{
-            'textual-content': !post.imageUrl,
-            'textual-content-image': post.imageUrl
-          }"
-        >
-          {{ post.textualContent }}
-          <div
-            tappable
-            (click)="changeContentLength()"
-            [ngClass]="{
-              'read-more click': post.textualContent.length > 120,
-              hidden: 120 >= post.textualContent.length
-            }"
-          >
-            Read less...
-          </div>
-        </div>
-        <ion-button
-          fill="clear"
-          class="likes"
-          text-end
-          *ngIf="post.totalLikes > 0"
-          (click)="showModal(post.likes)"
-        >
-          <ion-icon slot="start" class="fas fa-heart icon" name="heart" color="danger"></ion-icon>
-          {{ post.totalLikes }}
-        </ion-button>
+      <img
+        alt=""
+        class="contain-image click"
+        [defaultImage]="post.thumbnail || post.imageUrl"
+        [lazyLoad]="post.imageUrl"
+        [errorImage]="post.imageUrl"
+        [useSrcset]="true"
+        offset="100"
+      />
+      <ion-card-content class="text-black" no-padding>
+        <ion-row>
+          <ion-col class="textual-content text09">
+            <div *ngIf="post.textualContent">
+              {{ showMore ? post.textualContent : post.textualContent.substring(0, 120) }}
+              <div (click)="changeContentLength()" class="text-gray">
+                {{ showMore ? 'Read less...' : 'Read more...' }}
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-right no-padding class="like-counts">
+            <ion-button
+              fill="clear"
+              *ngIf="post.likesCount > 0"
+              (click)="showModal(post.likes)"
+              no-margin
+            >
+              <ion-icon
+                slot="start"
+                class="fas fa-heart icon"
+                name="heart"
+                color="danger"
+              ></ion-icon>
+              {{ post.likesCount }}
+            </ion-button>
+          </ion-col>
+        </ion-row>
       </ion-card-content>
-      <ion-row text-center>
-        <ion-col>
-          <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking">
+      <ion-row text-center align-items-center>
+        <ion-col no-padding>
+          <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking" no-margin>
             <ion-icon
               class="animated bounceIn far fa-heart icon"
               name="heart-empty"
               slot="start"
             ></ion-icon>
-            {{ post.totalLikes }} Likes
+            {{ post.likesCount }} Likes
           </ion-button>
-          <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking">
+          <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking" no-margin>
             <ion-icon
               class="animated bounceIn fas fa-heart icon"
               slot="start"
               name="heart"
               color="danger"
             ></ion-icon>
-            {{ post.totalLikes }} Likes
+            {{ post.likesCount }} Likes
           </ion-button>
         </ion-col>
-        <ion-col>
-          <ion-button fill="clear" (click)="openCommentsModal(post)">
-            {{ post.totalComments }} Comments
+        <ion-col no-padding>
+          <ion-button fill="clear" (click)="openCommentsModal(post)" no-margin>
+            {{ post.commentsCount }} Comments
             <ion-icon slot="start" name="text" class="far fa-comment icon"></ion-icon>
           </ion-button>
         </ion-col>
-        <ion-col align-self-center text-center>
+        <ion-col text-center no-padding>
           <p class="text-gray" no-margin>{{ post.createdAt | amTimeAgo }}</p>
         </ion-col>
       </ion-row>

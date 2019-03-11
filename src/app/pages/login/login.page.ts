@@ -103,11 +103,8 @@ export class LoginPage implements OnInit {
       buttons: [
         {
           text: 'Cancel',
-          role: 'cancel',
+          role: 'destructive',
           cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          },
         },
         {
           text: 'Confirm',

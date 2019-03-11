@@ -147,7 +147,7 @@ export class RegisterPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Verification Sent!',
       message: 'Please verify your email before logging in.',
-      buttons: [{ text: 'OK', role: 'cancel', handler: async (data: any) => {} }],
+      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => {} }],
     });
     await alert.present();
   }

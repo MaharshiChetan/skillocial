@@ -47,7 +47,6 @@ export class CreateEventPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
-    console.log(this.eventId);
     this.buildForm();
     if (this.eventId) this.getEventDetails();
   }
@@ -106,10 +105,10 @@ export class CreateEventPage implements OnInit, OnDestroy {
 
   async updateEvent() {
     if (!(this.cameraService.chosenPicture || this.eventId)) {
-      this.toastService.showToast('Please upload event image, Its mandatory!', 'top');
+      await this.toastService.showToast('Please upload event image, Its mandatory!', 'top');
       return;
     }
-    this.loadingService.show('Updating event...');
+    await this.loadingService.show('Updating event...');
     const uid = this.authService.currentUserId;
     let imageId = this.eventId ? this.eventId : this.afStore.createId();
     let event = this.eventForm.value;
@@ -134,12 +133,12 @@ export class CreateEventPage implements OnInit, OnDestroy {
       } else {
         await this.eventService.createEvent(event);
       }
-      this.loadingService.hide();
+      await this.loadingService.hide();
       this.toastService.showToast('Successfully updated event!', 'top');
       this.confirmationGuard.showAlertMessage = false;
       this.navCtrl.navigateBack(['/tabs/upcoming-events']);
     } catch (error) {
-      this.loadingService.hide();
+      await this.loadingService.hide();
       this.toastService.showToast('Failed to update event!', 'top');
       alert(error);
     }

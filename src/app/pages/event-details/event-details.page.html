@@ -16,11 +16,14 @@
   <ion-refresher *ngIf="event" (ionRefresh)="getEvent($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <div *ngIf="!event" text-center padding-top>
+    <ion-spinner></ion-spinner>
+  </div>
   <ion-grid *ngIf="event" no-padding>
     <ion-row>
       <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" no-padding> -->
       <ion-col no-padding>
-        <ion-card no-margin tappable class="no-outline event-card">
+        <ion-card no-margin class="no-outline event-card">
           <img
             alt=""
             defaultImage="/assets/placeholder.jpg"
@@ -59,7 +62,7 @@
         <ion-card no-margin>
           <ion-row text-center class="white-background">
             <ion-col>
-              <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')" tappable>
+              <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')">
                 <i class="far fa-star text15" style="color: #989aa2; margin: 8px 0px;"></i>
                 <div style="margin-bottom: 4px">INTERESTED</div>
               </div>
@@ -69,7 +72,7 @@
               </div>
             </ion-col>
             <ion-col>
-              <div *ngIf="!isGoing" (click)="addInterestedOrGoing('going')" tappable>
+              <div *ngIf="!isGoing" (click)="addInterestedOrGoing('going')">
                 <i class="far fa-check-circle text15" style="color: #989aa2; margin: 8px 0px"></i>
                 <div style="margin-bottom: 4px">GOING</div>
               </div>
@@ -101,7 +104,6 @@
           <hr />
           <ion-row text-center class="fw700">
             <ion-col
-              tappable
               padding
               class="click text-black no-outline text1"
               *ngIf="interestedUsersCount || interestedUsersCount == 0"
@@ -114,7 +116,6 @@
             </ion-col>
             <ion-col
               padding
-              tappable
               class="click text-black no-outline text1"
               *ngIf="goingUsersCount || goingUsersCount == 0"
               (click)="showGoingUsers()"

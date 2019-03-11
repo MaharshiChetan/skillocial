@@ -20,6 +20,52 @@ export class CameraService {
     private actionsheetCtrl: ActionSheetController
   ) {}
 
+  getPictureFromCamera(crop: boolean) {
+    return this.getImage(this.camera.PictureSourceType.CAMERA, crop);
+  }
+
+  getPictureFromPhotoLibrary(crop: boolean) {
+    return this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY, crop);
+  }
+
+  async getImage(pictureSourceType: any, crop = true) {
+    const options = {
+      quality: 75,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: pictureSourceType,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: true,
+      correctOrientation: true,
+    };
+
+    // If set to crop, restricts the image to a square of 600 by 600
+    if (crop) {
+      options['targetWidth'] = 700;
+      options['targetHeight'] = 700;
+    }
+    return this.camera
+      .getPicture(options)
+      .then(
+        fileUri => {
+          return this.crop.crop('file://' + fileUri, {
+            quality: 75,
+            targetWidth: -1,
+            targetHeight: -1,
+          });
+        },
+        error => {
+          console.log('CAMERA ERROR -> ' + JSON.stringify(error));
+        }
+      )
+      .then((path: any) => {
+        return this.base64.encodeFile(path);
+      })
+      .then(image => {
+        return image;
+      });
+  }
+
   async changePicture(event?: any) {
     if (event) event.preventDefault();
     const actionsheetCtrl = await this.actionsheetCtrl.create({
@@ -43,9 +89,6 @@ export class CameraService {
           text: 'Cancel',
           icon: !this.platform.is('ios') ? 'close' : null,
           role: 'destructive',
-          handler: () => {
-            console.log('the user has cancelled the interaction.');
-          },
         },
       ],
     });
@@ -94,52 +137,6 @@ export class CameraService {
       await this.loadingService.hide();
       alert(error);
     }
-  }
-
-  getPictureFromCamera(crop: boolean) {
-    return this.getImage(this.camera.PictureSourceType.CAMERA, crop);
-  }
-
-  getPictureFromPhotoLibrary(crop: boolean) {
-    return this.getImage(this.camera.PictureSourceType.PHOTOLIBRARY, crop);
-  }
-
-  async getImage(pictureSourceType: any, crop = true) {
-    const options = {
-      quality: 75,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      sourceType: pictureSourceType,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      saveToPhotoAlbum: true,
-      correctOrientation: true,
-    };
-
-    // If set to crop, restricts the image to a square of 600 by 600
-    if (crop) {
-      options['targetWidth'] = 700;
-      options['targetHeight'] = 700;
-    }
-    return this.camera
-      .getPicture(options)
-      .then(
-        fileUri => {
-          return this.crop.crop('file://' + fileUri, {
-            quality: 75,
-            targetWidth: -1,
-            targetHeight: -1,
-          });
-        },
-        error => {
-          console.log('CAMERA ERROR -> ' + JSON.stringify(error));
-        }
-      )
-      .then((path: any) => {
-        return this.base64.encodeFile(path);
-      })
-      .then(image => {
-        return image;
-      });
   }
 
   generateFromImage(img: any, quality: any, callback: any) {

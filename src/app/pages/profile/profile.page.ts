@@ -81,7 +81,6 @@ export class ProfilePage implements OnInit {
     await popover.present();
 
     const value = await popover.onWillDismiss();
-    console.log(value);
     if (value.role !== 'backdrop') {
       if (value.data.name === 'Edit Profile') {
         this.editProfile();
@@ -150,7 +149,7 @@ export class ProfilePage implements OnInit {
       header: 'Unfollow?',
       message: `Are you sure for not following ${this.userProfile.username} any more!`,
       buttons: [
-        { text: 'Cancel', role: 'cancel' },
+        { text: 'Cancel', role: 'destructive' },
         {
           text: 'Unfollow',
           handler: async () => {
