@@ -19,7 +19,6 @@
       *ngFor="let user of users"
       (click)="dismissModal()"
       [routerLink]="['/profile/' + user.uid]"
-      routerDirection="forward"
     >
       <ion-avatar slot="start">
         <img

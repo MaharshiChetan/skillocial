@@ -35,6 +35,26 @@ export class PostService {
       );
   }
 
+  getTopNinePosts(uid: string) {
+    return this.afStore
+      .collection<Post[]>('posts', ref =>
+        ref
+          .where('uid', '==', uid)
+          .orderBy('createdAt', 'desc')
+          .limit(9)
+      )
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
   getPostById(id: string) {
     return this.afStore
       .collection<Post[]>('posts')

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="['/chat-settings']" routerDirection="forward">
+      <ion-button [routerLink]="['/chat-settings']">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -25,7 +25,7 @@
     <ion-row align-items-center>
       <ion-col size="1">
         <ion-buttons>
-          <ion-button class="toolbar-button" (touchstart)="sendImageMessage($event)">
+          <ion-button class="toolbar-button" (touchstart)="changePicture($event)">
             <ion-icon name="images"></ion-icon>
           </ion-button>
         </ion-buttons>

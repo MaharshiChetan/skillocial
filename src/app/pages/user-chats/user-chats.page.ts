@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Renderer, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonContent, Platform, ActionSheetController, NavController } from '@ionic/angular';
+import { IonContent, Platform, ActionSheetController } from '@ionic/angular';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
@@ -46,7 +46,8 @@ export class UserChatsPage implements OnInit, OnDestroy {
     private afStorage: AngularFireStorage,
     private platform: Platform,
     private renderer: Renderer,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private actionsheetCtrl: ActionSheetController
   ) {}
 
   async ngOnInit() {
@@ -115,9 +116,83 @@ export class UserChatsPage implements OnInit, OnDestroy {
     });
   }
 
-  async sendImageMessage(event?: any) {
-    event.preventDefault();
-    await this.cameraService.changePicture();
+  async changePicture(event?: any) {
+    if (event) event.preventDefault();
+    const actionsheetCtrl = await this.actionsheetCtrl.create({
+      header: 'Upload picture',
+      buttons: [
+        {
+          text: 'Camera',
+          icon: !this.platform.is('ios') ? 'camera' : null,
+          handler: () => {
+            this.takePicture();
+          },
+        },
+        {
+          text: !this.platform.is('ios') ? 'Gallery' : 'Camera roll',
+          icon: !this.platform.is('ios') ? 'image' : null,
+          handler: () => {
+            this.getPicture();
+          },
+        },
+        {
+          text: 'Cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          role: 'destructive',
+        },
+      ],
+    });
+    return await actionsheetCtrl.present();
+  }
+
+  async takePicture() {
+    await this.loadingService.show();
+    try {
+      const picture = await this.cameraService.getPictureFromCamera(true);
+      if (picture) {
+        const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
+        this.cameraService.generateFromImage(picture, quality, (data: any) => {
+          this.cameraService.chosenPicture =
+            parseFloat(this.cameraService.getImageSize(picture)) >
+            parseFloat(this.cameraService.getImageSize(data))
+              ? data
+              : picture;
+        });
+      } else {
+        await this.loadingService.hide();
+      }
+      await this.loadingService.hide();
+    } catch (error) {
+      await this.loadingService.hide();
+      alert(error);
+    }
+  }
+
+  async getPicture() {
+    await this.loadingService.show();
+    try {
+      const picture = await this.cameraService.getPictureFromPhotoLibrary(true);
+      if (picture) {
+        const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
+        this.cameraService.generateFromImage(picture, quality, (data: any) => {
+          this.cameraService.chosenPicture =
+            parseFloat(this.cameraService.getImageSize(picture)) >
+            parseFloat(this.cameraService.getImageSize(data))
+              ? data
+              : picture;
+          this.sendImageMessage();
+        });
+      } else {
+        await this.loadingService.hide();
+      }
+      await this.loadingService.hide();
+    } catch (error) {
+      await this.loadingService.hide();
+      alert(error);
+    }
+  }
+
+  async sendImageMessage() {
     if (this.cameraService.chosenPicture) {
       try {
         await this.loadingService.show();

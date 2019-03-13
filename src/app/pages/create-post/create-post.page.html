@@ -34,7 +34,7 @@
                   *ngIf="cameraService.chosenPicture || userPost?.imageUrl"
                   [src]="cameraService.chosenPicture || userPost?.imageUrl"
                   class="cover-image"
-                  (press)="cameraService.changePicture()"
+                  (click)="cameraService.changePicture()"
                 />
               </ion-thumbnail>
               <ion-textarea

@@ -153,7 +153,7 @@ export class PostsComponent implements OnInit {
   }
 
   editPost(post: Post) {
-    this.navCtrl.navigateForward(['CreatePostPage/' + post.id]);
+    this.navCtrl.navigateForward(['create-post/' + post.id]);
   }
 
   async deletePost(post: Post) {

@@ -17,12 +17,7 @@
       <p class="start-conversation-text">
         Start tour first conversation
       </p>
-      <ion-button
-        color="secondary"
-        expand="block"
-        [routerLink]="['/search-user']"
-        routerDirection="forward"
-      >
+      <ion-button color="secondary" expand="block" [routerLink]="['/search-user']">
         Get Started
       </ion-button>
     </ion-col>
@@ -42,7 +37,6 @@
       class="click no-outline"
       *ngFor="let message of displayMessages"
       [routerLink]="['/user-chats/' + message.id]"
-      routerDirection="forward"
       (press)="showActionSheet(message)"
     >
       <ion-avatar slot="start" *ngIf="message">
@@ -85,12 +79,7 @@
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab *ngIf="messages">
-    <ion-fab-button
-      color="secondary"
-      [routerLink]="['/search-user']"
-      routerDirection="forward"
-      class="no-outline"
-    >
+    <ion-fab-button color="secondary" [routerLink]="['/search-user']" class="no-outline">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

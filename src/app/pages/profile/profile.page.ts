@@ -3,12 +3,11 @@ import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
 import { PopoverController, ModalController, NavController, AlertController } from '@ionic/angular';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
 import { FollowService } from 'src/app/services/follow/follow.service';
 import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
 import { LoadingService } from 'src/app/services/loading/loading.service';
-import { RoutingService } from 'src/app/services/routing/routing.service';
 import { TitleService } from 'src/app/services/title/title.service';
 import { Title } from '@angular/platform-browser';
 import { PostService } from 'src/app/services/post/post.service';
@@ -38,8 +37,6 @@ export class ProfilePage implements OnInit {
     private modalCtrl: ModalController,
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private routingService: RoutingService,
-    private router: Router,
     private followService: FollowService,
     private loadingService: LoadingService,
     private alertCtrl: AlertController,
@@ -147,7 +144,7 @@ export class ProfilePage implements OnInit {
   async unfollow() {
     let alertPopup = await this.alertCtrl.create({
       header: 'Unfollow?',
-      message: `Are you sure for not following ${this.userProfile.username} any more!`,
+      message: `Are you sure for not follwing ${this.userProfile.username} any more!`,
       buttons: [
         { text: 'Cancel', role: 'destructive' },
         {
@@ -231,15 +228,9 @@ export class ProfilePage implements OnInit {
   }
 
   getPosts() {
-    const subscription = this.postService.getPosts(this.uid).subscribe((posts: any) => {
+    const subscription = this.postService.getTopNinePosts(this.uid).subscribe((posts: any) => {
       subscription.unsubscribe();
       this.posts = posts;
     });
-  }
-
-  popBack() {
-    if (this.uid === this.currentUserProfile.uid) {
-      this.router.navigate([this.routingService.tabsLastUrl]);
-    }
   }
 }

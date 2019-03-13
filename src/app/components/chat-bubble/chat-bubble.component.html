@@ -3,14 +3,12 @@
   <div *ngIf="message.sentBy === otherUserProfile.uid">
     <img
       alt=""
-      tappable
-      class="profile-pic left cover-image"
+      class="profile-pic left cover-image no-outline"
       [defaultImage]="grayPlaceholder"
       [lazyLoad]="otherUserProfile.thumbnail || otherUserProfile.profilePhoto"
       [errorImage]="otherUserProfile.profilePhoto"
       onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
       [routerLink]="['/profile/' + otherUserProfile.uid]"
-      routerDirection="forward"
     />
 
     <div *ngIf="message.message" class="chat-bubble left" (press)="presentPopover(message)">

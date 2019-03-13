@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth/auth.service';
 import { ToastService } from './services/toast/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
+import { UserService } from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +22,28 @@ export class AppComponent {
     private network: Network,
     private alertCtrl: AlertController,
     private toastService: ToastService,
-    private headerColor: HeaderColor
+    private headerColor: HeaderColor,
+    private navCtrl: NavController,
+    private userService: UserService
   ) {
     this.initializeApp();
+    this.userService
+      .getCurrentUser()
+      .then(user => {
+        if (!user) {
+          console.log('access denied!');
+          this.navCtrl.navigateRoot(['login']);
+          return false;
+        } else {
+          return true;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.navCtrl.navigateRoot(['login']);
+        return false;
+      });
+
     this.headerColor.tint('#1c1c1c');
     this.checkNetworkConnection();
   }

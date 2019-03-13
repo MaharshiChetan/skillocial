@@ -160,6 +160,6 @@ export class ChatListPage implements OnInit {
   }
 
   popBack() {
-    this.router.navigate([this.routingService.tabsLastUrl]);
+    this.navCtrl.navigateBack([this.routingService.tabsLastUrl]);
   }
 }

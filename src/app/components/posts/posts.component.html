@@ -4,7 +4,6 @@
       <ion-item lines="none">
         <ion-avatar
           [routerLink]="['/profile/' + post.userDetails.uid]"
-          routerDirection="forward"
           class="no-outline"
           slot="start"
         >
@@ -20,7 +19,6 @@
           <h2
             class="full_name text-black no-outline text1"
             [routerLink]="['/profile/' + post.userDetails.uid]"
-            routerDirection="forward"
           >
             {{ post.userDetails.username }}
           </h2>

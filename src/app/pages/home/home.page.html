@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
-      <ion-button [routerLink]="['/profile/' + userProfile?.uid]" routerDirection="forward">
+      <ion-button [routerLink]="['/profile/' + userProfile?.uid]">
         <ion-icon slot="icon-only" name="contact"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="['/chat-list']" routerDirection="forward">
+      <ion-button [routerLink]="['/chat-list']">
         <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -24,11 +24,7 @@
           <ion-grid>
             <ion-row *ngIf="userProfile">
               <ion-col size-sm="1" size-xs="2" text-center>
-                <ion-avatar
-                  [routerLink]="['/profile']"
-                  routerDirection="forward"
-                  class="no-outline"
-                >
+                <ion-avatar [routerLink]="['/profile']" class="no-outline">
                   <img
                     alt=""
                     class="cover-image"
@@ -39,11 +35,7 @@
                 </ion-avatar>
               </ion-col>
               <ion-col>
-                <ion-card-header
-                  [routerLink]="['/profile']"
-                  routerDirection="forward"
-                  class="fullName no-outline"
-                >
+                <ion-card-header [routerLink]="['/profile']" class="fullName no-outline">
                   {{ userProfile?.fullName }}
                 </ion-card-header>
                 <ion-button color="medium" size="small" fill="clear" class="share-thought-btn">
@@ -73,7 +65,7 @@
             </ion-row>
             <ion-row>
               <ion-col text-right no-padding>
-                <ion-button color="success">
+                <ion-button color="secondary">
                   DISCOVER PEERS
                 </ion-button>
               </ion-col>

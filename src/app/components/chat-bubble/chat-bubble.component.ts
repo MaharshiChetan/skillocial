@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NavController, ActionSheetController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -15,7 +15,6 @@ export class ChatBubbleComponent implements OnInit {
   @Input('currentUserProfile') currentUserProfile: any;
 
   constructor(
-    private navCtrl: NavController,
     private clipboard: Clipboard,
     private chatService: ChatService,
     private actionSheetCtrl: ActionSheetController,
@@ -35,10 +34,10 @@ export class ChatBubbleComponent implements OnInit {
           text: 'Copy',
           icon: 'copy',
           handler: () => {
-            if (message.imageUrl) {
-              this.clipboard.copy(message.imageUrl);
-            } else {
+            if (message.message) {
               this.clipboard.copy(message.message);
+            } else {
+              this.clipboard.copy(message.imageUrl);
             }
             this.toastService.showToast('Text copied to clipboard!');
           },

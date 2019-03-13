@@ -46,6 +46,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'create-post/:id',
+    loadChildren: './pages/create-post/create-post.module#CreatePostPageModule',
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'chat-list',
     loadChildren: './pages/chat-list/chat-list.module#ChatListPageModule',
     canActivate: [AuthGuard],

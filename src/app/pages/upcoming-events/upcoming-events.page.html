@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
-      <ion-button [routerLink]="['/profile/' + userProfile?.uid]" routerDirection="forward">
+      <ion-button [routerLink]="['/profile/' + userProfile?.uid]">
         <ion-icon slot="icon-only" name="contact"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="['/chat-list']" routerDirection="forward">
+      <ion-button [routerLink]="['/chat-list']">
         <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -35,13 +35,7 @@
         size-lg="4"
         size-xl="3"
       >
-        <ion-card
-          no-margin
-          tappable
-          class="no-outline"
-          [routerLink]="['/event-details', event.id]"
-          routerDirection="forward"
-        >
+        <ion-card no-margin tappable class="no-outline" [routerLink]="['/event-details', event.id]">
           <img
             alt=""
             defaultImage="assets/placeholder.jpg"
@@ -104,12 +98,7 @@
   </ion-grid>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
-    <ion-fab-button
-      color="secondary"
-      [routerLink]="['/create-event']"
-      routerDirection="forward"
-      class="no-outline"
-    >
+    <ion-fab-button color="secondary" [routerLink]="['/create-event']" class="no-outline">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

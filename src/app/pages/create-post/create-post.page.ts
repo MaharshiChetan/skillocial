@@ -67,7 +67,7 @@ export class CreatePostPage implements OnInit, OnDestroy {
   }
 
   async addPost() {
-    if (!this.cameraService.chosenPicture) {
+    if (!this.cameraService.chosenPicture && !this.postId) {
       await this.toastService.showToast('Please select photo for your post!', 'top');
       return;
     }

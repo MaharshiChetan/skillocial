@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Event } from 'src/app/models/event';
-import { IonContent, ModalController } from '@ionic/angular';
+import { IonContent, ModalController, NavController } from '@ionic/angular';
 import { EventsService } from 'src/app/services/event/event.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
 import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
 import { User } from 'src/app/models/user';
@@ -30,7 +30,7 @@ export class EventDetailsPage implements OnInit {
     private eventService: EventsService,
     private loadingService: LoadingService,
     private route: ActivatedRoute,
-    private router: Router,
+    private navCtrl: NavController,
     private userService: UserService,
     private activeUsersInEventService: ActiveUsersInEventService,
     private modalCtrl: ModalController
@@ -192,6 +192,6 @@ export class EventDetailsPage implements OnInit {
   }
 
   async popBack() {
-    await this.router.navigate(['tabs/upcoming-events']);
+    await this.navCtrl.navigateBack(['tabs/upcoming-events']);
   }
 }
