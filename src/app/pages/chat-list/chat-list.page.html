@@ -24,16 +24,16 @@
   </ion-row>
   <ion-list>
     <ion-searchbar
+      animated
       *ngIf="messages"
       [(ngModel)]="searchTerm"
       [showCancelButton]="shouldShowCancel"
-      (ionChange)="setFilteredItems($event)"
+      (ionChange)="setFilteredItems()"
       (ionCancel)="onCancel($event)"
     >
     </ion-searchbar>
-    <div *ngIf="!displayMessages" text-center padding-top><ion-spinner></ion-spinner></div>
+
     <ion-item
-      tappable
       class="click no-outline"
       *ngFor="let message of displayMessages"
       [routerLink]="['/user-chats/' + message.id]"
@@ -78,14 +78,21 @@
     </ion-infinite-scroll>
   </ion-list>
 
+  <ion-list *ngIf="!displayMessages" slot="fixed">
+    <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text style="width: 170px; height:14px;" animated></ion-skeleton-text>
+        <ion-skeleton-text style="width: 90%; height:12px;" animated></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab *ngIf="messages">
     <ion-fab-button color="secondary" [routerLink]="['/search-user']" class="no-outline">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <!-- <ion-button (click)="onLogout()">Logout</ion-button>
-
-  <br />
-  <ion-button (click)="pay()">Pay</ion-button> -->
 </ion-content>

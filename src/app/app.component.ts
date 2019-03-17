@@ -31,7 +31,7 @@ export class AppComponent {
       .getCurrentUser()
       .then(user => {
         if (!user) {
-          console.log('access denied!');
+          alert('access denied!');
           this.navCtrl.navigateRoot(['login']);
           return false;
         } else {
@@ -39,7 +39,7 @@ export class AppComponent {
         }
       })
       .catch(error => {
-        console.log(error);
+        alert(error);
         this.navCtrl.navigateRoot(['login']);
         return false;
       });
@@ -50,17 +50,13 @@ export class AppComponent {
 
   async checkNetworkConnection() {
     //KEEPS CHECKING NETWORK CONNECTIVITY AND ALERTS USER IF DISCONNECTED
-    this.network.onchange().subscribe(async networkChange => {
-      if (networkChange.type === 'online') {
-        this.toastService.showToast('Back Online');
-      } else if (networkChange.type === 'offline') {
-        const alert = await this.alertCtrl.create({
-          header: 'Connection Failed!',
-          subHeader: 'There may be a problem in your internet connection. Please try again !',
-          buttons: ['OK'],
-        });
-        await alert.present();
-      }
+    this.network.onDisconnect().subscribe(async () => {
+      const alert = await this.alertCtrl.create({
+        header: 'Connection Failed!',
+        subHeader: 'There may be a problem in your internet connection. Please try again !',
+        buttons: ['OK'],
+      });
+      await alert.present();
     });
   }
 

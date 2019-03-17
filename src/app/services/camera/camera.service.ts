@@ -17,7 +17,7 @@ export class CameraService {
     private crop: Crop,
     private base64: Base64,
     private loadingService: LoadingService,
-    private actionsheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   getPictureFromCamera(crop: boolean) {
@@ -68,7 +68,7 @@ export class CameraService {
 
   async changePicture(event?: any) {
     if (event) event.preventDefault();
-    const actionsheetCtrl = await this.actionsheetCtrl.create({
+    const actionSheetCtrl = await this.actionSheetCtrl.create({
       header: 'Upload picture',
       buttons: [
         {
@@ -91,8 +91,9 @@ export class CameraService {
           role: 'destructive',
         },
       ],
+      animated: true,
     });
-    return await actionsheetCtrl.present();
+    return await actionSheetCtrl.present();
   }
 
   async takePicture() {

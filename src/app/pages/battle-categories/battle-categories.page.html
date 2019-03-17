@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Battle Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="container">
+      <ion-col
+        *ngFor="let category of eventService.event.participationCategories"
+        size="6"
+        [routerLink]="['/battle-zone']"
+      >
+        <div class="img-background">
+          <!-- <img src="https://i.ytimg.com/vi/_3DJXAD-8d4/maxresdefault.jpg" class="category-image" /> -->
+          <div class="centered">{{ category.name }}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

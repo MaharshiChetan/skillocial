@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="black">
+  <ion-toolbar color="primary">
     <ion-buttons slot="secondary">
       <ion-button (click)="dismissModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -10,10 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="users.length === 0 || !users" text-center padding-top>
-    <ion-spinner></ion-spinner>
-  </div>
-  <ion-list>
+  <ion-list no-margin>
     <ion-item
       class="click"
       *ngFor="let user of users"
@@ -35,9 +32,21 @@
       </ion-label>
     </ion-item>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll *ngIf="users.length > 0" (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content loadingText="Loading more users...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
+  </ion-list>
+
+  <ion-list *ngIf="users.length === 0 || !users" slot="fixed">
+    <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <ion-skeleton-text style="width: 170px; height:14px;" animated></ion-skeleton-text>
+        <ion-skeleton-text style="width: 120px; height:12px;" animated></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>

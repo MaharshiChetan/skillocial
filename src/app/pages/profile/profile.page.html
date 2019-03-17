@@ -184,13 +184,13 @@
   <ion-grid *ngIf="!userProfile" slot="fixed">
     <ion-row>
       <ion-col size="3.5" size-sm="3" size-lg="2" size-xl="2">
-        <img alt="" src="assets/gray-placeholder.png" class="square-image skeleton-color" />
+        <ion-skeleton-text class="square-image" animated></ion-skeleton-text>
       </ion-col>
       <ion-col>
         <ion-row justify-content-between>
           <ion-col>
-            <ion-skeleton-text class="skeleton20" width="135px"></ion-skeleton-text>
-            <ion-skeleton-text class="skeleton14" width="170px"></ion-skeleton-text>
+            <ion-skeleton-text class="skeleton20" width="135px" animated></ion-skeleton-text>
+            <ion-skeleton-text class="skeleton14" width="170px" animated></ion-skeleton-text>
           </ion-col>
           <ion-col size="2" no-padding>
             <ion-buttons>
@@ -222,15 +222,15 @@
     </ion-row>
     <ion-row text-center margin-vertical padding-bottom class="user-stats-section">
       <ion-col>
-        <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton12" animated></ion-skeleton-text>
         <span class="stat-name text-gray" padding-bottom>Likes</span>
       </ion-col>
       <ion-col>
-        <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton12" animated></ion-skeleton-text>
         <span class="stat-name text-gray">Followers</span>
       </ion-col>
       <ion-col>
-        <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton12" animated></ion-skeleton-text>
         <span class="stat-name text-gray">Following</span>
       </ion-col>
     </ion-row>
@@ -240,10 +240,10 @@
           About
         </ion-card-header>
         <ion-card-content class="text-black about-content">
-          <ion-skeleton-text class="skeleton12" width="160px"></ion-skeleton-text>
-          <ion-skeleton-text class="skeleton12" width="200px"></ion-skeleton-text>
-          <ion-skeleton-text class="skeleton12" width="240px"></ion-skeleton-text>
-          <ion-skeleton-text class="skeleton12" width="280px"></ion-skeleton-text>
+          <ion-skeleton-text class="skeleton12" width="160px" animated></ion-skeleton-text>
+          <ion-skeleton-text class="skeleton12" width="200px" animated></ion-skeleton-text>
+          <ion-skeleton-text class="skeleton12" width="240px" animated></ion-skeleton-text>
+          <ion-skeleton-text class="skeleton12" width="280px" animated></ion-skeleton-text>
         </ion-card-content>
       </ion-col>
     </ion-row>
@@ -256,7 +256,7 @@
         <ion-grid>
           <ion-row>
             <ion-col *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]" size="4">
-              <img alt="" src="assets/gray-placeholder.png" class="square-image skeleton-color" />
+              <ion-skeleton-text class="square-image" animated></ion-skeleton-text>
             </ion-col>
           </ion-row>
         </ion-grid>

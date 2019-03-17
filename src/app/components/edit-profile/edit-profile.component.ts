@@ -144,7 +144,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         const imageUrl = await imageStore.getDownloadURL();
         userProfile.profilePhoto = imageUrl;
       }
+      userProfile.uid = this.userProfile.uid;
       await this.userService.updateUser(userProfile, this.userProfile.uid);
+      await this.userService.storeUserData(userProfile);
       await this.loadingService.hide();
       this.updatedProfile = true;
       this.toastService.showToast('Successfully updated your profile!', 'top');

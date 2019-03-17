@@ -1,0 +1,46 @@
+img {
+  border-radius: 50%;
+  height: 95px;
+  width: 95px;
+  object-fit: cover;
+}
+
+ion-grid ion-row.match-status {
+  color: #fff;
+  margin: 35px 20% 15%;
+  background: #6ec30c;
+  text-transform: uppercase;
+}
+
+.content {
+  background: #f7f7f7;
+}
+
+.vs {
+  font-weight: bold;
+  font-size: x-large;
+  color: #49575c;
+  text-align: center;
+  margin-top: 36px;
+}
+
+.player {
+  text-align: center;
+  color: #778899;
+  font-family: sans-serif;
+  margin-top: 2px;
+  font-size: 13px;
+}
+
+h3 {
+  margin: 10px 0px 2px;
+  color: #49575c;
+}
+
+.button-ios {
+  height: 2.4em;
+}
+
+.grid {
+  padding: 0px;
+}

@@ -1,22 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ThumbnailPostsPage } from './thumbnail-posts.page';
+import { ThumbnailPostsComponent } from './thumbnail-posts.component';
 
-describe('ThumbnailPostsPage', () => {
-  let component: ThumbnailPostsPage;
-  let fixture: ComponentFixture<ThumbnailPostsPage>;
+describe('ThumbnailPostsComponent', () => {
+  let component: ThumbnailPostsComponent;
+  let fixture: ComponentFixture<ThumbnailPostsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThumbnailPostsPage ],
+      declarations: [ThumbnailPostsComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ThumbnailPostsPage);
+    fixture = TestBed.createComponent(ThumbnailPostsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

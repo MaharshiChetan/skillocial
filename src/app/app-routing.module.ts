@@ -152,6 +152,18 @@ const routes: Routes = [
     path: 'single-post/:id',
     loadChildren: './pages/single-post/single-post.module#SinglePostPageModule',
   },
+  {
+    path: 'battle-categories',
+    loadChildren: './pages/battle-categories/battle-categories.module#BattleCategoriesPageModule',
+  },
+  {
+    path: 'battles-list',
+    loadChildren: './pages/battles-list/battles-list.module#BattlesListPageModule',
+  },
+  {
+    path: 'battle-zone',
+    loadChildren: './pages/battle-zone/battle-zone.module#BattleZonePageModule',
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

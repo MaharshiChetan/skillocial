@@ -18,18 +18,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher *ngIf="posts" (ionRefresh)="getPosts($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div [ngSwitch]="type">
     <div *ngSwitchCase="'thumbnail'">
-      <ion-refresher *ngIf="posts" (ionRefresh)="getPosts($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
       <app-thumbnail-posts [posts]="posts"></app-thumbnail-posts>
     </div>
 
     <div *ngSwitchCase="'post'">
-      <ion-refresher *ngIf="posts" (ionRefresh)="getPosts($event)">
-        <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
       <app-posts [posts]="posts"></app-posts>
     </div>
   </div>

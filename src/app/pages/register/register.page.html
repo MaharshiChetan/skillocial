@@ -66,7 +66,6 @@
         color="secondary"
         (click)="signUp()"
         [disabled]="!registerForm.valid"
-        tappable
       >
         <ion-icon name="log-in"></ion-icon>
         Sign Up
@@ -83,7 +82,7 @@
 
     <!-- Other links -->
     <div text-center margin-top>
-      <span [routerLink]="['/login']" routerDirection="back" tappable class="no-outline">
+      <span [routerLink]="['/login']" routerDirection="back" class="no-outline">
         <ion-text color="light"> Already have an account? <strong>Login</strong> </ion-text>
       </span>
     </div>

@@ -81,7 +81,7 @@ export class ChatListPage implements OnInit {
     return await actionSheet.present();
   }
 
-  setFilteredItems(event) {
+  setFilteredItems() {
     this.displayMessages = this.filterService.filterMessages(this.searchMessages, this.searchTerm);
   }
 
@@ -120,43 +120,6 @@ export class ChatListPage implements OnInit {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  pay() {
-    var options = {
-      description: 'Credits towards consultation',
-      image: 'https://i.imgur.com/3g7nmJC.png',
-      currency: 'INR',
-      key: 'rzp_test_1DP5mmOlF5G5ag',
-      amount: '100',
-      external: {
-        wallets: ['paytm'],
-      },
-      name: 'foo',
-      prefill: {
-        email: 'ankushchaudhry794@gmail.com',
-        contact: '9820800660',
-        name: 'Ankush Chaudhry',
-      },
-      theme: {
-        color: '#F37254',
-      },
-      modal: {
-        ondismiss: function() {
-          alert('dismissed');
-        },
-      },
-    };
-
-    var successCallback = function(payment_id) {
-      alert('payment_id: ' + payment_id);
-    };
-
-    var cancelCallback = function(error) {
-      alert(error.description + ' (Error ' + error.code + ')');
-    };
-
-    RazorpayCheckout.open(options, successCallback, cancelCallback);
   }
 
   popBack() {

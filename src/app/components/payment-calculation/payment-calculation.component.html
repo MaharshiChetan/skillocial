@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Review Your Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="event" no-padding>
+    <ion-row>
+      <ion-col no-padding>
+        <ion-card no-margin class="no-outline event-card">
+          <img
+            alt=""
+            defaultImage="/assets/placeholder.jpg"
+            [lazyLoad]="event.imageUrl"
+            [errorImage]="event.imageUrl"
+            class="original cover-image"
+          />
+          <ion-card-content no-padding>
+            <ion-grid no-padding>
+              <ion-row class="date-time">
+                <ion-col class="fw700" text-center align-self-center size="2">
+                  <ion-text color="danger">
+                    {{ event.startDateTime | date: 'MMM d EEE' }}
+                  </ion-text>
+                  <div class="vertical-line"></div>
+                </ion-col>
+                <ion-col>
+                  <h2 class="text12 fw700 text-black">{{ event.name }}</h2>
+                  <p>City: {{ event.city }}</p>
+                  <p>
+                    Time: {{ event.startDateTime | date: 'h:mm a' }} -
+                    {{ event.endDateTime | date: 'h:mm a' }}
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-list padding *ngIf="!viewer">
+      <ion-label lines="none">
+        <h4 *ngFor="let category of selectedCategories">
+          {{ category.name }}<ion-text slot="end" float-end>&#x20b9;{{ category.fees }}</ion-text>
+        </h4>
+        <p class="internet-handling-fees">
+          Internet handling fees
+          <ion-text float-end slot="end">&#x20b9;{{ internetHandlingFees }}</ion-text>
+        </p>
+        <h2 class="sub-total">
+          Subtotal<ion-text slot="end" float-end>&#x20b9;{{ totalFees }}</ion-text>
+        </h2>
+        <p class="tax-breakup" (click)="showTaxBreakup()">Tax Breakup</p>
+      </ion-label>
+    </ion-list>
+
+    <ion-list padding *ngIf="viewer">
+      <ion-label lines="none">
+        <h4>
+          Viewers entry fees<ion-text slot="end" float-end>&#x20b9;{{ event.entryFees }}</ion-text>
+        </h4>
+        <p class="internet-handling-fees">
+          Internet handling fees
+          <ion-text float-end slot="end">&#x20b9;{{ internetHandlingFees }}</ion-text>
+        </p>
+        <h2 class="sub-total">
+          Subtotal<ion-text slot="end" float-end>&#x20b9;{{ totalFees }}</ion-text>
+        </h2>
+        <p class="tax-breakup" (click)="showTaxBreakup()">Tax Breakup</p>
+      </ion-label>
+    </ion-list>
+  </ion-grid>
+</ion-content>
+<ion-footer no-padding>
+  <ion-toolbar no-padding>
+    <ion-button expand="full" color="secondary" (click)="pay()" no-margin size="large">
+      <p>Pay &#x20b9; {{ totalFees }}</p>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

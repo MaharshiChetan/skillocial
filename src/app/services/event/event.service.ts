@@ -9,6 +9,7 @@ import { Event } from 'src/app/models/event';
 })
 export class EventsService {
   imageStore: any;
+  event: Event;
   // imageStore = firebase.storage().ref('/eventImages');
 
   constructor(private db: AngularFireDatabase, private afStore: AngularFirestore) {}
@@ -24,7 +25,7 @@ export class EventsService {
       .update(event);
   }
 
-  getEvent(id: string) {
+  getEventById(id: string) {
     return this.afStore
       .collection<Event>('events')
       .doc(id)
@@ -46,8 +47,19 @@ export class EventsService {
       );
   }
 
-  getEventDetails(id: string) {
-    return this.afStore.collection<Event>(`events/${id}`).valueChanges();
+  getMyEvents(uid: string) {
+    return this.afStore
+      .collection<Event[]>('events', ref => ref.where('uid', '==', uid))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
   async deleteEvent(id: string) {

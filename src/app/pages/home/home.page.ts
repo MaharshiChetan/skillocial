@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
 
   async getCurrentUserProfile(refresher?: any) {
     this.currentUserProfile = await this.userService.getCurrentUser();
+    this.userProfile = this.currentUserProfile;
     const subscription = this.userService
       .getUserByUID(this.currentUserProfile.uid)
       .subscribe((user: User) => {

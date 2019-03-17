@@ -1,22 +1,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChatBubblePage } from './chat-bubble.page';
+import { ChatBubbleComponent } from './chat-bubble.component';
 
-describe('ChatBubblePage', () => {
-  let component: ChatBubblePage;
-  let fixture: ComponentFixture<ChatBubblePage>;
+describe('ChatBubbleComponent', () => {
+  let component: ChatBubbleComponent;
+  let fixture: ComponentFixture<ChatBubbleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatBubblePage ],
+      declarations: [ChatBubbleComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChatBubblePage);
+    fixture = TestBed.createComponent(ChatBubbleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

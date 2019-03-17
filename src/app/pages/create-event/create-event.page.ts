@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Event } from 'src/app/models/event';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 import { CameraService } from 'src/app/services/camera/camera.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -24,13 +24,14 @@ export class CreateEventPage implements OnInit, OnDestroy {
   eventId: string;
   eventDateAndTime = {
     startTime: '10:00',
-    endTime: '19:00',
+    endTime: '20:00',
     startDate: this.currentDate(),
     endDate: this.currentDate(),
     min: new Date().getFullYear(),
     max: new Date().getFullYear() + 1,
   };
   imageStore: firebase.storage.Reference;
+  participationCategories: any = [];
   constructor(
     public cameraService: CameraService,
     private formBuilder: FormBuilder,
@@ -42,7 +43,8 @@ export class CreateEventPage implements OnInit, OnDestroy {
     private afStorage: AngularFireStorage,
     private afStore: AngularFirestore,
     private authService: AuthService,
-    private confirmationGuard: ConfirmationGuard
+    private confirmationGuard: ConfirmationGuard,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -64,12 +66,17 @@ export class CreateEventPage implements OnInit, OnDestroy {
   }
 
   getEventDetails() {
+    this.loadingService.show();
     const subscription = this.eventService
-      .getEventDetails(this.eventId)
+      .getEventById(this.eventId)
       .subscribe((eventDetails: any) => {
         this.eventDetails = eventDetails;
+        if (eventDetails.participationCategories) {
+          this.participationCategories = eventDetails.participationCategories;
+        }
         this.buildForm();
         subscription.unsubscribe();
+        this.loadingService.hide();
       });
   }
 
@@ -91,14 +98,14 @@ export class CreateEventPage implements OnInit, OnDestroy {
       this.eventForm = this.formBuilder.group({
         name: [null, Validators.compose([Validators.required])],
         description: [null, Validators.compose([Validators.required])],
-        entryFees: [null, Validators.compose([Validators.required])],
-        location: [null, Validators.compose([Validators.required])],
-        state: [null, Validators.compose([Validators.required])],
-        city: [null, Validators.compose([Validators.required])],
         startDate: [this.eventDateAndTime.startDate, Validators.compose([Validators.required])],
         endDate: [this.eventDateAndTime.endDate, Validators.compose([Validators.required])],
         startTime: [this.eventDateAndTime.startTime, Validators.compose([Validators.required])],
         endTime: [this.eventDateAndTime.endTime, Validators.compose([Validators.required])],
+        entryFees: [null, Validators.compose([Validators.required])],
+        location: [null, Validators.compose([Validators.required])],
+        state: [null, Validators.compose([Validators.required])],
+        city: [null, Validators.compose([Validators.required])],
       });
     }
   }
@@ -118,6 +125,9 @@ export class CreateEventPage implements OnInit, OnDestroy {
       this.eventForm.get('endDate').value + ' ' + this.eventForm.get('endTime').value;
     event.uid = uid;
     event.imageId = imageId;
+    event.participationCategories = this.participationCategories;
+    event.timeStamp = firebase.firestore.FieldValue.serverTimestamp();
+
     this.imageStore = this.afStorage.storage.ref('eventImages').child(`${uid}/${imageId}`);
 
     try {
@@ -142,5 +152,48 @@ export class CreateEventPage implements OnInit, OnDestroy {
       this.toastService.showToast('Failed to update event!', 'top');
       alert(error);
     }
+  }
+
+  async addParticipationCategories(category?: any, index?: number) {
+    const prompt = await this.alertCtrl.create({
+      header: category ? 'Edit Category' : 'Add Category',
+      message: 'Enter the name and price of category.',
+      inputs: [
+        {
+          name: 'category',
+          placeholder: 'Category (Eg: 1 vs 1 Breaking)',
+          value: category ? category.name : '',
+        },
+        {
+          name: 'fees',
+          placeholder: 'Participation fees (Eg: 200)',
+          value: category ? category.fees : '',
+        },
+      ],
+      buttons: [
+        { text: 'Cancel', role: 'destructive' },
+        {
+          text: category ? 'Update' : 'Add',
+          handler: data => {
+            if (category) {
+              this.participationCategories[index].name = data.category;
+              this.participationCategories[index].fees = parseInt(data.fees);
+            } else {
+              console.log(this.participationCategories);
+
+              this.participationCategories.push({
+                name: data.category,
+                fees: parseInt(data.fees),
+              });
+            }
+          },
+        },
+      ],
+    });
+    await prompt.present();
+  }
+
+  removeParticipationCategory(index: number) {
+    this.participationCategories.splice(index, 1);
   }
 }

@@ -51,6 +51,8 @@ export class PostsComponent implements OnInit {
   }
 
   getPostsDetail() {
+    console.log(this.posts);
+
     this.posts.forEach((post: any, i: number) => {
       const subscription = this.userService.getUserByUID(post.uid).subscribe((user: User) => {
         this.posts[i].createdAt = post.createdAt.toDate();

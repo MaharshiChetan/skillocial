@@ -9,12 +9,17 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root',
 })
 export class UserService {
+  currentUserProfile: User;
   constructor(
     private afStore: AngularFirestore,
     private storage: Storage,
     private nativeStorage: NativeStorage,
     private platform: Platform
-  ) {}
+  ) {
+    this.getCurrentUser().then((user: User) => {
+      this.currentUserProfile = user;
+    });
+  }
 
   async addUser(user: User): Promise<any> {
     return this.afStore

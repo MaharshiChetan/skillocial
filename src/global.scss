@@ -49,6 +49,18 @@
   color: #696969;
 }
 
+.action-sheet-icon.sc-ion-action-sheet-md {
+  color: #1c1c1c;
+}
+
+.tax-breakup-alert {
+  .alert-wrapper.sc-ion-alert-ios {
+    width: 98%;
+    max-width: 355px;
+    background: #fff;
+  }
+}
+
 //
 ion-item {
   --ion-item-background: transparent;
@@ -134,7 +146,7 @@ ion-item {
 }
 
 .text-gray {
-  color: rgba(var(--ion-color-dark-rgb), 0.4);
+  color: #666;
 }
 
 .text-primary {

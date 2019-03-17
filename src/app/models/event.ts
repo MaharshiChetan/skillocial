@@ -18,4 +18,5 @@ export class Event {
   thumbnail?: string;
   timeStamp?: string;
   id?: string;
+  participationCategories: any[];
 }

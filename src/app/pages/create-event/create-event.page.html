@@ -14,7 +14,7 @@
 
 <ion-content text-center>
   <form [formGroup]="eventForm">
-    <ion-list>
+    <ion-list no-margin>
       <ion-list-header>
         <ion-label>Event Details</ion-label>
       </ion-list-header>
@@ -58,8 +58,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">
-          <i class="fas fa-rupee-sign"></i>
-          Entry Fees
+          &#x20b9; Entry Fees
         </ion-label>
         <ion-input type="number" formControlName="entryFees"></ion-input>
       </ion-item>
@@ -103,28 +102,34 @@
           formControlName="endTime"
         ></ion-datetime>
       </ion-item>
-    </ion-list>
 
-    <!-- <ion-item-group *ngIf="categories.length > 0">
-        <ion-item-divider color="light"
-          >Categories (<ion-icon name="arrow-round-back"></ion-icon> Slide left to remove category)
+      <ion-item-group *ngIf="participationCategories?.length > 0">
+        <ion-list-header>
+          <ion-label>Participation Categories</ion-label>
+        </ion-list-header>
+        <ion-item-divider color="warning">
+          <ion-icon color="danger" name="alert"></ion-icon> Slide left to edit category
         </ion-item-divider>
-        <ion-item-sliding *ngFor="let category of categories; let i = index">
+        <ion-item-sliding *ngFor="let category of participationCategories; let i = index">
           <ion-item>
             {{ category.name }}
-            <div class="float-right"><i class="fas fa-rupee-sign"></i> {{ category.price }}</div>
+            <div slot="end">&#x20b9; {{ category.fees }}</div>
           </ion-item>
-          <ion-item-options side="right">
-            <button ion-button color="danger" (click)="removeCategory(i)">
-              <ion-icon name="trash"></ion-icon>
-            </button>
+          <ion-item-options side="end">
+            <ion-item-option color="medium" (click)="addParticipationCategories(category, i)">
+              <ion-icon size="large" name="create" mode="md"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="removeParticipationCategory(i)">
+              <ion-icon size="large" name="trash"></ion-icon>
+            </ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-item-group>
       <div padding>
-        <button type="button" block ion-button (click)="addCategories()">
+        <ion-button expand="block" (click)="addParticipationCategories()">
           Add Categories For Participation
-        </button>
-      </div> -->
+        </ion-button>
+      </div>
+    </ion-list>
   </form>
 </ion-content>

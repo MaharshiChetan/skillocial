@@ -1,6 +1,6 @@
 <ion-row *ngFor="let post of posts">
-  <ion-col no-padding>
-    <ion-card *ngIf="post.userDetails" no-margin>
+  <ion-col no-padding *ngIf="post.userDetails">
+    <ion-card no-margin>
       <ion-item lines="none">
         <ion-avatar
           [routerLink]="['/profile/' + post.userDetails.uid]"
@@ -100,6 +100,63 @@
         </ion-col>
         <ion-col text-center no-padding>
           <p class="text-gray" no-margin>{{ post.createdAt | amTimeAgo }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-col>
+
+  <ion-col no-padding *ngIf="!posts || posts?.length === 0 || !post.userDetails">
+    <ion-card no-margin>
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <ion-skeleton-text style="width: 120px; height:14px;" animated></ion-skeleton-text>
+          <ion-skeleton-text style="width: 175px; height:12px;" animated></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-skeleton-text
+        style="width: 100%; height:280px; border-radius: 0px;"
+        animated
+      ></ion-skeleton-text>
+      <ion-card-content no-padding>
+        <ion-row>
+          <ion-col>
+            <ion-skeleton-text style="width: 90%; height:13px;" animated></ion-skeleton-text>
+            <ion-skeleton-text style="width: 70%; height:13px;" animated></ion-skeleton-text>
+            <ion-skeleton-text style="width: 50%; height:13px;" animated></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-right no-padding class="like-counts">
+            <ion-button fill="clear" no-margin>
+              <ion-icon
+                slot="start"
+                class="fas fa-heart icon"
+                name="heart"
+                color="danger"
+              ></ion-icon>
+              0
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+      <ion-row text-center align-items-center>
+        <ion-col no-padding>
+          <ion-button fill="clear" no-margin>
+            <ion-icon class=" far fa-heart icon" name="heart-empty" slot="start"></ion-icon>
+            0 Likes
+          </ion-button>
+        </ion-col>
+        <ion-col no-padding>
+          <ion-button fill="clear" no-margin>
+            0 Comments
+            <ion-icon slot="start" name="text" class="far fa-comment icon"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col text-center no-padding>
+          <ion-skeleton-text style="width: 90%; height:14px;" animated></ion-skeleton-text>
         </ion-col>
       </ion-row>
     </ion-card>
