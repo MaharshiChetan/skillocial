@@ -11,6 +11,7 @@
 
 <ion-content>
   <ion-list no-margin>
+    <!-- <h6 text-center *ngIf="users && users?.length === 0">No Users</h6> -->
     <ion-item
       class="click"
       *ngFor="let user of users"
@@ -32,13 +33,13 @@
       </ion-label>
     </ion-item>
 
-    <ion-infinite-scroll *ngIf="users.length > 0" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll *ngIf="users?.length > 0" (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content loadingText="Loading more users...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-list>
 
-  <ion-list *ngIf="users.length === 0 || !users" slot="fixed">
+  <ion-list *ngIf="!users || users?.length === 0" slot="fixed">
     <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
       <ion-avatar slot="start">
         <ion-skeleton-text animated></ion-skeleton-text>

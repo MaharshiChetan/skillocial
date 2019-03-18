@@ -33,7 +33,6 @@ import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-ima
     BrowserModule,
     IonicModule.forRoot({
       mode: 'ios',
-      animated: false,
     }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'five-elements'),

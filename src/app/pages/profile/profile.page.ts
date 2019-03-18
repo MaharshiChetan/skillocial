@@ -171,6 +171,7 @@ export class ProfilePage implements OnInit {
       componentProps: {
         userProfile: this.userProfile,
       },
+      animated: false,
     });
     await modal.present();
     const data = await modal.onWillDismiss();
@@ -213,6 +214,7 @@ export class ProfilePage implements OnInit {
         usersUID: type === 'followers' ? this.followers : this.followings,
         navTitle: type === 'followers' ? 'Followers' : 'Followings',
       },
+      animated: false,
     });
     modal.present();
     modal.onWillDismiss().then(data => {

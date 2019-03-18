@@ -41,7 +41,8 @@
             defaultImage="assets/placeholder.jpg"
             [lazyLoad]="event.imageUrl"
             [errorImage]="event.imageUrl"
-            class="original cover-image"
+            class="cover-image"
+            style="height: 170px;width: 100%;"
           />
           <ion-card-content>
             <ion-grid>
@@ -70,7 +71,7 @@
       </ion-col>
       <ion-col *ngFor="let i of [1, 2, 3]" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
         <ion-card no-margin *ngIf="!upcomingEvents">
-          <img alt="" src="" class="original cover-image skeleton-color" />
+          <ion-skeleton-text style="height: 170px;width: 100%;"></ion-skeleton-text>
           <ion-card-content>
             <ion-grid>
               <ion-row>

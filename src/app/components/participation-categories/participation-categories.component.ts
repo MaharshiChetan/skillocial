@@ -32,6 +32,7 @@ export class ParticipationCategoriesComponent implements OnInit {
       component: PaymentCalculationComponent,
       componentProps: { event: this.event },
       backdropDismiss: false,
+      animated: false,
     });
     modal.present();
     modal.onWillDismiss().then(async data => {

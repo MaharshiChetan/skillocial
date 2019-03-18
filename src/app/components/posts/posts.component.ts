@@ -85,6 +85,7 @@ export class PostsComponent implements OnInit {
         usersUID: users,
         navTitle: 'Likes',
       },
+      animated: false,
     });
     modal.present();
     modal.onWillDismiss().then(data => {
@@ -181,6 +182,7 @@ export class PostsComponent implements OnInit {
         post: post,
         currentUserProfile: this.currentUserProfile,
       },
+      animated: false,
     });
     await modal.present();
     // modal.onWillDismiss().then(data => {

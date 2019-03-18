@@ -146,12 +146,7 @@
     <ion-row>
       <ion-col no-padding>
         <ion-card no-margin class="event-card">
-          <img
-            alt=""
-            src="assets/gray-placeholder.png"
-            class="skeleton-color"
-            style="height: 170px;"
-          />
+          <ion-skeleton-text style="height: 170px; width: 100%"></ion-skeleton-text>
           <ion-card-content no-padding>
             <ion-grid no-padding>
               <ion-row class="date-time">
@@ -168,7 +163,7 @@
                   <ion-skeleton-text class="skeleton14" width="110px" animated></ion-skeleton-text>
                 </ion-col>
                 <ion-col class="book" text-end align-self-center size="3">
-                  <ion-button color="danger" (click)="bookTicket()">Book</ion-button>
+                  <ion-button color="danger">Book</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>

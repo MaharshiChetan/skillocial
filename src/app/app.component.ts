@@ -39,7 +39,7 @@ export class AppComponent {
         }
       })
       .catch(error => {
-        alert(error);
+        alert('error');
         this.navCtrl.navigateRoot(['login']);
         return false;
       });
