@@ -43,9 +43,9 @@ export class UserChatsPage implements OnInit, OnDestroy {
     private chatService: ChatService,
     private loadingService: LoadingService,
     private keyboard: Keyboard,
+    private renderer: Renderer,
     private afStorage: AngularFireStorage,
     private platform: Platform,
-    private renderer: Renderer,
     private db: AngularFireDatabase,
     private actionsheetCtrl: ActionSheetController
   ) {}
@@ -70,7 +70,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
 
     this.textareaHeight = Number(this.inputElement.style.height.replace('px', ''));
     this.initialTextAreaHeight = this.textareaHeight;
-    this.updateScroll('load', 500);
+    this.updateScroll(500);
   }
 
   ngOnDestroy() {
@@ -112,7 +112,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
       let marginBottom = newHeight + 44 + 'px';
       this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
       this.renderer.setElementStyle(this.footerElement, 'marginBottom', e['keyboardHeight'] + 'px');
-      this.updateScroll('keybaord show', this.scrollTimeout);
+      this.updateScroll(this.scrollTimeout);
     });
   }
 
@@ -218,7 +218,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
       .subscribe(messages => {
         console.log(messages);
         this.messages = messages;
-        this.updateScroll('reply message', this.scrollTimeout);
+        this.updateScroll(this.scrollTimeout);
       });
   }
 
@@ -231,7 +231,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
         this.message.trim()
       );
       this.message = '';
-      this.updateScroll('sendMessage', this.scrollTimeout);
+      this.updateScroll(this.scrollTimeout);
       this.textareaHeight = this.initialTextAreaHeight;
     }
   }
@@ -241,24 +241,24 @@ export class UserChatsPage implements OnInit, OnDestroy {
     this.keybaordShowSub.unsubscribe();
   }
 
-  contentMouseDown(event) {
+  contentMouseDown(event: any) {
     this.inputElement.blur();
   }
 
-  footerTouchStart(event) {
+  footerTouchStart(event: any) {
     if (event.target.localName !== 'textarea') {
       event.preventDefault();
-      this.updateScroll('', this.scrollTimeout);
+      this.updateScroll(this.scrollTimeout);
     }
   }
 
-  updateScroll(from, timeout) {
+  updateScroll(timeout: number) {
     setTimeout(() => {
       this.content.scrollToBottom();
     }, timeout);
   }
 
   textAreaChange() {
-    this.updateScroll('textAreaChange', this.scrollTimeout);
+    this.updateScroll(this.scrollTimeout);
   }
 }

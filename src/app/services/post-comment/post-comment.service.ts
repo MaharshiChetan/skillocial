@@ -9,23 +9,23 @@ import * as firebase from 'firebase';
 export class PostCommentService {
   constructor(private db: AngularFireDatabase) {}
 
-  createComment(id: string, uid: string, comment: string) {
-    this.db.list(`postComments/${id}`).push({
+  addComment(id: string, uid: string, comment: string) {
+    return this.db.list(`postComments/${id}`).push({
       uid: uid,
-      date: firebase.database.ServerValue.TIMESTAMP,
+      timeStamp: firebase.database.ServerValue.TIMESTAMP,
       comment: comment,
     });
   }
 
   deleteAllComments(id: string) {
-    this.db.object(`postComments/${id}`).remove();
+    return this.db.object(`postComments/${id}`).remove();
   }
 
   getAllComments(id: string) {
     return this.db
       .list(`postComments/${id}`)
       .snapshotChanges()
-      .pipe(map(actions => actions.map(a => ({ uid: a.key, ...a.payload.val() }))));
+      .pipe(map(actions => actions.map(a => ({ id: a.key, ...a.payload.val() }))));
   }
 
   getTotalComments(id: string) {
@@ -33,14 +33,14 @@ export class PostCommentService {
     return this.db
       .list(`postComments/${id}`)
       .snapshotChanges()
-      .pipe(map(actions => actions.map(a => ({ uid: a.key }))));
+      .pipe(map(actions => actions.map(a => ({ id: a.key }))));
   }
 
   deleteComment(id: string, commentId: string) {
-    this.db.object(`postComments/${id}/${commentId}`).remove();
+    return this.db.object(`postComments/${id}/${commentId}`).remove();
   }
 
   removePostComments(id: string) {
-    this.db.object(`postComments/${id}`).remove();
+    return this.db.object(`postComments/${id}`).remove();
   }
 }

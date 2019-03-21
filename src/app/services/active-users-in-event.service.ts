@@ -8,22 +8,22 @@ import { map } from 'rxjs/operators';
 export class ActiveUsersInEventService {
   constructor(private db: AngularFireDatabase) {}
 
-  getActiveUsersInEvent(eventId: string, type: string) {
+  getActiveUsers(eventId: string, type: string) {
     return this.db
       .list(`activeUsersInEvent/${eventId}/${type}`)
       .snapshotChanges()
       .pipe(map(actions => actions.map(a => ({ uid: a.key, ...a.payload.val() }))));
   }
 
-  addInterestedOrGoing(eventId: string, uid: string, type: string) {
+  addActiveUser(eventId: string, uid: string, type: string) {
     return this.db.object(`activeUsersInEvent/${eventId}/${type}`).update({ [uid]: true });
   }
 
-  removeInterestedOrGoing(eventId: string, uid: string, type: string) {
+  removeActiveUser(eventId: string, uid: string, type: string) {
     return this.db.object(`activeUsersInEvent/${eventId}/${type}/${uid}`).remove();
   }
 
-  isInterestedOrGoing(eventId: string, uid: string, type: string) {
+  isActiveUser(eventId: string, uid: string, type: string) {
     return this.db
       .object(`activeUsersInEvent/${eventId}/${type}/${uid}`)
       .snapshotChanges()

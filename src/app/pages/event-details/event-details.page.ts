@@ -1,12 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Event } from 'src/app/models/event';
-import {
-  IonContent,
-  ModalController,
-  NavController,
-  AlertController,
-  ActionSheetController,
-} from '@ionic/angular';
+import { IonContent, ModalController, NavController, ActionSheetController } from '@ionic/angular';
 import { EventsService } from 'src/app/services/event/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
@@ -58,6 +52,7 @@ export class EventDetailsPage implements OnInit {
     const subscription = this.eventService.getEventById(this.eventId).subscribe((event: Event) => {
       subscription.unsubscribe();
       this.event = event;
+      this.event.id = this.eventId;
       this.eventService.event = event;
       if (refresher) refresher.target.complete();
     });
@@ -83,7 +78,6 @@ export class EventDetailsPage implements OnInit {
         },
         { text: 'Cancel', icon: 'close', role: 'destructive' },
       ],
-      animated: true,
       mode: 'md',
     });
     return await actionSheetCtrl.present();
@@ -126,7 +120,7 @@ export class EventDetailsPage implements OnInit {
 
   getInterestedUsersInEvent() {
     const subscription = this.activeUsersInEventService
-      .getActiveUsersInEvent(this.eventId, 'interested')
+      .getActiveUsers(this.eventId, 'interested')
       .subscribe(users => {
         subscription.unsubscribe();
         this.interestedUsers = users;
@@ -139,7 +133,7 @@ export class EventDetailsPage implements OnInit {
 
   getGoingUsersInEvent() {
     const subscription = this.activeUsersInEventService
-      .getActiveUsersInEvent(this.eventId, 'going')
+      .getActiveUsers(this.eventId, 'going')
       .subscribe(users => {
         subscription.unsubscribe();
         this.goingUsers = users;
@@ -152,7 +146,7 @@ export class EventDetailsPage implements OnInit {
 
   isUserInterested() {
     this.activeUsersInEventService
-      .isInterestedOrGoing(this.eventId, this.user.uid, 'interested')
+      .isActiveUser(this.eventId, this.user.uid, 'interested')
       .subscribe((data: any) => {
         this.isInterested = data ? true : false;
       });
@@ -160,7 +154,7 @@ export class EventDetailsPage implements OnInit {
 
   isUserGoing() {
     this.activeUsersInEventService
-      .isInterestedOrGoing(this.eventId, this.user.uid, 'going')
+      .isActiveUser(this.eventId, this.user.uid, 'going')
       .subscribe((data: any) => {
         this.isGoing = data ? true : false;
       });
@@ -170,7 +164,7 @@ export class EventDetailsPage implements OnInit {
     try {
       if (type === 'going') ++this.goingUsersCount;
       else ++this.interestedUsersCount;
-      await this.activeUsersInEventService.addInterestedOrGoing(this.eventId, this.user.uid, type);
+      await this.activeUsersInEventService.addActiveUser(this.eventId, this.user.uid, type);
       if (type === 'going') this.getGoingUsersInEvent();
       else this.getInterestedUsersInEvent();
     } catch (e) {
@@ -184,11 +178,7 @@ export class EventDetailsPage implements OnInit {
     try {
       if (type === 'going') --this.goingUsersCount;
       else --this.interestedUsersCount;
-      await this.activeUsersInEventService.removeInterestedOrGoing(
-        this.eventId,
-        this.user.uid,
-        type
-      );
+      await this.activeUsersInEventService.removeActiveUser(this.eventId, this.user.uid, type);
       if (type === 'going') this.getGoingUsersInEvent();
       else this.getInterestedUsersInEvent();
     } catch (e) {
@@ -204,7 +194,7 @@ export class EventDetailsPage implements OnInit {
     } else {
       await this.loadingService.show();
       const subscription = this.activeUsersInEventService
-        .getActiveUsersInEvent(this.eventId, 'interested')
+        .getActiveUsers(this.eventId, 'interested')
         .subscribe(async users => {
           subscription.unsubscribe();
           this.interestedUsers = users;
@@ -224,7 +214,7 @@ export class EventDetailsPage implements OnInit {
     } else {
       await this.loadingService.show();
       const subscription = this.activeUsersInEventService
-        .getActiveUsersInEvent(this.eventId, 'going')
+        .getActiveUsers(this.eventId, 'going')
         .subscribe(async users => {
           subscription.unsubscribe();
           this.goingUsers = users;

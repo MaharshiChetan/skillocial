@@ -9,7 +9,7 @@ export class PostLikeService {
   constructor(private db: AngularFireDatabase) {}
 
   likePost(id: string, uid: string) {
-    this.db.object(`postLikes/${id}`).update({ [uid]: true });
+    return this.db.object(`postLikes/${id}`).update({ [uid]: true });
   }
 
   checkLike(id: string, uid: string) {
@@ -25,10 +25,10 @@ export class PostLikeService {
   }
 
   unlikePost(id: string, uid: string) {
-    this.db.object(`postLikes/${id}/${uid}`).remove();
+    return this.db.object(`postLikes/${id}/${uid}`).remove();
   }
 
   removePostLikes(id: string) {
-    this.db.object(`postLikes/${id}`).remove();
+    return this.db.object(`postLikes/${id}`).remove();
   }
 }

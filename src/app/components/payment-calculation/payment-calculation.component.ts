@@ -151,7 +151,6 @@ export class PaymentCalculationComponent implements OnInit {
           },
         },
       ],
-      animated: true,
     });
 
     await alert.present();

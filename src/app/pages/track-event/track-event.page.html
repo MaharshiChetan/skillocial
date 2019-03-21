@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Track Event</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="type">
+      <ion-segment-button value="activeUsers">
+        <ion-label>Active Users</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="results">
+        <ion-label>Results</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="type">
+    <ion-list *ngSwitchCase="'activeUsers'">
+      <ion-item (click)="showActiveUsers('Interested Users', 'interested')">
+        <ion-label>Interested Users</ion-label>
+        <ion-button fill="clear">
+          {{ activeUsersCount?.interested || 0 }}
+        </ion-button>
+      </ion-item>
+      <ion-item (click)="showActiveUsers('Going Users', 'going')">
+        <ion-label>Going Users</ion-label>
+        <ion-button fill="clear">
+          {{ activeUsersCount?.going || 0 }}
+        </ion-button>
+      </ion-item>
+      <ion-item (click)="showActiveUsers('Participants', 'participants')">
+        <ion-label>Participants</ion-label>
+        <ion-button fill="clear">
+          {{ activeUsersCount?.participants || 0 }}
+        </ion-button>
+      </ion-item>
+      <ion-item (click)="showActiveUsers('Participants Requests', 'participantsRequest')">
+        <ion-label>Participation Requests</ion-label>
+        <ion-button fill="clear">
+          {{ activeUsersCount?.participantsRequest || 0 }}
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

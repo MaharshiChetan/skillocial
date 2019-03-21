@@ -164,6 +164,10 @@ const routes: Routes = [
     path: 'battle-zone',
     loadChildren: './pages/battle-zone/battle-zone.module#BattleZonePageModule',
   },
+  {
+    path: 'track-event/:id',
+    loadChildren: './pages/track-event/track-event.module#TrackEventPageModule',
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

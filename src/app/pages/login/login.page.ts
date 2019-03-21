@@ -132,7 +132,7 @@ export class LoginPage implements OnInit {
 
   async login() {
     const loginCredentials: LoginCredentials = this.loginForm.value;
-    this.loadingService.show('Signing In...');
+    await this.loadingService.show('Signing In...');
     try {
       const userCredentials: firebase.auth.UserCredential = await this.authService.emailLogin(
         loginCredentials

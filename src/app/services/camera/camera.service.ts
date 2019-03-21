@@ -91,7 +91,6 @@ export class CameraService {
           role: 'destructive',
         },
       ],
-      animated: true,
     });
     return await actionSheetCtrl.present();
   }

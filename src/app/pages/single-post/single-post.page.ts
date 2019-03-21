@@ -23,7 +23,7 @@ export class SinglePostPage implements OnInit {
     const subscription = this.postService.getPostById(this.postId).subscribe((post: Post) => {
       subscription.unsubscribe();
       this.posts = [post];
-
+      this.posts[0].id = this.postId;
       if (event) event.target.complete();
     });
   }

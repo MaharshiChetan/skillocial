@@ -18,3 +18,54 @@
 .textual-content {
   padding: 10px 8px 0px 10px;
 }
+
+//
+
+.centered {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.heart {
+  width: 20px;
+  height: 20px;
+  color: transparent;
+  font-size: 3em;
+  transition: all 5s ease;
+
+  &:before {
+    content: '❤';
+    position: absolute;
+    color: #f4344f;
+    opacity: 0;
+  }
+  &.happy {
+    &:before {
+      opacity: 0;
+      transform: translateY(-30px) rotateZ(5deg);
+      animation: fly 3s ease;
+    }
+  }
+}
+
+@keyframes fly {
+  0% {
+    opacity: 1;
+    transform: translateY(-20px) rotateZ(15deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(4) translateY(-30px) rotateZ(-15deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(4) translateY(-50px) rotateZ(15deg);
+  }
+}

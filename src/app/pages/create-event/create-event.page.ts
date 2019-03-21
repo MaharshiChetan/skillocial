@@ -65,18 +65,18 @@ export class CreateEventPage implements OnInit, OnDestroy {
     return `${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`;
   }
 
-  getEventDetails() {
-    this.loadingService.show();
+  async getEventDetails() {
+    await this.loadingService.show();
     const subscription = this.eventService
       .getEventById(this.eventId)
-      .subscribe((eventDetails: any) => {
+      .subscribe(async (eventDetails: any) => {
         this.eventDetails = eventDetails;
         if (eventDetails.participationCategories) {
           this.participationCategories = eventDetails.participationCategories;
         }
         this.buildForm();
         subscription.unsubscribe();
-        this.loadingService.hide();
+        await this.loadingService.hide();
       });
   }
 

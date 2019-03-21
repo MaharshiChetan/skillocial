@@ -33,15 +33,19 @@
         </ion-buttons>
       </ion-item>
 
-      <img
-        alt=""
-        class="contain-image click"
-        [defaultImage]="post.thumbnail || post.imageUrl"
-        [lazyLoad]="post.imageUrl"
-        [errorImage]="post.imageUrl"
-        [useSrcset]="true"
-        offset="100"
-      />
+      <div class="container">
+        <img
+          alt=""
+          class="contain-image click"
+          [defaultImage]="post.thumbnail || post.imageUrl"
+          [lazyLoad]="post.imageUrl"
+          [errorImage]="post.imageUrl"
+          [useSrcset]="true"
+          offset="100"
+          (tap)="likePost(post, $event)"
+        />
+        <div class="heart centered" [ngClass]="{ happy: happy }">❤</div>
+      </div>
       <ion-card-content class="text-black" no-padding>
         <ion-row>
           <ion-col class="textual-content text09">
@@ -105,7 +109,7 @@
     </ion-card>
   </ion-col>
 
-  <ion-col no-padding *ngIf="!posts || posts?.length === 0 || !post.userDetails">
+  <ion-col no-padding *ngIf="posts?.length === 0 || !posts || !post.userDetails">
     <ion-card no-margin>
       <ion-item lines="none">
         <ion-avatar slot="start">

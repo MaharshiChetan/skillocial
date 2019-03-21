@@ -26,6 +26,7 @@ export class PostsComponent implements OnInit {
   showMore: boolean = false;
   uid: string;
   currentUserProfile: User;
+  happy: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -93,12 +94,18 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  likePost(post: any) {
-    this.postLikeService.likePost(post.id, this.uid);
+  async likePost(post: any, event: any) {
+    if (!event || (event && event.tapCount === 2)) {
+      this.happy = true;
+      await this.postLikeService.likePost(post.id, this.uid);
+      setTimeout(() => {
+        this.happy = false;
+      }, 400);
+    }
   }
 
-  unlikePost(post: any) {
-    this.postLikeService.unlikePost(post.id, this.uid);
+  async unlikePost(post: any) {
+    await this.postLikeService.unlikePost(post.id, this.uid);
   }
 
   changeContentLength() {
@@ -182,7 +189,6 @@ export class PostsComponent implements OnInit {
         post: post,
         currentUserProfile: this.currentUserProfile,
       },
-      animated: false,
     });
     await modal.present();
     // modal.onWillDismiss().then(data => {

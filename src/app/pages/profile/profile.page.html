@@ -84,9 +84,9 @@
       </ion-col>
     </ion-row>
     <ion-row text-center margin-vertical padding-bottom class="user-stats-section">
-      <ion-col (click)="showModal()">
+      <ion-col>
         <span class="stat-value fw700">1553</span>
-        <span class="stat-name text-gray" padding-bottom>Likes</span>
+        <span class="stat-name text-gray">Likes</span>
       </ion-col>
       <ion-col (click)="showFollowers()">
         <span class="stat-value fw700">{{ followersCount || 0 }}</span>
@@ -135,19 +135,7 @@
             Photos
             <span class="see-all">See all</span>
           </ion-card-header>
-          <ion-grid>
-            <ion-row>
-              <ion-col *ngFor="let post of posts" size="4">
-                <img
-                  alt=""
-                  defaultImage="/assets/gray-placeholder.png"
-                  [lazyLoad]="post?.thumbnail || post?.imageUrl"
-                  errorImage="/assets/gray-placeholder.png"
-                  class="cover-image square-image"
-                />
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <app-thumbnail-posts [posts]="posts"></app-thumbnail-posts>
         </ion-col>
         <h6 *ngIf="!posts || posts?.length === 0" class="no-title">No Photos</h6>
       </ion-row>
@@ -223,7 +211,7 @@
     <ion-row text-center margin-vertical padding-bottom class="user-stats-section">
       <ion-col>
         <ion-skeleton-text class="skeleton12" animated></ion-skeleton-text>
-        <span class="stat-name text-gray" padding-bottom>Likes</span>
+        <span class="stat-name text-gray">Likes</span>
       </ion-col>
       <ion-col>
         <ion-skeleton-text class="skeleton12" animated></ion-skeleton-text>

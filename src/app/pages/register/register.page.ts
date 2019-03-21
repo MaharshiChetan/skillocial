@@ -112,7 +112,7 @@ export class RegisterPage implements OnInit {
   async signUp() {
     const registerCredentials: RegisterCredentials = this.registerForm.value;
     let user: User = this.registerForm.value;
-    this.loadingService.show('Signing Up...');
+    await this.loadingService.show('Signing Up...');
     try {
       const userCredentials: firebase.auth.UserCredential = await this.authService.emailSignUp(
         registerCredentials

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from 'src/app/services/event/event.service';
-import { NavController, AlertController } from '@ionic/angular';
-import { LoadingService } from 'src/app/services/loading/loading.service';
+import { NavController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
+import { Event } from 'src/app/models/event';
 
 @Component({
   selector: 'app-my-events',
@@ -41,5 +41,7 @@ export class MyEventsPage implements OnInit {
     this.navCtrl.navigateForward(['edit-event/' + eventId]);
   }
 
-  goToTrackEventPage(event) {}
+  navigateToTrackEvent(event: Event) {
+    this.navCtrl.navigateForward(['track-event/' + event.id]);
+  }
 }
