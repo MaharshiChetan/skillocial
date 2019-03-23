@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from 'src/environments/environment';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import { TwitterConnect, TwitterConnectResponse } from '@ionic-native/twitter-connect/ngx';
+// import { TwitterConnect, TwitterConnectResponse } from '@ionic-native/twitter-connect/ngx';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,9 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private googlePlus: GooglePlus,
-    private facebook: Facebook,
-    private twitterConnect: TwitterConnect
-  ) {
+    private facebook: Facebook
+  ) // private twitterConnect: TwitterConnect
+  {
     afAuth.authState.subscribe((authState: any) => {
       this.authState = authState;
     });
@@ -62,9 +62,9 @@ export class AuthService {
     return this.facebook.login(permissions);
   }
 
-  cordovaTwitterLogin(): Promise<TwitterConnectResponse> {
+  /* cordovaTwitterLogin(): Promise<TwitterConnectResponse> {
     return this.twitterConnect.login();
-  }
+  } */
 
   signInWithFacebookCredential(facebookCredential: any): Promise<firebase.User> {
     return this.afAuth.auth.signInWithCredential(facebookCredential);

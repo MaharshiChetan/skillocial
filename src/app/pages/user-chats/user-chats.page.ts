@@ -241,10 +241,6 @@ export class UserChatsPage implements OnInit, OnDestroy {
     this.keybaordShowSub.unsubscribe();
   }
 
-  contentMouseDown(event: any) {
-    this.inputElement.blur();
-  }
-
   footerTouchStart(event: any) {
     if (event.target.localName !== 'textarea') {
       event.preventDefault();

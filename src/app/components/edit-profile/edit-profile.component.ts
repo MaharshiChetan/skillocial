@@ -111,7 +111,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
           if (user.length > 0 && user[0].uid !== this.userProfile.uid) {
             await this.loadingService.hide();
             subscription.unsubscribe();
-            this.toastService.showToast(`Username ${userProfile.username} is already taken!`);
+            await this.toastService.showToast(`Username ${userProfile.username} is already taken!`);
           } else {
             subscription.unsubscribe();
             this.updateUserProfile(userProfile);
@@ -149,11 +149,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       await this.userService.storeUserData(userProfile);
       await this.loadingService.hide();
       this.updatedProfile = true;
-      this.toastService.showToast('Successfully updated your profile!', 'top');
+      await this.toastService.showToast('Successfully updated your profile!', 'top');
       this.dismissModal();
     } catch (error) {
       await this.loadingService.hide();
-      this.toastService.showToast('Failed to updated your profile!', 'top');
+      await this.toastService.showToast('Failed to updated your profile!', 'top');
     }
   }
 

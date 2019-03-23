@@ -132,9 +132,9 @@ export class RegisterPage implements OnInit {
       console.log(error);
       await this.loadingService.hide();
       if (error.message) {
-        this.toastService.showToast(`${error.message}`);
+        await this.toastService.showToast(`${error.message}`);
       } else {
-        this.toastService.showToast('Something went wrong! Please try again');
+        await this.toastService.showToast('Something went wrong! Please try again');
       }
     }
   }

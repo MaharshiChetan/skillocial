@@ -1,7 +1,58 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Battles List</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-grid *ngIf="battleList">
+    <ion-card
+      no-margin
+      *ngFor="let i of battleList"
+      [routerLink]="['/battle-zone']"
+      class="no-outline"
+      mode="md"
+    >
+      <ion-row>
+        <ion-col text-center>
+          <img src="https://i.ytimg.com/vi/_3DJXAD-8d4/maxresdefault.jpg" />
+          <h3 class="text09 fw700">Chetan Maharshi</h3>
+          <p class="player text08">@chetanamaharshi</p>
+        </ion-col>
+        <ion-col size="1" class="vs" no-padding>
+          VS
+        </ion-col>
+        <ion-col text-center>
+          <img src="https://i.pinimg.com/originals/10/39/f7/1039f7689b7e16c7eaa732493185e2f4.jpg" />
+          <h3 class="text09 fw700">Deep Karmokar</h3>
+          <p class="player text08">@deepkarmokar</p>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+
+  <ion-grid *ngIf="!battleList">
+    <ion-card no-margin *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]" mode="md">
+      <ion-row>
+        <ion-col text-center>
+          <ion-avatar style="margin: auto">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-avatar>
+          <ion-skeleton-text style="width: 80%; margin: 4px auto" animated></ion-skeleton-text>
+          <ion-skeleton-text style="width: 70%; margin: 4px auto" animated></ion-skeleton-text>
+        </ion-col>
+        <ion-col size="1" class="vs" no-padding>VS</ion-col>
+        <ion-col text-center>
+          <ion-avatar style="margin: auto">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-avatar>
+          <ion-skeleton-text style="width: 80%; margin: 4px auto" animated></ion-skeleton-text>
+          <ion-skeleton-text style="width: 70%; margin: 4px auto" animated></ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+</ion-content>

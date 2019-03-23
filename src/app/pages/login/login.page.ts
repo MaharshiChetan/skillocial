@@ -126,7 +126,7 @@ export class LoginPage implements OnInit {
     } catch (error) {
       console.log(error);
       await this.loadingService.hide();
-      this.toastService.showToast(error.message);
+      await this.toastService.showToast(error.message);
     }
   }
 
@@ -144,10 +144,6 @@ export class LoginPage implements OnInit {
             await this.userService.storeUserData(user);
             this.resetForm();
             await this.loadingService.hide();
-            await this.toastService.showToast(
-              `Welcome ${userCredentials.user.displayName}, to the app!`,
-              'top'
-            );
             await this.navCtrl.navigateRoot('/tabs');
             userProfileSubscription.unsubscribe();
           });

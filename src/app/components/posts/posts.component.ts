@@ -189,6 +189,7 @@ export class PostsComponent implements OnInit {
         post: post,
         currentUserProfile: this.currentUserProfile,
       },
+      animated: false,
     });
     await modal.present();
     // modal.onWillDismiss().then(data => {

@@ -11,7 +11,6 @@ import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { PostCommentService } from 'src/app/services/post-comment/post-comment.service';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -78,10 +77,6 @@ export class CommentsComponent implements OnInit {
     this.keybaordShowSub.unsubscribe();
   }
 
-  contentMouseDown(event: any) {
-    this.inputElement.blur();
-  }
-
   addKeyboardListeners() {
     this.keyboardHideSub = this.keyboard.onKeyboardHide().subscribe(() => {
       let newHeight = this.textareaHeight - this.initialTextAreaHeight + 44;
@@ -146,34 +141,36 @@ export class CommentsComponent implements OnInit {
   }
 
   async showActionSheet(postId: string, comment: any) {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Take Action',
-      buttons: [
-        {
-          text: 'Delete',
-          icon: 'trash',
-          handler: async () => {
-            await this.postCommentService.deleteComment(postId, comment.id);
-            this.getAllPostComments();
+    if (this.userService.currentUserProfile.uid === comment.uid) {
+      const actionSheet = await this.actionSheetCtrl.create({
+        header: 'Take Action',
+        buttons: [
+          {
+            text: 'Delete',
+            icon: 'trash',
+            handler: async () => {
+              await this.postCommentService.deleteComment(postId, comment.id);
+              this.getAllPostComments();
+            },
           },
-        },
-        {
-          text: 'Copy',
-          icon: 'copy',
-          handler: () => {
-            this.clipboard.copy(comment.comment);
+          {
+            text: 'Copy',
+            icon: 'copy',
+            handler: () => {
+              this.clipboard.copy(comment.comment);
+            },
           },
-        },
-        {
-          text: 'Cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          role: 'destructive',
-          handler: () => {
-            console.log('the user has cancelled the interaction.');
+          {
+            text: 'Cancel',
+            icon: !this.platform.is('ios') ? 'close' : null,
+            role: 'destructive',
+            handler: () => {
+              console.log('the user has cancelled the interaction.');
+            },
           },
-        },
-      ],
-    });
-    await actionSheet.present();
+        ],
+      });
+      await actionSheet.present();
+    }
   }
 }

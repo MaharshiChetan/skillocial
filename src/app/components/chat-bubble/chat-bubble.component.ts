@@ -39,7 +39,6 @@ export class ChatBubbleComponent implements OnInit {
             } else {
               this.clipboard.copy(message.imageUrl);
             }
-            this.toastService.showToast('Text copied to clipboard!');
           },
         },
         {

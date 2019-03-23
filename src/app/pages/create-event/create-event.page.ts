@@ -144,12 +144,12 @@ export class CreateEventPage implements OnInit, OnDestroy {
         await this.eventService.createEvent(event);
       }
       await this.loadingService.hide();
-      this.toastService.showToast('Successfully updated event!', 'top');
+      await this.toastService.showToast('Successfully updated event!', 'top');
       this.confirmationGuard.showAlertMessage = false;
       this.navCtrl.navigateBack(['/tabs/upcoming-events']);
     } catch (error) {
       await this.loadingService.hide();
-      this.toastService.showToast('Failed to update event!', 'top');
+      await this.toastService.showToast('Failed to update event!', 'top');
       alert(error);
     }
   }

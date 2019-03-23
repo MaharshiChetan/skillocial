@@ -12,26 +12,32 @@
 <ion-content>
   <ion-list no-margin>
     <!-- <h6 text-center *ngIf="users && users?.length === 0">No Users</h6> -->
-    <ion-item
-      class="click"
-      *ngFor="let user of users"
-      (click)="dismissModal()"
-      [routerLink]="['/profile/' + user.uid]"
-    >
-      <ion-avatar slot="start">
-        <img
-          alt=""
-          class="cover-image skeleton-color"
-          defaultImage="/assets/default-user.jpeg"
-          [lazyLoad]="user.thumbnail || user.profilePhoto"
-          [errorImage]="user.profilePhoto"
-        />
-      </ion-avatar>
-      <ion-label>
-        <h3 class="full_name">{{ user.fullName }}</h3>
-        <h5 class="user_name">{{ user.username }}</h5>
-      </ion-label>
-    </ion-item>
+    <ion-item-sliding *ngFor="let user of users">
+      <ion-item (click)="dismissModal()" [routerLink]="['/profile/' + user.uid]">
+        <ion-ripple-effect></ion-ripple-effect>
+        <ion-avatar slot="start">
+          <img
+            alt=""
+            class="cover-image skeleton-color"
+            defaultImage="/assets/default-user.jpeg"
+            [lazyLoad]="user.thumbnail || user.profilePhoto"
+            [errorImage]="user.profilePhoto"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h3 class="full_name">{{ user.fullName }}</h3>
+          <h5 class="user_name">{{ user.username }}</h5>
+        </ion-label>
+        <ion-item-options side="start" *ngIf="navTitle === 'Participants Requests'">
+          <ion-item-option color="success">
+            <ion-label>Accept</ion-label>
+          </ion-item-option>
+          <ion-item-option color="danger">
+            <ion-label>Decline</ion-label>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item>
+    </ion-item-sliding>
 
     <ion-infinite-scroll *ngIf="users?.length > 0" (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content loadingText="Loading more users...">

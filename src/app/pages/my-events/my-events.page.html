@@ -17,7 +17,8 @@
   </ion-row>
   <ion-list>
     <ion-item-sliding *ngFor="let event of events">
-      <ion-item class="click animated fadeIn">
+      <ion-item class="animated fadeIn" button detail="false">
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-thumbnail slot="start">
           <img alt="" [src]="event.imageUrl" class="cover-image" />
         </ion-thumbnail>

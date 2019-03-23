@@ -9,11 +9,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content>
+<ion-content>
   <div *ngIf="!comments" text-center padding-top><ion-spinner></ion-spinner></div>
   <ion-list>
     <div *ngFor="let comment of comments" class="click" (press)="showActionSheet(post.id, comment)">
       <ion-item *ngIf="comment.userProfile">
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-avatar
           slot="start"
           [routerLink]="['profile/' + comment?.userProfile?.uid]"

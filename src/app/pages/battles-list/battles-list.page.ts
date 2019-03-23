@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./battles-list.page.scss'],
 })
 export class BattlesListPage implements OnInit {
-
-  constructor() { }
+  battleList: any = null;
+  constructor() {}
 
   ngOnInit() {
+    setTimeout(() => {
+      this.battleList = [1, 2, 3, 4, 5, 6, 7];
+    }, 2500);
   }
-
 }

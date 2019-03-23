@@ -1,0 +1,36 @@
+img {
+  border-radius: 50%;
+  height: 54px;
+  width: 54px;
+  object-fit: cover;
+  margin: auto;
+}
+
+.vs {
+  font-weight: bold;
+  font-size: large;
+  color: #49575c;
+  text-align: center;
+  margin-top: 20px;
+}
+
+ion-card {
+  margin-bottom: 5px;
+}
+
+.player {
+  text-align: center;
+  color: #778899;
+  font-family: sans-serif;
+  margin: 2px 0px;
+  font-size: 13px;
+}
+
+h3 {
+  margin: 10px 0px 2px;
+  color: #49575c;
+}
+
+.button-ios {
+  height: 2.4em;
+}

@@ -20,29 +20,33 @@
 <ion-content>
   <div [ngSwitch]="type">
     <ion-list *ngSwitchCase="'activeUsers'">
-      <ion-item (click)="showActiveUsers('Interested Users', 'interested')">
+      <ion-item (click)="showActiveUsers('Interested Users', 'interested')" button>
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-label>Interested Users</ion-label>
-        <ion-button fill="clear">
-          {{ activeUsersCount?.interested || 0 }}
-        </ion-button>
+        <ion-chip color="secondary">
+          <ion-label>{{ activeUsersCount?.interested || 0 }}</ion-label>
+        </ion-chip>
       </ion-item>
-      <ion-item (click)="showActiveUsers('Going Users', 'going')">
+      <ion-item (click)="showActiveUsers('Going Users', 'going')" button>
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-label>Going Users</ion-label>
-        <ion-button fill="clear">
-          {{ activeUsersCount?.going || 0 }}
-        </ion-button>
+        <ion-chip color="secondary">
+          <ion-label>{{ activeUsersCount?.going || 0 }} </ion-label>
+        </ion-chip>
       </ion-item>
-      <ion-item (click)="showActiveUsers('Participants', 'participants')">
+      <ion-item (click)="showActiveUsers('Participants', 'participants')" button>
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-label>Participants</ion-label>
-        <ion-button fill="clear">
-          {{ activeUsersCount?.participants || 0 }}
-        </ion-button>
+        <ion-chip color="secondary">
+          <ion-label>{{ activeUsersCount?.participants || 0 }}</ion-label>
+        </ion-chip>
       </ion-item>
-      <ion-item (click)="showActiveUsers('Participants Requests', 'participantsRequest')">
+      <ion-item (click)="showActiveUsers('Participants Requests', 'participantsRequest')" button>
+        <ion-ripple-effect></ion-ripple-effect>
         <ion-label>Participation Requests</ion-label>
-        <ion-button fill="clear">
-          {{ activeUsersCount?.participantsRequest || 0 }}
-        </ion-button>
+        <ion-chip color="secondary">
+          <ion-label>{{ activeUsersCount?.participantsRequest || 0 }} </ion-label>
+        </ion-chip>
       </ion-item>
     </ion-list>
   </div>

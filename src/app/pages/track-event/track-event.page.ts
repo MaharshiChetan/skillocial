@@ -25,7 +25,6 @@ export class TrackEventPage implements OnInit {
 
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
-    console.log(this.eventId);
     this.getActiveUsersCount();
   }
 

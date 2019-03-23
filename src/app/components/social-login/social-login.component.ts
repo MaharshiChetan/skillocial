@@ -42,7 +42,6 @@ export class SocialLoginComponent implements OnInit {
             //now we have the users info, let's save it in the NativeStorage
             await this.userService.storeUserData(user);
             await this.loadingService.hide();
-            this.toastService.showToast('Congratulations! You have successfully logged in.', 'top');
             this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
@@ -66,7 +65,6 @@ export class SocialLoginComponent implements OnInit {
             //now we have the users info, let's save it in the NativeStorage
             await this.userService.storeUserData(user);
             await this.loadingService.hide();
-            this.toastService.showToast('Congratulations! You have successfully logged in.', 'top');
             this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
@@ -92,7 +90,6 @@ export class SocialLoginComponent implements OnInit {
             //now we have the users info, let's save it in the NativeStorage
             await this.userService.storeUserData(user);
             await this.loadingService.hide();
-            this.toastService.showToast('Congratulations! You have successfully logged in.', 'top');
             this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
@@ -119,7 +116,6 @@ export class SocialLoginComponent implements OnInit {
             //now we have the users info, let's save it in the NativeStorage
             await this.userService.storeUserData(user);
             await this.loadingService.hide();
-            this.toastService.showToast('Congratulations! You have successfully logged in.', 'top');
             this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {

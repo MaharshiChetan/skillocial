@@ -24,7 +24,13 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+
 import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,10 +59,15 @@ import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-ima
 
     // Ionic Native
     GooglePlus,
+    Camera,
     NativeStorage,
     Facebook,
     Network,
     HeaderColor,
+    Crop,
+    Base64,
+    Keyboard,
+    Clipboard,
   ],
   bootstrap: [AppComponent],
 })
