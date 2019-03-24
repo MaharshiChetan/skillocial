@@ -11,7 +11,6 @@
 
 <ion-content>
   <ion-list no-margin>
-    <!-- <h6 text-center *ngIf="users && users?.length === 0">No Users</h6> -->
     <ion-item-sliding *ngFor="let user of users">
       <ion-item (click)="dismissModal()" [routerLink]="['/profile/' + user.uid]">
         <ion-ripple-effect></ion-ripple-effect>
@@ -48,11 +47,11 @@
   <ion-list *ngIf="!users || users?.length === 0" slot="fixed">
     <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
       <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text></ion-skeleton-text>
       </ion-avatar>
       <ion-label>
-        <ion-skeleton-text style="width: 170px; height:14px;" animated></ion-skeleton-text>
-        <ion-skeleton-text style="width: 120px; height:12px;" animated></ion-skeleton-text>
+        <ion-skeleton-text style="width: 170px; height:14px;"></ion-skeleton-text>
+        <ion-skeleton-text style="width: 120px; height:12px;"></ion-skeleton-text>
       </ion-label>
     </ion-item>
   </ion-list>

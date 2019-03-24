@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Event } from 'src/app/models/event';
@@ -12,7 +11,7 @@ export class EventsService {
   event: Event;
   // imageStore = firebase.storage().ref('/eventImages');
 
-  constructor(private db: AngularFireDatabase, private afStore: AngularFirestore) {}
+  constructor(private afStore: AngularFirestore) {}
 
   async createEvent(event: Event) {
     return this.afStore.collection('events').add(event);

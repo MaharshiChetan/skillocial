@@ -27,7 +27,7 @@
           </p>
         </ion-label>
         <ion-buttons>
-          <ion-button *ngIf="post.myPost" fill="clear" (click)="presentPopover(post)">
+          <ion-button *ngIf="post.myPost" fill="clear" (click)="presentActionSheet(post)">
             <ion-icon name="more"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -113,23 +113,20 @@
     <ion-card no-margin>
       <ion-item lines="none">
         <ion-avatar slot="start">
-          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text></ion-skeleton-text>
         </ion-avatar>
         <ion-label>
-          <ion-skeleton-text style="width: 120px; height:14px;" animated></ion-skeleton-text>
-          <ion-skeleton-text style="width: 175px; height:12px;" animated></ion-skeleton-text>
+          <ion-skeleton-text style="width: 120px; height:14px;"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 175px; height:12px;"></ion-skeleton-text>
         </ion-label>
       </ion-item>
-      <ion-skeleton-text
-        style="width: 100%; height:280px; border-radius: 0px;"
-        animated
-      ></ion-skeleton-text>
+      <ion-skeleton-text style="width: 100%; height:280px; border-radius: 0px;"></ion-skeleton-text>
       <ion-card-content no-padding>
         <ion-row>
           <ion-col>
-            <ion-skeleton-text style="width: 90%; height:13px;" animated></ion-skeleton-text>
-            <ion-skeleton-text style="width: 70%; height:13px;" animated></ion-skeleton-text>
-            <ion-skeleton-text style="width: 50%; height:13px;" animated></ion-skeleton-text>
+            <ion-skeleton-text style="width: 90%; height:13px;"></ion-skeleton-text>
+            <ion-skeleton-text style="width: 70%; height:13px;"></ion-skeleton-text>
+            <ion-skeleton-text style="width: 50%; height:13px;"></ion-skeleton-text>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -160,7 +157,7 @@
           </ion-button>
         </ion-col>
         <ion-col text-center no-padding>
-          <ion-skeleton-text style="width: 90%; height:14px;" animated></ion-skeleton-text>
+          <ion-skeleton-text style="width: 90%; height:14px;"></ion-skeleton-text>
         </ion-col>
       </ion-row>
     </ion-card>

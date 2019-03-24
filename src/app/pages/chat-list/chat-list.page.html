@@ -15,7 +15,7 @@
       <i class="far fa-sad-tear text20"></i>
       <h3 class="no-message">No messages</h3>
       <p class="start-conversation-text">
-        Start tour first conversation
+        Start your first conversation
       </p>
       <ion-button color="secondary" expand="block" [routerLink]="['/search-user']">
         Get Started
@@ -81,11 +81,11 @@
   <ion-list *ngIf="!displayMessages" slot="fixed">
     <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
       <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text></ion-skeleton-text>
       </ion-avatar>
       <ion-label>
-        <ion-skeleton-text style="width: 170px; height:14px;" animated></ion-skeleton-text>
-        <ion-skeleton-text style="width: 90%; height:12px;" animated></ion-skeleton-text>
+        <ion-skeleton-text style="width: 170px; height:14px;"></ion-skeleton-text>
+        <ion-skeleton-text style="width: 90%; height:12px;"></ion-skeleton-text>
       </ion-label>
     </ion-item>
   </ion-list>

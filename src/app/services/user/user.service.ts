@@ -79,7 +79,7 @@ export class UserService {
       uid: userData.uid,
       username: userData.email.substring(0, userData.email.lastIndexOf('@')),
       loginType: type,
-      bio: "Hey! I'm using five elements.",
+      bio: "Hey! I'm using skillocial.",
     };
   }
 }

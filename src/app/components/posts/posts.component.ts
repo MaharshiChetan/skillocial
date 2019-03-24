@@ -112,7 +112,7 @@ export class PostsComponent implements OnInit {
     this.showMore = !this.showMore;
   }
 
-  async presentPopover(post: any) {
+  async presentActionSheet(post: any) {
     const actionsheet = await this.actionsheetCtrl.create({
       header: 'Take Action',
       buttons: [

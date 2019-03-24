@@ -239,12 +239,6 @@ ion-toolbar.user-profile {
   }
 }
  */
-// Android card shadow
-ion-card {
-  &.sc-ion-card-md-h {
-    box-shadow: 0 2px 4px rgba(var(--ion-color-dark-rgb), 0.24);
-  }
-}
 
 // style for auth pages
 .auth-page {

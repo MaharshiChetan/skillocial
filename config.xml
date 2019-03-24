@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.app.fiveElements" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>5 Elements</name>
+<widget id="com.skillocial.skillocial" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Skillocial</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -46,7 +46,7 @@
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <plugin name="cordova-plugin-facebook4" spec="4.2.1">
         <variable name="APP_ID" value="376354793185380" />
-        <variable name="APP_NAME" value="fiveElements" />
+        <variable name="APP_NAME" value="skillocial" />
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>

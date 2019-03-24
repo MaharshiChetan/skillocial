@@ -41,7 +41,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
       mode: 'ios',
     }),
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase, 'five-elements'),
+    AngularFireModule.initializeApp(environment.firebase, 'skillocial'),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,

@@ -107,23 +107,16 @@
         <ion-list-header>
           <ion-label>Participation Categories</ion-label>
         </ion-list-header>
-        <ion-item-divider color="warning">
-          <ion-icon color="danger" name="alert"></ion-icon> Slide left to edit category
-        </ion-item-divider>
-        <ion-item-sliding *ngFor="let category of participationCategories; let i = index">
-          <ion-item>
-            {{ category.name }}
-            <div slot="end">&#x20b9; {{ category.fees }}</div>
-          </ion-item>
-          <ion-item-options side="end">
-            <ion-item-option color="medium" (click)="addParticipationCategories(category, i)">
-              <ion-icon size="large" name="create" mode="md"></ion-icon>
-            </ion-item-option>
-            <ion-item-option color="danger" (click)="removeParticipationCategory(i)">
-              <ion-icon size="large" name="trash"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
+        <ion-item
+          *ngFor="let category of participationCategories; let i = index"
+          (click)="presentActionSheet(category, i)"
+          button
+          detail="false"
+        >
+          <ion-ripple-effect></ion-ripple-effect>
+          {{ category.name }}
+          <div slot="end">&#x20b9; {{ category.fees }}</div>
+        </ion-item>
       </ion-item-group>
       <div padding>
         <ion-button expand="block" (click)="addParticipationCategories()">

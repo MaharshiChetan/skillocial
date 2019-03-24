@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Event } from 'src/app/models/event';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, Platform, ActionSheetController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 import { CameraService } from 'src/app/services/camera/camera.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
@@ -44,7 +44,9 @@ export class CreateEventPage implements OnInit, OnDestroy {
     private afStore: AngularFirestore,
     private authService: AuthService,
     private confirmationGuard: ConfirmationGuard,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private platform: Platform,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -120,14 +122,18 @@ export class CreateEventPage implements OnInit, OnDestroy {
     let imageId = this.eventId ? this.eventId : this.afStore.createId();
     let event = this.eventForm.value;
     event.startDateTime =
-      this.eventForm.get('startDate').value + ' ' + this.eventForm.get('startTime').value;
+      new Date(this.eventForm.get('startDate').value).toLocaleDateString() +
+      ' ' +
+      this.eventForm.get('startTime').value;
     event.endDateTime =
-      this.eventForm.get('endDate').value + ' ' + this.eventForm.get('endTime').value;
+      new Date(this.eventForm.get('endDate').value).toLocaleDateString() +
+      ' ' +
+      this.eventForm.get('endTime').value;
+
     event.uid = uid;
     event.imageId = imageId;
     event.participationCategories = this.participationCategories;
     event.timeStamp = firebase.firestore.FieldValue.serverTimestamp();
-
     this.imageStore = this.afStorage.storage.ref('eventImages').child(`${uid}/${imageId}`);
 
     try {
@@ -154,6 +160,33 @@ export class CreateEventPage implements OnInit, OnDestroy {
     }
   }
 
+  async presentActionSheet(category: any, index: number) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Take Action',
+      buttons: [
+        {
+          text: 'Edit',
+          icon: !this.platform.is('ios') ? 'create' : null,
+          handler: () => {
+            this.addParticipationCategories(category, index);
+          },
+        },
+        {
+          text: 'Delete',
+          icon: !this.platform.is('ios') ? 'trash' : null,
+          handler: () => {
+            this.removeParticipationCategory(index);
+          },
+        },
+        {
+          text: 'Cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          role: 'destructive',
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
   async addParticipationCategories(category?: any, index?: number) {
     const prompt = await this.alertCtrl.create({
       header: category ? 'Edit Category' : 'Add Category',
@@ -161,12 +194,14 @@ export class CreateEventPage implements OnInit, OnDestroy {
       inputs: [
         {
           name: 'category',
+          type: 'text',
           placeholder: 'Category (Eg: 1 vs 1 Breaking)',
           value: category ? category.name : '',
         },
         {
           name: 'fees',
           placeholder: 'Participation fees (Eg: 200)',
+          type: 'number',
           value: category ? category.fees : '',
         },
       ],

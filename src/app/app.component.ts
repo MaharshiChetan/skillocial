@@ -31,7 +31,6 @@ export class AppComponent {
       .getCurrentUser()
       .then(user => {
         if (!user) {
-          alert('access denied!');
           this.navCtrl.navigateRoot(['login']);
           return false;
         } else {
