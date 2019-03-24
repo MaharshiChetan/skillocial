@@ -14,7 +14,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar class="searchbar" [(ngModel)]="searchTerm" (ionChange)="setFilteredItems($event)">
+  <ion-searchbar
+    class="searchbar"
+    [(ngModel)]="searchTerm"
+    (ionChange)="setFilteredItems($event)"
+    animated
+  >
   </ion-searchbar>
 
   <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="getEvents($event)">

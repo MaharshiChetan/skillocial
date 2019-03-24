@@ -84,7 +84,14 @@ export class ParticipationCategoriesComponent implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Request Sent',
       message: 'Your request for on spot entry is sent successfully.',
-      buttons: [{ text: 'Okay' }],
+      buttons: [
+        {
+          text: 'Okay',
+          handler: () => {
+            this.dismissModal();
+          },
+        },
+      ],
     });
     await alert.present();
   }

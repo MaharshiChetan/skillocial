@@ -36,11 +36,13 @@ export class SocialLoginComponent implements OnInit {
           .getUserByUID(googleUser.user.uid)
           .subscribe(async (userProfile: any) => {
             subscription.unsubscribe();
-            if (!userProfile) {
+            if (userProfile) {
+              //now we have the users info, let's save it in the NativeStorage
+              await this.userService.storeUserData(userProfile);
+            } else {
               await this.userService.addUser(user);
+              await this.userService.storeUserData(user);
             }
-            //now we have the users info, let's save it in the NativeStorage
-            await this.userService.storeUserData(user);
             await this.loadingService.hide();
             this.navCtrl.navigateRoot('tabs');
           });
@@ -59,11 +61,13 @@ export class SocialLoginComponent implements OnInit {
           .getUserByUID(googleUser.uid)
           .subscribe(async (userProfile: any) => {
             subscription.unsubscribe();
-            if (!userProfile) {
+            if (userProfile) {
+              //now we have the users info, let's save it in the NativeStorage
+              await this.userService.storeUserData(userProfile);
+            } else {
               await this.userService.addUser(user);
+              await this.userService.storeUserData(user);
             }
-            //now we have the users info, let's save it in the NativeStorage
-            await this.userService.storeUserData(user);
             await this.loadingService.hide();
             this.navCtrl.navigateRoot('tabs');
           });
@@ -84,11 +88,13 @@ export class SocialLoginComponent implements OnInit {
           .getUserByUID(facebookUser.user.uid)
           .subscribe(async (userProfile: any) => {
             subscription.unsubscribe();
-            if (!userProfile) {
+            if (userProfile) {
+              //now we have the users info, let's save it in the NativeStorage
+              await this.userService.storeUserData(userProfile);
+            } else {
               await this.userService.addUser(user);
+              await this.userService.storeUserData(user);
             }
-            //now we have the users info, let's save it in the NativeStorage
-            await this.userService.storeUserData(user);
             await this.loadingService.hide();
             this.navCtrl.navigateRoot('tabs');
           });
@@ -110,11 +116,13 @@ export class SocialLoginComponent implements OnInit {
           .getUserByUID(userData.uid)
           .subscribe(async (userProfile: any) => {
             subscription.unsubscribe();
-            if (!userProfile) {
+            if (userProfile) {
+              //now we have the users info, let's save it in the NativeStorage
+              await this.userService.storeUserData(userProfile);
+            } else {
               await this.userService.addUser(user);
+              await this.userService.storeUserData(user);
             }
-            //now we have the users info, let's save it in the NativeStorage
-            await this.userService.storeUserData(user);
             await this.loadingService.hide();
             this.navCtrl.navigateRoot('tabs');
           });

@@ -113,7 +113,6 @@ export class CameraService {
       await this.loadingService.hide();
     } catch (error) {
       await this.loadingService.hide();
-      alert(error);
     }
   }
 
@@ -135,7 +134,6 @@ export class CameraService {
       await this.loadingService.hide();
     } catch (error) {
       await this.loadingService.hide();
-      alert(error);
     }
   }
 

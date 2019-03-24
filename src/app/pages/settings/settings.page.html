@@ -7,4 +7,40 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding> </ion-content>
+<ion-content>
+  <ion-list>
+    <ion-list-header> ACCOUNT </ion-list-header>
+    <ion-item (click)="editProfile()" button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Edit Profile
+    </ion-item>
+    <ion-item button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Change Password
+    </ion-item>
+    <ion-item button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Blocked Accounts
+    </ion-item>
+
+    <ion-list-header> SETTINGS </ion-list-header>
+    <ion-item button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Activity Feed
+    </ion-item>
+    <ion-item button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Push Notifications
+    </ion-item>
+    <ion-item button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Terms of Use
+    </ion-item>
+
+    <ion-list-header> Signout </ion-list-header>
+    <ion-item (click)="showConfirmAlert()" button detail="false">
+      <ion-ripple-effect></ion-ripple-effect>
+      Sign Out
+    </ion-item>
+  </ion-list>
+</ion-content>

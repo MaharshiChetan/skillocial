@@ -85,43 +85,6 @@ export class ChatListPage implements OnInit {
     this.displayMessages = this.filterService.filterMessages(this.searchMessages, this.searchTerm);
   }
 
-  async onLogout() {
-    const user: any = this.userService.getCurrentUser();
-    if (user) {
-      if (user.loginType === 'google') {
-        try {
-          await this.authService.googleLogout();
-          this.logout();
-        } catch (error) {
-          alert('logout:' + error);
-          this.logout();
-        }
-      } else if (user.loginType === 'facebook') {
-        try {
-          await this.authService.facebookLogout();
-          this.logout();
-        } catch (error) {
-          alert('logout:' + error);
-          this.logout();
-        }
-      } else if (user.loginType === 'twitter') {
-        this.logout();
-      } else {
-        this.logout();
-      }
-    }
-  }
-
-  async logout() {
-    try {
-      await this.authService.logout();
-      await this.userService.removeCurrentUser();
-      this.navCtrl.navigateRoot('login');
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   popBack() {
     this.navCtrl.navigateBack([this.routingService.tabsLastUrl]);
   }
