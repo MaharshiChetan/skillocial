@@ -143,7 +143,13 @@
 
       <ion-row justify-content-between *ngSwitchCase="'titles'">
         <ion-col *ngIf="titles && titles?.length > 0" no-padding>
-          <ion-card-header class="text-black fw700" no-padding padding-top padding-start>
+          <ion-card-header
+            class="text-black fw700 no-outline"
+            no-padding
+            padding-top
+            padding-start
+            [routerLink]="'/titles/' + uid"
+          >
             Titles
             <span class="see-all">See all</span>
           </ion-card-header>

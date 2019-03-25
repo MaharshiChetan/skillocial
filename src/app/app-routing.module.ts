@@ -86,11 +86,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'titles-list',
-    loadChildren: './pages/titles-list/titles-list.module#TitlesListPageModule',
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'title-details',
     loadChildren: './pages/title-details/title-details.module#TitleDetailsPageModule',
     canActivate: [AuthGuard],
@@ -168,6 +163,7 @@ const routes: Routes = [
     path: 'track-event/:id',
     loadChildren: './pages/track-event/track-event.module#TrackEventPageModule',
   },
+  { path: 'titles/:id', loadChildren: './pages/titles/titles.module#TitlesPageModule' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],

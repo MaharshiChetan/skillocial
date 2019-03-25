@@ -5,13 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TitlesListPage } from './titles-list.page';
+import { TitlesPage } from './titles.page';
+import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
     path: '',
-    component: TitlesListPage
-  }
+    component: TitlesPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,11 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset,
+    }),
   ],
-  declarations: [TitlesListPage]
+  declarations: [TitlesPage],
 })
-export class TitlesListPageModule {}
+export class TitlesPageModule {}

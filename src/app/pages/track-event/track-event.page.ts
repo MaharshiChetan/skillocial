@@ -28,10 +28,11 @@ export class TrackEventPage implements OnInit {
     this.getActiveUsersCount();
   }
 
-  getActiveUsersCount() {
+  getActiveUsersCount(event?: any) {
     this.activeUsersInEventService.getActiveUsersCount(this.eventId).subscribe(activeUsersCount => {
       this.activeUsersCount = activeUsersCount;
       console.log(activeUsersCount);
+      if (event) event.target.complete();
     });
   }
 
@@ -60,6 +61,7 @@ export class TrackEventPage implements OnInit {
       componentProps: {
         usersUID: activeUsers,
         navTitle: navTitle,
+        eventId: this.eventId,
       },
       animated: false,
     });

@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="secondary">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Titles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="titles">
+    <ion-card no-margin mode="md" *ngFor="let title of titles">
+      <ion-item detail="false" lines="none">
+        <ion-avatar slot="start">
+          <img
+            alt=""
+            defaultImage="/assets/gray-placeholder.png"
+            [lazyLoad]="title?.imageUrl"
+            errorImage="/assets/gray-placeholder.png"
+            class="cover-image skeleton-color"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h3 class="full_name">{{ title.title }}</h3>
+          <h5 class="user_name">{{ title.description }}</h5>
+        </ion-label>
+      </ion-item>
+      <ion-row *ngIf="currentUserProfile?.uid === uid">
+        <ion-col text-right no-padding>
+          <ion-button no-margin fill="clear" color="danger">
+            Send for verification
+          </ion-button>
+          <ion-button no-margin fill="clear" color="tertiary">
+            View
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+
+  <ion-grid *ngIf="!titles">
+    <ion-card no-margin mode="md" *ngFor="let title of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+      <ion-item detail="false" lines="none">
+        <ion-avatar slot="start">
+          <ion-skeleton-text></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <ion-skeleton-text style="width: 45%;"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 80%;"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-grid>
+</ion-content>

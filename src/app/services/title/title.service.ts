@@ -37,6 +37,26 @@ export class TitleService {
       );
   }
 
+  getTopSixTitles(uid: string) {
+    return this.afStore
+      .collection<Title[]>('titles', ref =>
+        ref
+          .where('uid', '==', uid)
+          .orderBy('createdAt', 'desc')
+          .limit(6)
+      )
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
   getTitleById(id: string) {
     return this.afStore
       .collection<Title[]>('titles')

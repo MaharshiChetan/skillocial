@@ -223,7 +223,7 @@ export class ProfilePage implements OnInit {
   }
 
   getTitles() {
-    const subscription = this.titleService.getTitles(this.uid).subscribe((titles: any) => {
+    const subscription = this.titleService.getTopSixTitles(this.uid).subscribe((titles: any) => {
       subscription.unsubscribe();
       this.titles = titles;
     });
