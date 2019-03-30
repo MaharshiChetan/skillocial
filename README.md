@@ -17,7 +17,7 @@ Skillocial is a Social Media platform for next generation of Hip Hop Community o
 ## Getting Started
 
 - [Download the installer](https://nodejs.org/) for Node.js 6 or greater.
-- Install the ionic CLI globally: `npm install -g ionic cordova`
+- Install the ionic and cordova CLI globally: `npm install -g ionic cordova`
 - Clone this repository: `git clone https://github.com/MaharshiChetan/skillocial.git`.
 - Run `npm install` from the project root.
 - Run `ionic serve` in a terminal from the project root.
