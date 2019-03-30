@@ -95,6 +95,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
         location: [this.eventDetails.location, Validators.compose([Validators.required])],
         state: [this.eventDetails.state, Validators.compose([Validators.required])],
         city: [this.eventDetails.city, Validators.compose([Validators.required])],
+        requestStatus: [this.eventDetails.requestStatus, Validators.compose([Validators.required])],
       });
     } else {
       this.eventForm = this.formBuilder.group({
@@ -108,6 +109,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
         location: [null, Validators.compose([Validators.required])],
         state: [null, Validators.compose([Validators.required])],
         city: [null, Validators.compose([Validators.required])],
+        requestStatus: ['pending', Validators.compose([Validators.required])],
       });
     }
   }
@@ -187,6 +189,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
     });
     await actionSheet.present();
   }
+
   async addParticipationCategories(category?: any, index?: number) {
     const prompt = await this.alertCtrl.create({
       header: category ? 'Edit Category' : 'Add Category',

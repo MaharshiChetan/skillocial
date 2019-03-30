@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list no-margin *ngIf="this.navTitle !== 'Participants Requests'">
+  <ion-list no-margin>
     <ion-item
       *ngFor="let user of users"
       (click)="dismissModal()"
@@ -38,60 +38,6 @@
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-list>
-
-  <ion-grid no-padding *ngIf="this.navTitle === 'Participants Requests'">
-    <ion-row *ngFor="let user of users">
-      <ion-col>
-        <ion-card no-margin mode="md">
-          <ion-item
-            lines="none"
-            [routerLink]="['/profile/' + user.uid]"
-            class="no-outline"
-            detail="false"
-          >
-            <ion-avatar slot="start">
-              <img
-                alt=""
-                class="cover-image skeleton-color"
-                defaultImage="/assets/default-user.jpeg"
-                [lazyLoad]="user.thumbnail || user.profilePhoto"
-                [errorImage]="user.profilePhoto"
-              />
-            </ion-avatar>
-            <ion-label>
-              <h3 class="full_name">{{ user.fullName }}</h3>
-              <h5 class="user_name">{{ user.username }}</h5>
-            </ion-label>
-          </ion-item>
-          <ion-row>
-            <ion-col text-right no-padding>
-              <ion-button
-                no-margin
-                fill="clear"
-                color="danger"
-                (click)="confirmAlert('Reject', user)"
-              >
-                Reject
-              </ion-button>
-              <ion-button
-                no-margin
-                fill="clear"
-                color="success"
-                (click)="confirmAlert('Accept', user)"
-              >
-                Accept
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <ion-infinite-scroll *ngIf="users?.length > 0" (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content loadingText="Loading more users...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  </ion-grid>
 
   <ion-list *ngIf="!users || users?.length === 0" slot="fixed">
     <ion-item *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">

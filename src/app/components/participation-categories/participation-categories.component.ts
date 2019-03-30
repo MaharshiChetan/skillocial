@@ -3,7 +3,7 @@ import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
 import { PaymentCalculationComponent } from '../payment-calculation/payment-calculation.component';
-import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
+import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service/active-users-in-event.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
@@ -53,48 +53,7 @@ export class ParticipationCategoriesComponent implements OnInit {
     await alert.present();
   }
 
-  async sendOnSpotRequest() {
-    try {
-      await this.loadingService.show();
-      await this.activeUsersInEventService.addActiveUser(
-        this.event.id,
-        this.currentUserProfile.uid,
-        'participantsRequest'
-      );
-      this.updateActiveUsersCount('participantsRequest');
-      await this.loadingService.hide();
-      this.requestSentAlert();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  updateActiveUsersCount(type: string) {
-    const subscription = this.activeUsersInEventService
-      .getActiveUsers(this.event.id, type)
-      .subscribe(async activeUsers => {
-        subscription.unsubscribe();
-        await this.activeUsersInEventService.updateActiveUsersCount(this.event.id, {
-          [type]: activeUsers.length,
-        });
-      });
-  }
-
-  async requestSentAlert() {
-    const alert = await this.alertCtrl.create({
-      header: 'Request Sent',
-      message: 'Your request for on spot entry is sent successfully.',
-      buttons: [
-        {
-          text: 'Okay',
-          handler: () => {
-            this.dismissModal();
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
+  async sendOnSpotRequest() {}
 
   async showPayment() {
     const modal = await this.modalCtrl.create({

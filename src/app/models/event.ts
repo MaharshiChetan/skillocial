@@ -19,4 +19,5 @@ export class Event {
   timeStamp?: string;
   id?: string;
   participationCategories: any[];
+  requestStatus: string;
 }

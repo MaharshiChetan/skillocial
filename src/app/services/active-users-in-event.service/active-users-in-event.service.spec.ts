@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ActiveUsersInEventService } from './active-users-in-event.service';
+import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service/active-users-in-event.service';
 
 describe('ActiveUsersInEventService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

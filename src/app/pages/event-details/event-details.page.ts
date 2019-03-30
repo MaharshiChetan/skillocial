@@ -4,7 +4,7 @@ import { IonContent, ModalController, NavController, ActionSheetController } fro
 import { EventsService } from 'src/app/services/event/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
-import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
+import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service/active-users-in-event.service';
 import { User } from 'src/app/models/user';
 import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
 import { LoadingService } from 'src/app/services/loading/loading.service';

@@ -37,20 +37,6 @@
           <ion-label>{{ activeUsersCount?.going || 0 }} </ion-label>
         </ion-chip>
       </ion-item>
-      <ion-item (click)="showActiveUsers('Participants', 'participants')" button>
-        <ion-ripple-effect></ion-ripple-effect>
-        <ion-label>Participants</ion-label>
-        <ion-chip color="secondary">
-          <ion-label>{{ activeUsersCount?.participants || 0 }}</ion-label>
-        </ion-chip>
-      </ion-item>
-      <ion-item (click)="showActiveUsers('Participants Requests', 'participantsRequest')" button>
-        <ion-ripple-effect></ion-ripple-effect>
-        <ion-label>Participation Requests</ion-label>
-        <ion-chip color="secondary">
-          <ion-label>{{ activeUsersCount?.participantsRequest || 0 }} </ion-label>
-        </ion-chip>
-      </ion-item>
     </ion-list>
   </div>
 </ion-content>

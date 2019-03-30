@@ -44,7 +44,6 @@
           offset="100"
           (tap)="likePost(post, $event)"
         />
-        <div class="heart centered" [ngClass]="{ happy: happy }">❤</div>
       </div>
       <ion-card-content class="text-black" no-padding>
         <ion-row>
@@ -65,12 +64,10 @@
               (click)="showModal(post.likes)"
               no-margin
             >
-              <ion-icon
-                slot="start"
+              <i
+                style="margin-right: 0.3em; font-size: 20px; color: #f4344f"
                 class="fas fa-heart icon"
-                name="heart"
-                color="danger"
-              ></ion-icon>
+              ></i>
               {{ post.likesCount }}
             </ion-button>
           </ion-col>
@@ -79,27 +76,21 @@
       <ion-row text-center align-items-center>
         <ion-col no-padding>
           <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking" no-margin>
-            <ion-icon
-              class="animated bounceIn far fa-heart icon"
-              name="heart-empty"
-              slot="start"
-            ></ion-icon>
+            <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart icon"></i>
             {{ post.likesCount }} Likes
           </ion-button>
           <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking" no-margin>
-            <ion-icon
+            <i
               class="animated bounceIn fas fa-heart icon"
-              slot="start"
-              name="heart"
-              color="danger"
-            ></ion-icon>
+              style="margin-right: 0.3em; font-size: 20px; color: #f4344f"
+            ></i>
             {{ post.likesCount }} Likes
           </ion-button>
         </ion-col>
         <ion-col no-padding>
           <ion-button fill="clear" (click)="openCommentsModal(post)" no-margin>
+            <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment icon"></i>
             {{ post.commentsCount }} Comments
-            <ion-icon slot="start" name="text" class="far fa-comment icon"></ion-icon>
           </ion-button>
         </ion-col>
         <ion-col text-center no-padding>
@@ -132,12 +123,10 @@
         <ion-row>
           <ion-col text-right no-padding class="like-counts">
             <ion-button fill="clear" no-margin>
-              <ion-icon
-                slot="start"
+              <i
+                style="margin-right: 0.3em; font-size: 20px; color: #f4344f"
                 class="fas fa-heart icon"
-                name="heart"
-                color="danger"
-              ></ion-icon>
+              ></i>
               0
             </ion-button>
           </ion-col>
@@ -146,14 +135,17 @@
       <ion-row text-center align-items-center>
         <ion-col no-padding>
           <ion-button fill="clear" no-margin>
-            <ion-icon class=" far fa-heart icon" name="heart-empty" slot="start"></ion-icon>
+            <i
+              style="margin-right: 0.3em; font-size: 20px; color: #f4344f"
+              class="fas fa-heart icon"
+            ></i>
             0 Likes
           </ion-button>
         </ion-col>
         <ion-col no-padding>
           <ion-button fill="clear" no-margin>
+            <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment icon"></i>
             0 Comments
-            <ion-icon slot="start" name="text" class="far fa-comment icon"></ion-icon>
           </ion-button>
         </ion-col>
         <ion-col text-center no-padding>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
 import { ModalController } from '@ionic/angular';
-import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service';
+import { ActiveUsersInEventService } from 'src/app/services/active-users-in-event.service/active-users-in-event.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
