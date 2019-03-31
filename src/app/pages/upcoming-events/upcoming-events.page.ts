@@ -32,7 +32,7 @@ export class UpcomingEventsPage implements OnInit {
   }
 
   getEvents(refresher?: any) {
-    const subscription = this.eventService.getEvents().subscribe((events: any) => {
+    const subscription = this.eventService.getEvents('accepted').subscribe((events: any) => {
       subscription.unsubscribe();
       this.upcomingEvents = events;
       this.searchEvents = this.upcomingEvents;

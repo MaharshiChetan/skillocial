@@ -31,9 +31,11 @@ export class EventsService {
       .valueChanges();
   }
 
-  getEvents() {
+  getEvents(requestStatus: string) {
     return this.afStore
-      .collection<Event[]>('events', ref => ref.orderBy('startDate'))
+      .collection<Event[]>('events', ref =>
+        ref.orderBy('startDate').where('requestStatus', '==', requestStatus)
+      )
       .snapshotChanges()
       .pipe(
         map(actions =>
