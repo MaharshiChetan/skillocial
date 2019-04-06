@@ -54,11 +54,6 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.992321422896-dlc3nlukqt598adgb30fe6vv4l869iuo" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="992321422896-dlc3nlukqt598adgb30fe6vv4l869iuo.apps.googleusercontent.com" />
     </plugin>
-    <plugin name="twitter-connect-plugin" spec="0.6.0">
-        <variable name="FABRIC_KEY" value="81a52383226e3055f9ff18b65917b9e75923231e" />
-        <variable name="TWITTER_KEY" value="auk07C9KQQpO3lxE8RlCuaC7J" />
-        <variable name="TWITTER_SECRET" value="g6TSPoP3Xjv3322DV8Wn6Y1qrhCZWTnowarteKMDfUcpUsuE1F" />
-    </plugin>
     <plugin name="cordova-plugin-file" spec="6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />

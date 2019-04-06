@@ -18,7 +18,7 @@ export class SettingsPage implements OnInit {
     private authService: AuthService,
     private navCtrl: NavController,
     private alertCtrl: AlertController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
@@ -55,8 +55,6 @@ export class SettingsPage implements OnInit {
           alert('logout:' + error);
           this.logout();
         }
-      } else if (user.loginType === 'twitter') {
-        this.logout();
       } else {
         this.logout();
       }

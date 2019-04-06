@@ -4,7 +4,6 @@ import { NavController, Platform } from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import * as firebase from 'firebase';
 import { FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-// import { TwitterConnectResponse } from '@ionic-native/twitter-connect/ngx';
 import { UserService } from 'src/app/services/user/user.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
@@ -132,21 +131,4 @@ export class SocialLoginComponent implements OnInit {
       }
     }
   }
-
-  /* async twitterLogin() {
-    await this.loadingService.show();
-    try {
-      const response: TwitterConnectResponse = await this.authService.cordovaTwitterLogin();
-      const twitterCredential: firebase.auth.AuthCredential = firebase.auth.TwitterAuthProvider.credential(
-        response.token,
-        response.secret
-      );
-      const userProfile = await this.authService.signInWithTwitterCredential(twitterCredential);
-      await this.loadingService.hide();
-      alert(JSON.stringify(userProfile));
-    } catch (error) {
-      await this.loadingService.hide();
-      alert(error);
-    }
-  } */
 }

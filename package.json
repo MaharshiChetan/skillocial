@@ -44,7 +44,6 @@
     "@ionic-native/social-sharing": "^5.3.0",
     "@ionic-native/splash-screen": "^5.3.0",
     "@ionic-native/status-bar": "^5.3.0",
-    "@ionic-native/twitter-connect": "^5.3.0",
     "@ionic/angular": "^4.2.0",
     "@ionic/storage": "^2.2.0",
     "@types/lodash": "^4.14.123",
@@ -85,7 +84,6 @@
     "ngx-moment": "^3.4.0",
     "node-sass": "^4.11.0",
     "rxjs": "~6.3.3",
-    "twitter-connect-plugin": "0.6.0",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
@@ -136,11 +134,6 @@
         "APP_NAME": "skillocial",
         "FACEBOOK_HYBRID_APP_EVENTS": "false",
         "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
-      },
-      "twitter-connect-plugin": {
-        "FABRIC_KEY": "81a52383226e3055f9ff18b65917b9e75923231e",
-        "TWITTER_KEY": "auk07C9KQQpO3lxE8RlCuaC7J",
-        "TWITTER_SECRET": "g6TSPoP3Xjv3322DV8Wn6Y1qrhCZWTnowarteKMDfUcpUsuE1F"
       },
       "cordova-plugin-file": {},
       "cordova-plugin-x-socialsharing": {
