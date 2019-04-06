@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NavController, Platform } from '@ionic/angular';
-import { ToastService } from 'src/app/services/toast/toast.service';
 import * as firebase from 'firebase';
 import { FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { UserService } from 'src/app/services/user/user.service';
@@ -18,12 +17,11 @@ export class SocialLoginComponent implements OnInit {
     private authService: AuthService,
     private navCtrl: NavController,
     private platform: Platform,
-    private toastService: ToastService,
     private userService: UserService,
     private loadingService: LoadingService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   async googleLogin() {
     await this.loadingService.show();
