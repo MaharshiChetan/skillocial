@@ -6,7 +6,7 @@ import { PopoverComponent } from './popover/popover.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsersListComponent } from './users-list/users-list.component';
-import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { RouterModule } from '@angular/router';
 import { ChatBubbleComponent } from './chat-bubble/chat-bubble.component';
 import { MomentModule } from 'ngx-moment';
@@ -66,4 +66,4 @@ import { PaymentCalculationComponent } from './payment-calculation/payment-calcu
     PaymentCalculationComponent,
   ],
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

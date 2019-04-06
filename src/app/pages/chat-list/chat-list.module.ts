@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ChatListPage } from './chat-list.page';
-import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
@@ -27,4 +27,4 @@ const routes: Routes = [
   ],
   declarations: [ChatListPage],
 })
-export class ChatListPageModule {}
+export class ChatListPageModule { }

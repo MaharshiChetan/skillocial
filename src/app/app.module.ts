@@ -28,7 +28,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 
-import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
@@ -71,4 +71,4 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

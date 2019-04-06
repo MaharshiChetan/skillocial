@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TitlesPage } from './titles.page';
-import LazyLoadImageModule, { intersectionObserverPreset } from 'ng-lazyload-image';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
@@ -27,4 +27,4 @@ const routes: Routes = [
   ],
   declarations: [TitlesPage],
 })
-export class TitlesPageModule {}
+export class TitlesPageModule { }
