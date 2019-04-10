@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -91,7 +91,7 @@ export class LoginPage implements OnInit {
   async forgotPassword() {
     const alert = await this.alertCtrl.create({
       header: 'Forgot Password?',
-      message: 'Enter you email address to send a reset link password.',
+      message: "Enter your email and we'll send you a link to get back into your account.",
       inputs: [
         {
           name: 'email',

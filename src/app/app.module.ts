@@ -31,6 +31,7 @@ import { Base64 } from '@ionic-native/base64/ngx';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -68,6 +69,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
     Base64,
     Keyboard,
     Clipboard,
+    PhotoViewer
   ],
   bootstrap: [AppComponent],
 })

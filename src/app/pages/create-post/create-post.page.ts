@@ -23,7 +23,7 @@ export class CreatePostPage implements OnInit, OnDestroy {
   postId: any;
   post: Post;
   postForm: FormGroup;
-
+  userPost: any;
   constructor(
     public cameraService: CameraService,
     private loadingService: LoadingService,

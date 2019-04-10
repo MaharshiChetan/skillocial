@@ -12,6 +12,7 @@ import { TitleService } from 'src/app/services/title/title.service';
 import { Title } from '@angular/platform-browser';
 import { PostService } from 'src/app/services/post/post.service';
 import { Post } from 'src/app/models/post';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
   selector: 'app-profile',
@@ -41,8 +42,9 @@ export class ProfilePage implements OnInit {
     private loadingService: LoadingService,
     private alertCtrl: AlertController,
     private titleService: TitleService,
-    private postService: PostService
-  ) {}
+    private postService: PostService,
+    public photoViewer: PhotoViewer
+  ) { }
 
   async ngOnInit() {
     this.uid = this.route.snapshot.paramMap.get('id');

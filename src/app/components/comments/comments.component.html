@@ -10,23 +10,17 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="!comments" text-center padding-top><ion-spinner></ion-spinner></div>
+  <div *ngIf="!comments" text-center padding-top>
+    <ion-spinner></ion-spinner>
+  </div>
   <ion-list>
     <div *ngFor="let comment of comments" class="click" (press)="showActionSheet(post.id, comment)">
       <ion-item *ngIf="comment.userProfile">
         <ion-ripple-effect></ion-ripple-effect>
-        <ion-avatar
-          slot="start"
-          [routerLink]="['profile/' + comment?.userProfile?.uid]"
-          class="no-outline"
-        >
-          <img
-            alt=""
-            class="comment-image"
-            defaultImage="/assets/default-user.jpeg"
+        <ion-avatar slot="start" [routerLink]="['profile/' + comment?.userProfile?.uid]" class="no-outline">
+          <img alt="" class="comment-image" defaultImage="/assets/default-user.jpeg"
             [lazyLoad]="comment.userProfile.thumbnail || comment.userProfile.profilePhoto"
-            errorImage="/assets/default-user.jpeg"
-          />
+            errorImage="/assets/default-user.jpeg" />
         </ion-avatar>
         <ion-label>
           <h2 [routerLink]="['profile/' + comment?.userProfile?.uid]" class="no-outline">
@@ -46,38 +40,21 @@
   <ion-toolbar>
     <ion-row align-items-center>
       <ion-col size="1" no-padding style="padding-top: 5px">
-        <img
-          alt=""
-          style="border-radius: 50%"
-          class="cover-image skeleton-color"
-          defaultImage="/assets/default-user.jpeg"
-          [lazyLoad]="userService?.currentUserProfile?.profilePhoto"
-          [errorImage]="user?.profilePhoto"
-        />
+        <img alt="" style="border-radius: 50%" class="cover-image skeleton-color"
+          defaultImage="/assets/default-user.jpeg" [lazyLoad]="userService?.currentUserProfile?.profilePhoto"
+          [errorImage]="userService?.currentUserProfile?.profilePhoto" />
       </ion-col>
 
       <ion-col style="padding-right: 0px; padding-left: 0px">
-        <textarea
-          class="no-outline"
-          (ngModelChange)="textAreaChange()"
-          autosize
-          rows="1"
-          [maxRows]="10"
-          [(ngModel)]="comment"
-          placeholder="Write your comment"
-        >
+        <textarea class="no-outline" (ngModelChange)="textAreaChange()" autosize rows="1" [maxRows]="10"
+          [(ngModel)]="comment" placeholder="Write your comment">
         </textarea>
       </ion-col>
 
       <ion-col size="1" style="padding-left: 0px">
         <ion-buttons>
-          <ion-button
-            class="toolbar-button"
-            fill="clear"
-            [disabled]="!comment"
-            color="primary"
-            (touchstart)="addComment($event)"
-          >
+          <ion-button class="toolbar-button" fill="clear" [disabled]="!comment" color="primary"
+            (touchstart)="addComment($event)">
             <ion-icon mode="md" name="send"></ion-icon>
           </ion-button>
         </ion-buttons>
