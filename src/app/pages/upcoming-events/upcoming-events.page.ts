@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { EventsService } from '../../services/event/event.service';
-import { NavController } from '@ionic/angular';
 import { Event } from 'src/app/models/event';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user/user.service';
@@ -20,11 +18,9 @@ export class UpcomingEventsPage implements OnInit {
 
   constructor(
     private eventService: EventsService,
-    private router: Router,
-    private navCtrl: NavController,
     private filterService: FilterService,
     private userService: UserService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.getEvents();
@@ -32,7 +28,7 @@ export class UpcomingEventsPage implements OnInit {
   }
 
   getEvents(refresher?: any) {
-    const subscription = this.eventService.getEvents('accepted').subscribe((events: any) => {
+    const subscription = this.eventService.getEvents('pending').subscribe((events: any) => {
       subscription.unsubscribe();
       this.upcomingEvents = events;
       this.searchEvents = this.upcomingEvents;
@@ -44,7 +40,7 @@ export class UpcomingEventsPage implements OnInit {
     alert(card.title + ' was shared.');
   }
 
-  setFilteredItems(event: Event) {
+  setFilteredItems() {
     this.upcomingEvents = this.filterService.filterEvents(this.searchEvents, this.searchTerm);
   }
 }

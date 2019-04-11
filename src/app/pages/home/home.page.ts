@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user';
 export class HomePage implements OnInit {
   currentUserProfile: any;
   userProfile: User;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   async ngOnInit() {
     this.getCurrentUserProfile();
@@ -19,13 +19,15 @@ export class HomePage implements OnInit {
   async getCurrentUserProfile(refresher?: any) {
     this.currentUserProfile = await this.userService.getCurrentUser();
     this.userProfile = this.currentUserProfile;
-    const subscription = this.userService
-      .getUserByUID(this.currentUserProfile.uid)
-      .subscribe((user: User) => {
-        subscription.unsubscribe();
-        this.userProfile = user;
+    if (this.currentUserProfile) {
+      const subscription = this.userService
+        .getUserByUID(this.currentUserProfile.uid)
+        .subscribe((user: User) => {
+          subscription.unsubscribe();
+          this.userProfile = user;
 
-        if (refresher) refresher.target.complete();
-      });
+          if (refresher) refresher.target.complete();
+        });
+    }
   }
 }
