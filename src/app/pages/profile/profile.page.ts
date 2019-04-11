@@ -25,9 +25,10 @@ export class ProfilePage implements OnInit {
   type: string = 'posts';
   currentUserProfile: User;
   followersCount: any;
+  followingsCount: number;
+  likesCount: any;
   followers: { uid: string }[];
   followings: { uid: string }[];
-  followingsCount: number;
   isFollowing: boolean;
   titles: Title[];
   posts: Post[];

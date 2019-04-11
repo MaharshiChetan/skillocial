@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -8,11 +7,8 @@ import { UserService } from 'src/app/services/user/user.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private navCtrl: NavController, private userService: UserService) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Promise<boolean> | boolean {
+  constructor(private navCtrl: NavController, private userService: UserService) { }
+  canActivate(): Promise<boolean> | boolean {
     this.userService
       .getCurrentUser()
       .then(user => {

@@ -4,7 +4,6 @@ import { Platform, AlertController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth/auth.service';
-import { ToastService } from './services/toast/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { UserService } from './services/user/user.service';
@@ -21,7 +20,6 @@ export class AppComponent {
     private authService: AuthService,
     private network: Network,
     private alertCtrl: AlertController,
-    private toastService: ToastService,
     private headerColor: HeaderColor,
     private navCtrl: NavController,
     private userService: UserService
