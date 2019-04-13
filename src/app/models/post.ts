@@ -14,4 +14,5 @@ export class Post {
   likesCount?: number;
   comments?: any;
   commentsCount?: number;
+  likeID?: any;
 }

@@ -15,3 +15,5 @@
 14. Notifications.
 15. show 6 most liked post of the profile on collection page.
 16. created indexes in firestore.
+17. change security rules for authenticated users (changed because of no release to auro increment counters in angularfire2).
+18. 

@@ -45,7 +45,7 @@ export class CommentsComponent implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private clipboard: Clipboard,
     private postCommentService: PostCommentService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.post = this.navParams.get('post');

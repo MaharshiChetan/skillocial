@@ -6,6 +6,8 @@ import { AuthService } from './services/auth/auth.service';
 import { Network } from '@ionic-native/network/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
 import { UserService } from './services/user/user.service';
+import * as firebase from 'firebase';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,7 @@ export class AppComponent {
     private userService: UserService
   ) {
     this.initializeApp();
+    firebase.initializeApp(environment.firebase);
     this.userService
       .getCurrentUser()
       .then(async user => {

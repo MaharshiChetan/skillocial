@@ -1,28 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Post } from 'src/app/models/post';
+import { Component, OnInit, Input } from "@angular/core";
+import { Post } from "src/app/models/post";
 import {
   NavController,
   ModalController,
   Platform,
   ActionSheetController,
-  AlertController,
-} from '@ionic/angular';
-import { PostService } from 'src/app/services/post/post.service';
-import { LoadingService } from 'src/app/services/loading/loading.service';
-import { PostLikeService } from 'src/app/services/post-like/post-like.service';
-import { PostCommentService } from 'src/app/services/post-comment/post-comment.service';
-import { CommentsComponent } from '../comments/comments.component';
-import { UserService } from 'src/app/services/user/user.service';
-import { User } from 'src/app/models/user';
-import { UsersListComponent } from '../users-list/users-list.component';
+  AlertController
+} from "@ionic/angular";
+import { PostService } from "src/app/services/post/post.service";
+import { LoadingService } from "src/app/services/loading/loading.service";
+import { PostLikeService } from "src/app/services/post-like/post-like.service";
+import { PostCommentService } from "src/app/services/post-comment/post-comment.service";
+import { CommentsComponent } from "../comments/comments.component";
+import { UserService } from "src/app/services/user/user.service";
+import { User } from "src/app/models/user";
+import { UsersListComponent } from "../users-list/users-list.component";
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
+  selector: "app-posts",
+  templateUrl: "./posts.component.html",
+  styleUrls: ["./posts.component.scss"]
 })
 export class PostsComponent implements OnInit {
-  @Input('posts') posts: Post[];
+  @Input("posts") posts: Post[];
   showMore: boolean = false;
   uid: string;
   currentUserProfile: User;
@@ -51,30 +51,24 @@ export class PostsComponent implements OnInit {
   }
 
   getPostsDetail() {
-    console.log(this.posts);
-
     this.posts.forEach((post: any, i: number) => {
-      const subscription = this.userService.getUserByUID(post.uid).subscribe((user: User) => {
-        this.posts[i].createdAt = post.createdAt.toDate();
-        subscription.unsubscribe();
-        this.posts[i].userDetails = user;
-        this.posts[i].myPost = post.uid === this.uid;
-        this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
-          this.posts[i].isLiking = data.key ? true : false;
-          const likeSubscription = this.postLikeService.getTotalLikes(post.id).subscribe(likes => {
-            this.posts[i].likes = likes;
-            this.posts[i].likesCount = likes.length;
-            likeSubscription.unsubscribe();
-          });
-          const commentSubscription = this.postCommentService
-            .getTotalComments(post.id)
-            .subscribe(comments => {
-              this.posts[i].comments = comments;
-              this.posts[i].commentsCount = comments.length;
-              commentSubscription.unsubscribe();
-            });
+      const subscription = this.userService
+        .getUserByUID(post.uid)
+        .subscribe((user: User) => {
+          subscription.unsubscribe();
+          this.checkLike(post, i);
+          this.posts[i].createdAt = post.createdAt.toDate();
+          this.posts[i].userDetails = user;
+          this.posts[i].myPost = post.uid === this.uid;
         });
-      });
+    });
+  }
+
+  checkLike(post: Post, index: number) {
+    const likeSubscription = this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
+      likeSubscription.unsubscribe();
+      console.log(data);
+      this.posts[index].likeID = data.length > 0 ? data[0].id : null;
     });
   }
 
@@ -83,9 +77,9 @@ export class PostsComponent implements OnInit {
       component: UsersListComponent,
       componentProps: {
         usersUID: users,
-        navTitle: 'Likes',
+        navTitle: "Likes"
       },
-      animated: false,
+      animated: false
     });
     modal.present();
     modal.onWillDismiss().then(data => {
@@ -93,12 +87,29 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  async likePost(post: any) {
-    await this.postLikeService.likePost(post.id, this.uid);
+  async likePost(post: any, i: number) {
+    try {
+      ++this.posts[i].likesCount;
+      this.posts[i].likeID = true;
+      await this.postLikeService.likePost(post.id, this.uid);
+      this.checkLike(post, i);
+    } catch (error) {
+      --this.posts[i].likesCount;
+      console.log(error);
+    }
   }
 
-  async unlikePost(post: any) {
-    await this.postLikeService.unlikePost(post.id, this.uid);
+  async unlikePost(post: any, i: number) {
+    try {
+      --this.posts[i].likesCount;
+      const likeID = this.posts[i].likeID;
+      this.posts[i].likeID = false;
+      await this.postLikeService.unlikePost(post.id, likeID);
+      this.checkLike(post, i);
+    } catch (error) {
+      ++this.posts[i].likesCount;
+      console.log(error);
+    }
   }
 
   changeContentLength() {
@@ -107,61 +118,61 @@ export class PostsComponent implements OnInit {
 
   async presentActionSheet(post: any) {
     const actionsheet = await this.actionsheetCtrl.create({
-      header: 'Take Action',
+      header: "Take Action",
       buttons: [
         {
-          text: 'Edit',
-          icon: !this.platform.is('ios') ? 'create' : null,
+          text: "Edit",
+          icon: !this.platform.is("ios") ? "create" : null,
           handler: () => {
             this.editPost(post);
-          },
+          }
         },
         {
-          text: 'Delete',
-          icon: !this.platform.is('ios') ? 'trash' : null,
+          text: "Delete",
+          icon: !this.platform.is("ios") ? "trash" : null,
           handler: () => {
             this.showConfirmAlert(post);
-          },
+          }
         },
         {
-          text: 'Cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          role: 'destructive',
-        },
-      ],
+          text: "Cancel",
+          icon: !this.platform.is("ios") ? "close" : null,
+          role: "destructive"
+        }
+      ]
     });
     await actionsheet.present();
   }
 
   async showConfirmAlert(post: any) {
     const confirm = await this.alertCtrl.create({
-      header: 'Confirm Deletion',
-      message: 'Delete this post?',
+      header: "Confirm Deletion",
+      message: "Delete this post?",
       buttons: [
         {
-          text: 'Cancel',
+          text: "Cancel",
           handler: () => {
-            console.log('Disagree clicked');
-          },
+            console.log("Disagree clicked");
+          }
         },
         {
-          text: 'Delete',
+          text: "Delete",
           handler: () => {
             this.deletePost(post);
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     await confirm.present();
   }
 
   async editPost(post: Post) {
-    await this.navCtrl.navigateForward(['create-post/' + post.id]);
+    await this.navCtrl.navigateForward(["create-post/" + post.id]);
   }
 
   async deletePost(post: Post) {
     try {
-      await this.loadingService.show('Deleting post...');
+      await this.loadingService.show("Deleting post...");
       this.postService.deletePost(post.id);
       this.postLikeService.removePostLikes(post.id);
       this.postCommentService.removePostComments(post.id);
@@ -180,9 +191,9 @@ export class PostsComponent implements OnInit {
       component: CommentsComponent,
       componentProps: {
         post: post,
-        currentUserProfile: this.currentUserProfile,
+        currentUserProfile: this.currentUserProfile
       },
-      animated: false,
+      animated: false
     });
     await modal.present();
     // modal.onWillDismiss().then(data => {
