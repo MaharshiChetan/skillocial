@@ -24,8 +24,7 @@
 
       <div class="container">
         <img alt="" class="contain-image click" [defaultImage]="post.thumbnail || post.imageUrl"
-          [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100"
-          (tap)="likePost(post, $event)" />
+          [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100" />
       </div>
       <ion-card-content class="text-black" no-padding>
         <ion-row>

@@ -43,15 +43,8 @@
     </p>
 
     <div>
-      <ion-button
-        icon-left
-        size="medium"
-        expand="full"
-        shape="round"
-        color="secondary"
-        (click)="login()"
-        [disabled]="!loginForm.valid"
-      >
+      <ion-button icon-left size="medium" expand="full" shape="round" color="secondary" (click)="login()"
+        [disabled]="!loginForm.valid">
         <ion-icon name="log-in"></ion-icon>
         Signin
       </ion-button>

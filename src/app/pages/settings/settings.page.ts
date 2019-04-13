@@ -65,7 +65,7 @@ export class SettingsPage implements OnInit {
     try {
       await this.authService.logout();
       await this.userService.removeCurrentUser();
-      this.navCtrl.navigateRoot('login');
+      await this.navCtrl.navigateRoot('login');
     } catch (error) {
       console.log(error);
     }

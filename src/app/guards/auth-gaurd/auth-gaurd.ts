@@ -11,18 +11,18 @@ export class AuthGuard implements CanActivate {
   canActivate(): Promise<boolean> | boolean {
     this.userService
       .getCurrentUser()
-      .then(user => {
+      .then(async user => {
         if (!user) {
           console.log('access denied!');
-          this.navCtrl.navigateRoot(['login']);
+          await this.navCtrl.navigateRoot(['login']);
           return false;
         } else {
           return true;
         }
       })
-      .catch(error => {
+      .catch(async error => {
         console.log(error);
-        this.navCtrl.navigateRoot(['login']);
+        await this.navCtrl.navigateRoot(['login']);
         return false;
       });
 

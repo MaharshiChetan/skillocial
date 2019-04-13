@@ -85,13 +85,13 @@ export class ProfilePage implements OnInit {
       if (value.data.name === 'Edit Profile') {
         this.editProfile();
       } else if (value.data.name === 'Message') {
-        this.navCtrl.navigateForward([`${value.data.route}/${this.uid}`]);
+        await this.navCtrl.navigateForward([`${value.data.route}/${this.uid}`]);
       } else if (value.data.name === 'Unfollow') {
         this.unfollow();
       } else if (value.data.name === 'Follow') {
         this.follow();
       } else {
-        this.navCtrl.navigateForward([value.data.route]);
+        await this.navCtrl.navigateForward([value.data.route]);
       }
     }
   }

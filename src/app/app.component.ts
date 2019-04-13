@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Platform, AlertController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -27,17 +26,13 @@ export class AppComponent {
     this.initializeApp();
     this.userService
       .getCurrentUser()
-      .then(user => {
-        if (!user) {
-          this.navCtrl.navigateRoot(['login']);
-          return false;
-        } else {
-          return true;
+      .then(async user => {
+        if (user) {
+          await this.navCtrl.navigateRoot(['tabs']);
         }
       })
-      .catch(error => {
-        this.navCtrl.navigateRoot(['login']);
-        return false;
+      .catch(async error => {
+        await this.navCtrl.navigateRoot(['login']);
       });
 
     this.headerColor.tint('#1c1c1c');

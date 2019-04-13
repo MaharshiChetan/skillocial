@@ -6,10 +6,18 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PostLikeService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase) { }
 
   likePost(id: string, uid: string) {
     return this.db.object(`postLikes/${id}`).update({ [uid]: true });
+
+    // const postLikes = firestore().collection('postLikes').doc(`${this.afStore.createId()}`);
+    // const post = firestore().collection('posts').doc(postId);
+    // const increment = firestore.FieldValue.increment(1);
+    // const batch = firestore().batch();
+
+    // batch.set(postLikes, { postId, uid });
+    // batch.set(post, { likesCount: increment }, { merge: true });
   }
 
   checkLike(id: string, uid: string) {
@@ -26,6 +34,14 @@ export class PostLikeService {
 
   unlikePost(id: string, uid: string) {
     return this.db.object(`postLikes/${id}/${uid}`).remove();
+
+    // const postLikes = firestore().collection('postLikes').doc(`${this.afStore.createId()}`);
+    // const post = firestore().collection('posts').doc(postId);
+    // const increment = firestore.FieldValue.decrement(1);
+    // const batch = firestore().batch();
+
+    // batch.set(postLikes, { postId, uid });
+    // batch.set(post, { likesCount: increment }, { merge: true });
   }
 
   removePostLikes(id: string) {

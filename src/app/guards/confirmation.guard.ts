@@ -9,7 +9,7 @@ import { AlertController, NavController } from '@ionic/angular';
 export class ConfirmationGuard implements ConfirmationGuard {
   showAlertMessage: boolean = true;
 
-  constructor(private alertCtrl: AlertController, private navCtrl: NavController) {}
+  constructor(private alertCtrl: AlertController, private navCtrl: NavController) { }
   async canDeactivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     if (this.showAlertMessage) {
       let alertPopup = await this.alertCtrl.create({
@@ -33,8 +33,8 @@ export class ConfirmationGuard implements ConfirmationGuard {
     return true;
   }
 
-  private exitPage() {
+  private async exitPage() {
     this.showAlertMessage = false;
-    this.navCtrl.navigateBack(['/tabs/upcoming-events']);
+    await this.navCtrl.navigateBack(['/tabs/upcoming-events']);
   }
 }

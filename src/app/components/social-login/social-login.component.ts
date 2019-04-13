@@ -41,7 +41,7 @@ export class SocialLoginComponent implements OnInit {
               await this.userService.storeUserData(user);
             }
             await this.loadingService.hide();
-            this.navCtrl.navigateRoot('tabs');
+            await this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
         await this.loadingService.hide();
@@ -66,7 +66,7 @@ export class SocialLoginComponent implements OnInit {
               await this.userService.storeUserData(user);
             }
             await this.loadingService.hide();
-            this.navCtrl.navigateRoot('tabs');
+            await this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
         await this.loadingService.hide();
@@ -93,7 +93,7 @@ export class SocialLoginComponent implements OnInit {
               await this.userService.storeUserData(user);
             }
             await this.loadingService.hide();
-            this.navCtrl.navigateRoot('tabs');
+            await this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
         await this.loadingService.hide();
@@ -121,7 +121,7 @@ export class SocialLoginComponent implements OnInit {
               await this.userService.storeUserData(user);
             }
             await this.loadingService.hide();
-            this.navCtrl.navigateRoot('tabs');
+            await this.navCtrl.navigateRoot('tabs');
           });
       } catch (error) {
         await this.loadingService.hide();

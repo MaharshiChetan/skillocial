@@ -26,7 +26,6 @@ export class PostsComponent implements OnInit {
   showMore: boolean = false;
   uid: string;
   currentUserProfile: User;
-  happy: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -39,7 +38,7 @@ export class PostsComponent implements OnInit {
     private postLikeService: PostLikeService,
     private postCommentService: PostCommentService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getUserProfile();
@@ -94,14 +93,8 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  async likePost(post: any, event: any) {
-    if (!event || (event && event.tapCount === 2)) {
-      this.happy = true;
-      await this.postLikeService.likePost(post.id, this.uid);
-      setTimeout(() => {
-        this.happy = false;
-      }, 400);
-    }
+  async likePost(post: any) {
+    await this.postLikeService.likePost(post.id, this.uid);
   }
 
   async unlikePost(post: any) {
@@ -162,8 +155,8 @@ export class PostsComponent implements OnInit {
     await confirm.present();
   }
 
-  editPost(post: Post) {
-    this.navCtrl.navigateForward(['create-post/' + post.id]);
+  async editPost(post: Post) {
+    await this.navCtrl.navigateForward(['create-post/' + post.id]);
   }
 
   async deletePost(post: Post) {
@@ -173,7 +166,7 @@ export class PostsComponent implements OnInit {
       this.postLikeService.removePostLikes(post.id);
       this.postCommentService.removePostComments(post.id);
       if (this.posts.length < 3) {
-        this.navCtrl.pop();
+        await this.navCtrl.pop();
       }
       await this.loadingService.hide();
     } catch (error) {

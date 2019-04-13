@@ -59,6 +59,7 @@ export class CreatePostPage implements OnInit, OnDestroy {
 
   buildForm(): any {
     if (this.postId) {
+
     } else {
       this.postForm = this.formBuilder.group({
         textualContent: [null],
@@ -99,7 +100,10 @@ export class CreatePostPage implements OnInit, OnDestroy {
     this.post = this.postForm.value;
     this.post.imageUrl = imageUrl;
     this.post.imageId = this.postId ? this.post.imageId || null : imageId;
+    this.post.likesCount = this.postId ? this.post.likesCount || null : 0;
+    this.post.commentsCount = this.postId ? this.post.commentsCount || null : 0;
     this.post.uid = this.currentUserProfile.uid;
+
     if (this.postId) {
       this.post.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
       this.post.createdAt = this.post.updatedAt || firebase.firestore.FieldValue.serverTimestamp();

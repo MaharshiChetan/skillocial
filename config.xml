@@ -3,7 +3,7 @@
     <name>Skillocial</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.56.1:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -50,10 +50,6 @@
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="7.0.0">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.992321422896-dlc3nlukqt598adgb30fe6vv4l869iuo" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="992321422896-dlc3nlukqt598adgb30fe6vv4l869iuo.apps.googleusercontent.com" />
-    </plugin>
     <plugin name="cordova-plugin-file" spec="6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
     <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
@@ -70,7 +66,7 @@
     <plugin name="cordova-plugin-headercolor" spec="1.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.3" />
     <plugin name="cordova-plugin-network-information" spec="2.0.1" />
-    <plugin name="cordova-plugin-advanced-http" spec="2.0.5" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <engine name="android" spec="^8.0.0" />
+    <allow-navigation href="http://192.168.56.1:8100" sessionid="60b9b612" />
 </widget>

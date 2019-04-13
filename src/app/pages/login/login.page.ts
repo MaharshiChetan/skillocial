@@ -47,8 +47,12 @@ export class LoginPage implements OnInit {
     this.menuCtrl.enable(false);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.buildForm();
+    const user = await this.userService.getCurrentUser();
+    if (user) {
+      await this.navCtrl.navigateRoot(['tabs']);
+    }
   }
 
   buildForm() {

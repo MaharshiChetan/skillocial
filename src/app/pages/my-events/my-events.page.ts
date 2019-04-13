@@ -17,7 +17,7 @@ export class MyEventsPage implements OnInit {
     private eventService: EventsService,
     private userService: UserService,
     private navCtrl: NavController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
@@ -35,13 +35,11 @@ export class MyEventsPage implements OnInit {
       });
   }
 
-  editEvent(eventId: string) {
-    console.log(eventId);
-
-    this.navCtrl.navigateForward(['edit-event/' + eventId]);
+  async editEvent(eventId: string) {
+    await this.navCtrl.navigateForward(['edit-event/' + eventId]);
   }
 
-  navigateToTrackEvent(event: Event) {
-    this.navCtrl.navigateForward(['track-event/' + event.id]);
+  async navigateToTrackEvent(event: Event) {
+    await this.navCtrl.navigateForward(['track-event/' + event.id]);
   }
 }

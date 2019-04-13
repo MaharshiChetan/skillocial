@@ -47,7 +47,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
     private alertCtrl: AlertController,
     private platform: Platform,
     private actionSheetCtrl: ActionSheetController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
@@ -154,7 +154,7 @@ export class CreateEventPage implements OnInit, OnDestroy {
       await this.loadingService.hide();
       await this.toastService.showToast('Successfully updated event!', 'top');
       this.confirmationGuard.showAlertMessage = false;
-      this.navCtrl.navigateBack(['/tabs/upcoming-events']);
+      await this.navCtrl.navigateBack(['/tabs/upcoming-events']);
     } catch (error) {
       await this.loadingService.hide();
       await this.toastService.showToast('Failed to update event!', 'top');

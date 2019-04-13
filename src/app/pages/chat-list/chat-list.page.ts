@@ -32,7 +32,7 @@ export class ChatListPage implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private routingService: RoutingService,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.userProfile = await this.userService.getCurrentUser();
@@ -49,7 +49,7 @@ export class ChatListPage implements OnInit {
         else this.messages = false;
         if (event) event.target.complete();
 
-        this.displayMessages = _.sortBy(displayMessages, function(o) {
+        this.displayMessages = _.sortBy(displayMessages, function (o) {
           return moment(o['timeStamp']);
         }).reverse();
         this.searchMessages = this.displayMessages;
@@ -85,7 +85,7 @@ export class ChatListPage implements OnInit {
     this.displayMessages = this.filterService.filterMessages(this.searchMessages, this.searchTerm);
   }
 
-  popBack() {
-    this.navCtrl.navigateBack([this.routingService.tabsLastUrl]);
+  async popBack() {
+    await this.navCtrl.navigateBack([this.routingService.tabsLastUrl]);
   }
 }

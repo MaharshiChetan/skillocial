@@ -51,7 +51,7 @@ export class RegisterPage implements OnInit {
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private userService: UserService
-  ) {}
+  ) { }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -121,12 +121,14 @@ export class RegisterPage implements OnInit {
       user.uid = userCredentials.user.uid;
       user.loginType = 'email-password';
       user.profilePhoto = 'https://profile.actionsprout.com/default.jpeg';
+      user.bio = "Hey! I'm using skillocial.";
+
       await this.authService.sendEmailVerification();
       await this.authService.updateUserProfile(user);
       await this.userService.addUser(user);
       this.resetForm();
       await this.loadingService.hide();
-      this.navCtrl.navigateRoot('login');
+      await this.navCtrl.navigateRoot('login');
       this.showAlert();
     } catch (error) {
       console.log(error);
@@ -147,7 +149,7 @@ export class RegisterPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Verification Sent!',
       message: 'Please verify your email before logging in.',
-      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => {} }],
+      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => { } }],
     });
     await alert.present();
   }
