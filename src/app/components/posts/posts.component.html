@@ -23,9 +23,9 @@
       </ion-item>
 
       <div class="container">
-        <img alt="" class="contain-image click" [defaultImage]="grayPlaceholder || post.thumbnail || post.imageUrl"
-          [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100"
-          (tap)="likePost(post, $event)" />
+        <img alt="" class="contain-image click post-image"
+          [defaultImage]="grayPlaceholder || post.thumbnail || post.imageUrl" [lazyLoad]="post.imageUrl"
+          [errorImage]="post.imageUrl" [useSrcset]="true" offset="100" />
       </div>
       <ion-card-content class="text-black" no-padding>
         <ion-row>
