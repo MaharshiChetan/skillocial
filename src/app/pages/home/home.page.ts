@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
+import { FollowService } from 'src/app/services/follow/follow.service';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-home',
@@ -10,22 +12,44 @@ import { User } from 'src/app/models/user';
 export class HomePage implements OnInit {
   currentUserProfile: any;
   userProfile: User;
-  constructor(private userService: UserService) { }
+  posts: any = [];
+  post: boolean;
+  constructor(private userService: UserService, private followService: FollowService, private postService: PostService) { }
 
   async ngOnInit() {
     this.getCurrentUserProfile();
   }
 
+  getFollowings() {
+    const followingSubscription = this.followService.getFollowings(this.currentUserProfile.uid).subscribe(followings => {
+      followingSubscription.unsubscribe();
+      followings.forEach(user => {
+        this.getPosts(user.uid);
+      })
+    })
+  }
+
+  getPosts(uid: string) {
+    this.posts = [];
+    this.post = false;
+    const postSubscription = this.postService.getRecentPosts(uid).subscribe((post: any) => {
+      postSubscription.unsubscribe();
+      console.log(post);
+      this.posts.push(...post);
+      this.post = true;
+    })
+  }
+
   async getCurrentUserProfile(refresher?: any) {
     this.currentUserProfile = await this.userService.getCurrentUser();
     this.userProfile = this.currentUserProfile;
+    this.getFollowings();
     if (this.currentUserProfile) {
       const subscription = this.userService
         .getUserByUID(this.currentUserProfile.uid)
         .subscribe((user: User) => {
           subscription.unsubscribe();
           this.userProfile = user;
-
           if (refresher) refresher.target.complete();
         });
     }

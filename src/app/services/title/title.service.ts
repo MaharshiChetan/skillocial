@@ -7,17 +7,14 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class TitleService {
-  constructor(private afStore: AngularFirestore) {}
+  constructor(private afStore: AngularFirestore) { }
 
   async addTitle(title: Title): Promise<any> {
     return this.afStore.collection<Title>('titles').add(title);
   }
 
   async updateTitle(title: Title, id: string): Promise<any> {
-    return this.afStore
-      .collection<Title>('titles')
-      .doc(id)
-      .update(title);
+    return this.afStore.collection<Title>('titles').doc(id).update(title);
   }
 
   getTitles(uid: string) {
@@ -58,16 +55,10 @@ export class TitleService {
   }
 
   getTitleById(id: string) {
-    return this.afStore
-      .collection<Title[]>('titles')
-      .doc(id)
-      .valueChanges();
+    return this.afStore.collection<Title[]>('titles').doc(id).valueChanges();
   }
 
   deleteTitle(id: string) {
-    return this.afStore
-      .collection('titles')
-      .doc(id)
-      .delete();
+    return this.afStore.collection('titles').doc(id).delete();
   }
 }

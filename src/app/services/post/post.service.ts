@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private afStore: AngularFirestore) {}
+  constructor(private afStore: AngularFirestore) { }
 
   async addPost(post: Post): Promise<any> {
     return this.afStore.collection<Post>('posts').add(post);
@@ -35,14 +35,52 @@ export class PostService {
       );
   }
 
+  getRecentPosts(uid: string) {
+    let date = new Date();
+    date.setDate(date.getDate() - 2);
+    return this.afStore.collection<Post[]>('posts', ref =>
+      ref
+        .where('uid', '==', uid).where('createdAt', '>=', date)
+        .orderBy('createdAt', 'desc')
+    )
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data: Post[] = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  getTopTwoPosts(uid: string) {
+    return this.afStore.collection<Post[]>('posts', ref =>
+      ref
+        .where('uid', '==', uid)
+        .orderBy('createdAt', 'desc')
+        .limit(2)
+    )
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data: Post[] = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
   getTopNinePosts(uid: string) {
-    return this.afStore
-      .collection<Post[]>('posts', ref =>
-        ref
-          .where('uid', '==', uid)
-          .orderBy('createdAt', 'desc')
-          .limit(9)
-      )
+    return this.afStore.collection<Post[]>('posts', ref =>
+      ref
+        .where('uid', '==', uid)
+        .orderBy('createdAt', 'desc')
+        .limit(9)
+    )
       .snapshotChanges()
       .pipe(
         map(actions =>
@@ -56,16 +94,10 @@ export class PostService {
   }
 
   getPostById(id: string) {
-    return this.afStore
-      .collection<Post[]>('posts')
-      .doc(id)
-      .valueChanges();
+    return this.afStore.collection<Post[]>('posts').doc(id).valueChanges();
   }
 
   deletePost(id: string) {
-    return this.afStore
-      .collection('posts')
-      .doc(id)
-      .delete();
+    return this.afStore.collection('posts').doc(id).delete();
   }
 }

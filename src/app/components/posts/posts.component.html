@@ -23,7 +23,7 @@
       </ion-item>
 
       <div class="container">
-        <img alt="" class="contain-image click" [defaultImage]="post.thumbnail || post.imageUrl"
+        <img alt="" class="contain-image click" [defaultImage]="grayPlaceholder || post.thumbnail || post.imageUrl"
           [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100"
           (tap)="likePost(post, $event)" />
       </div>
@@ -92,19 +92,11 @@
             <ion-skeleton-text style="width: 50%; height:13px;"></ion-skeleton-text>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col text-right no-padding class="like-counts">
-            <ion-button fill="clear" no-margin>
-              <i style="margin-right: 0.3em; font-size: 20px; color: #f4344f" class="fas fa-heart icon"></i>
-              0
-            </ion-button>
-          </ion-col>
-        </ion-row>
       </ion-card-content>
       <ion-row text-center align-items-center>
         <ion-col no-padding>
           <ion-button fill="clear" no-margin>
-            <i style="margin-right: 0.3em; font-size: 20px; color: #f4344f" class="fas fa-heart icon"></i>
+            <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart icon"></i>
             0 Likes
           </ion-button>
         </ion-col>

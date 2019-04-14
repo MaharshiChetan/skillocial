@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { HomePage } from './home.page';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset,
     }),
+    ComponentsModule,
   ],
   declarations: [HomePage],
 })
-export class HomePageModule {}
+export class HomePageModule { }

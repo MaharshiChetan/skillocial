@@ -22,10 +22,11 @@ import { UsersListComponent } from "../users-list/users-list.component";
   styleUrls: ["./posts.component.scss"]
 })
 export class PostsComponent implements OnInit {
-  @Input("posts") posts: Post[];
+  @Input("posts") posts: any;
   showMore: boolean = false;
   uid: string;
   currentUserProfile: User;
+  grayPlaceholder: string = 'assets/gray-placeholder.png';
 
   constructor(
     private navCtrl: NavController,
@@ -52,7 +53,6 @@ export class PostsComponent implements OnInit {
 
   getPostsDetail() {
     console.log(this.posts);
-
     this.posts.forEach((post: any, i: number) => {
       const subscription = this.userService.getUserByUID(post.uid).subscribe((user: User) => {
         this.posts[i].createdAt = post.createdAt.toDate();
@@ -74,29 +74,6 @@ export class PostsComponent implements OnInit {
         });
       });
     });
-  }
-
-  // getPostsDetail() {
-  //   this.posts.forEach((post: any, i: number) => {
-  //     const subscription = this.userService
-  //       .getUserByUID(post.uid)
-  //       .subscribe((user: User) => {
-  //         subscription.unsubscribe();
-  //         this.checkLike(post, i);
-  //         this.posts[i].createdAt = post.createdAt.toDate();
-  //         this.posts[i].userDetails = user;
-  //         this.posts[i].myPost = post.uid === this.uid;
-  //       });
-  //   });
-  // }
-
-  checkLike(post: Post, index: number) {
-    // const likeSubscription = this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
-    //   likeSubscription.unsubscribe();
-    //   console.log(data);
-    //   this.posts[index].likeID = data.length > 0 ? data[0].id : null;
-    // });
-
   }
 
   async showModal(users: any) {
