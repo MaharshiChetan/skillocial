@@ -1,19 +1,18 @@
-<ion-row *ngFor="let post of posts; let i = index">
+<ion-row *ngFor="let post of posts">
   <ion-col no-padding *ngIf="post.userDetails">
     <ion-card no-margin>
       <ion-item lines="none">
         <ion-avatar [routerLink]="['/profile/' + post.userDetails.uid]" class="no-outline" slot="start">
-          <img alt="" class="cover-image" [defaultImage]="'assets/gray-placeholder.png'" [lazyLoad]="
-              post.userDetails.thumbnail || post.userDetails.profilePhoto
-            " [errorImage]="post.userDetails.profilePhoto" />
+          <img alt="" class="cover-image" [defaultImage]="'assets/gray-placeholder.png'"
+            [lazyLoad]="post.userDetails.thumbnail || post.userDetails.profilePhoto"
+            [errorImage]="post.userDetails.profilePhoto" />
         </ion-avatar>
         <ion-label>
           <h2 class="full_name text-black no-outline text1" [routerLink]="['/profile/' + post.userDetails.uid]">
             {{ post.userDetails.username }}
           </h2>
           <p class="text-gray">
-            {{ post.createdAt | date: "mediumDate" }} at
-            {{ post.createdAt | date: "shortTime" }}
+            {{ post.createdAt | date: 'mediumDate' }} at {{ post.createdAt | date: 'shortTime' }}
           </p>
         </ion-label>
         <ion-buttons>
@@ -25,19 +24,16 @@
 
       <div class="container">
         <img alt="" class="contain-image click" [defaultImage]="post.thumbnail || post.imageUrl"
-          [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100" />
+          [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100"
+          (tap)="likePost(post, $event)" />
       </div>
       <ion-card-content class="text-black" no-padding>
         <ion-row>
           <ion-col class="textual-content text09">
             <div *ngIf="post.textualContent">
-              {{
-                showMore
-                  ? post.textualContent
-                  : post.textualContent.substring(0, 120)
-              }}
+              {{ showMore ? post.textualContent : post.textualContent.substring(0, 120) }}
               <div (click)="changeContentLength()" class="text-gray">
-                {{ showMore ? "Read less..." : "Read more..." }}
+                {{ showMore ? 'Read less...' : 'Read more...' }}
               </div>
             </div>
           </ion-col>
@@ -53,11 +49,11 @@
       </ion-card-content>
       <ion-row text-center align-items-center>
         <ion-col no-padding>
-          <ion-button fill="clear" (click)="likePost(post, i)" *ngIf="!post?.likeID" no-margin>
+          <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking" no-margin>
             <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart icon"></i>
             {{ post.likesCount }} Likes
           </ion-button>
-          <ion-button fill="clear" (click)="unlikePost(post, i)" *ngIf="post?.likeID" no-margin>
+          <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking" no-margin>
             <i class="animated bounceIn fas fa-heart icon"
               style="margin-right: 0.3em; font-size: 20px; color: #f4344f"></i>
             {{ post.likesCount }} Likes

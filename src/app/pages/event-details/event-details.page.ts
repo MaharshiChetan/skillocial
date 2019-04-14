@@ -37,7 +37,7 @@ export class EventDetailsPage implements OnInit {
     private userService: UserService,
     private activeUsersInEventService: ActiveUsersInEventService,
     private modalCtrl: ModalController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
@@ -162,13 +162,13 @@ export class EventDetailsPage implements OnInit {
 
   async addInterestedOrGoing(type: string) {
     try {
-      if (type === 'going') ++this.goingUsersCount;
+      if (type === 'going')++this.goingUsersCount;
       else ++this.interestedUsersCount;
       await this.activeUsersInEventService.addActiveUser(this.eventId, this.user.uid, type);
       if (type === 'going') this.getGoingUsersInEvent();
       else this.getInterestedUsersInEvent();
     } catch (e) {
-      if (type === 'going') --this.goingUsersCount;
+      if (type === 'going')--this.goingUsersCount;
       else --this.interestedUsersCount;
       alert(e);
     }
@@ -176,13 +176,13 @@ export class EventDetailsPage implements OnInit {
 
   async removeInterestedOrGoing(type: string) {
     try {
-      if (type === 'going') --this.goingUsersCount;
+      if (type === 'going')--this.goingUsersCount;
       else --this.interestedUsersCount;
       await this.activeUsersInEventService.removeActiveUser(this.eventId, this.user.uid, type);
       if (type === 'going') this.getGoingUsersInEvent();
       else this.getInterestedUsersInEvent();
     } catch (e) {
-      if (type === 'going') ++this.goingUsersCount;
+      if (type === 'going')++this.goingUsersCount;
       else ++this.interestedUsersCount;
       alert(e);
     }

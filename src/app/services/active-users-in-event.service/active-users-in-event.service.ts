@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class ActiveUsersInEventService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(private db: AngularFireDatabase) { }
 
   getActiveUsers(eventId: string, type: string) {
     return this.db

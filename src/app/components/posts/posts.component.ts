@@ -51,25 +51,52 @@ export class PostsComponent implements OnInit {
   }
 
   getPostsDetail() {
+    console.log(this.posts);
+
     this.posts.forEach((post: any, i: number) => {
-      const subscription = this.userService
-        .getUserByUID(post.uid)
-        .subscribe((user: User) => {
-          subscription.unsubscribe();
-          this.checkLike(post, i);
-          this.posts[i].createdAt = post.createdAt.toDate();
-          this.posts[i].userDetails = user;
-          this.posts[i].myPost = post.uid === this.uid;
+      const subscription = this.userService.getUserByUID(post.uid).subscribe((user: User) => {
+        this.posts[i].createdAt = post.createdAt.toDate();
+        subscription.unsubscribe();
+        this.posts[i].userDetails = user;
+        this.posts[i].myPost = post.uid === this.uid;
+        this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
+          this.posts[i].isLiking = data.key ? true : false;
+          const likeSubscription = this.postLikeService.getTotalLikes(post.id).subscribe(likes => {
+            this.posts[i].likes = likes;
+            this.posts[i].likesCount = likes.length;
+            likeSubscription.unsubscribe();
+          });
+          const commentSubscription = this.postCommentService.getTotalComments(post.id).subscribe(comments => {
+            this.posts[i].comments = comments;
+            this.posts[i].commentsCount = comments.length;
+            commentSubscription.unsubscribe();
+          });
         });
+      });
     });
   }
 
+  // getPostsDetail() {
+  //   this.posts.forEach((post: any, i: number) => {
+  //     const subscription = this.userService
+  //       .getUserByUID(post.uid)
+  //       .subscribe((user: User) => {
+  //         subscription.unsubscribe();
+  //         this.checkLike(post, i);
+  //         this.posts[i].createdAt = post.createdAt.toDate();
+  //         this.posts[i].userDetails = user;
+  //         this.posts[i].myPost = post.uid === this.uid;
+  //       });
+  //   });
+  // }
+
   checkLike(post: Post, index: number) {
-    const likeSubscription = this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
-      likeSubscription.unsubscribe();
-      console.log(data);
-      this.posts[index].likeID = data.length > 0 ? data[0].id : null;
-    });
+    // const likeSubscription = this.postLikeService.checkLike(post.id, this.uid).subscribe(data => {
+    //   likeSubscription.unsubscribe();
+    //   console.log(data);
+    //   this.posts[index].likeID = data.length > 0 ? data[0].id : null;
+    // });
+
   }
 
   async showModal(users: any) {
@@ -87,29 +114,12 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  async likePost(post: any, i: number) {
-    try {
-      ++this.posts[i].likesCount;
-      this.posts[i].likeID = true;
-      await this.postLikeService.likePost(post.id, this.uid);
-      this.checkLike(post, i);
-    } catch (error) {
-      --this.posts[i].likesCount;
-      console.log(error);
-    }
+  async likePost(post: any) {
+    await this.postLikeService.likePost(post.id, this.uid);
   }
 
-  async unlikePost(post: any, i: number) {
-    try {
-      --this.posts[i].likesCount;
-      const likeID = this.posts[i].likeID;
-      this.posts[i].likeID = false;
-      await this.postLikeService.unlikePost(post.id, likeID);
-      this.checkLike(post, i);
-    } catch (error) {
-      ++this.posts[i].likesCount;
-      console.log(error);
-    }
+  async unlikePost(post: any) {
+    await this.postLikeService.unlikePost(post.id, this.uid);
   }
 
   changeContentLength() {

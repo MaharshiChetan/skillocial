@@ -22,13 +22,8 @@
       <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" no-padding> -->
       <ion-col no-padding>
         <ion-card no-margin class="no-outline event-card">
-          <img
-            alt=""
-            defaultImage="/assets/placeholder.jpg"
-            [lazyLoad]="event.imageUrl"
-            [errorImage]="event.imageUrl"
-            class="original cover-image"
-          />
+          <img alt="" defaultImage="/assets/placeholder.jpg" [lazyLoad]="event.imageUrl" [errorImage]="event.imageUrl"
+            class="original cover-image" />
           <ion-card-content no-padding>
             <ion-grid no-padding>
               <ion-row class="date-time">
@@ -101,23 +96,15 @@
           </ion-row>
           <hr />
           <ion-row text-center class="fw700">
-            <ion-col
-              padding
-              class="click text-black no-outline text1"
-              *ngIf="interestedUsersCount || interestedUsersCount == 0"
-              (click)="showInterestedUsers()"
-            >
+            <ion-col padding class="click text-black no-outline text1"
+              *ngIf="interestedUsersCount || interestedUsersCount == 0" (click)="showInterestedUsers()">
               Interested ({{ interestedUsersCount || 0 }})
             </ion-col>
             <ion-col *ngIf="!interestedUsersCount && interestedUsersCount != 0">
               <ion-spinner></ion-spinner>
             </ion-col>
-            <ion-col
-              padding
-              class="click text-black no-outline text1"
-              *ngIf="goingUsersCount || goingUsersCount == 0"
-              (click)="showGoingUsers()"
-            >
+            <ion-col padding class="click text-black no-outline text1" *ngIf="goingUsersCount || goingUsersCount == 0"
+              (click)="showGoingUsers()">
               Going ({{ goingUsersCount || 0 }})
             </ion-col>
             <ion-col *ngIf="!goingUsersCount && goingUsersCount != 0">
@@ -242,7 +229,9 @@
       <ion-fab-button color="whatsapp">
         <ion-icon name="logo-whatsapp"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="facebook"><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
+      <ion-fab-button color="facebook">
+        <ion-icon name="logo-facebook"></ion-icon>
+      </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>

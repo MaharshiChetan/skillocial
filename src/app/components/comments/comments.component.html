@@ -28,7 +28,7 @@
           </h2>
           <p class="comment ion-text-wrap" no-margin>{{ comment.comment }}</p>
           <p text-right>
-            {{ comment.timeStamp.toDate() | date: 'MMM d' }} at {{ comment.timeStamp.toDate() | date: 'h:mm a' }}
+            {{ comment.timeStamp | date: 'MMM d' }} at {{ comment.timeStamp | date: 'h:mm a' }}
           </p>
         </ion-label>
       </ion-item>
