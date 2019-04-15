@@ -41,7 +41,6 @@ export class CommentsComponent implements OnInit {
     private keyboard: Keyboard,
     private renderer: Renderer,
     private navParams: NavParams,
-    private toastService: ToastService,
     private actionSheetCtrl: ActionSheetController,
     private clipboard: Clipboard,
     private postCommentService: PostCommentService
@@ -111,7 +110,7 @@ export class CommentsComponent implements OnInit {
     this.updateScroll(this.scrollTimeout);
   }
 
-  async addComment(event: any) {
+  async addComment(event: Event) {
     event.preventDefault();
     await this.postCommentService.addComment(
       this.post.id,
@@ -123,6 +122,7 @@ export class CommentsComponent implements OnInit {
   }
 
   getAllPostComments() {
+    this.comments = null;
     const subscription = this.postCommentService
       .getAllComments(this.post.id)
       .subscribe((comments: any) => {

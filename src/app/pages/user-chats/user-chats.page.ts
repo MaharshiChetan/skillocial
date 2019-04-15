@@ -48,7 +48,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
     private platform: Platform,
     private db: AngularFireDatabase,
     private actionsheetCtrl: ActionSheetController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.uid = this.route.snapshot.paramMap.get('id');
@@ -99,23 +99,6 @@ export class UserChatsPage implements OnInit, OnDestroy {
       });
   }
 
-  addKeyboardListeners() {
-    this.keyboardHideSub = this.keyboard.onKeyboardHide().subscribe(() => {
-      let newHeight = this.textareaHeight - this.initialTextAreaHeight + 44;
-      let marginBottom = newHeight + 'px';
-      this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
-      this.renderer.setElementStyle(this.footerElement, 'marginBottom', '0px');
-    });
-
-    this.keybaordShowSub = this.keyboard.onKeyboardShow().subscribe(e => {
-      let newHeight = e['keyboardHeight'] + this.textareaHeight - this.initialTextAreaHeight;
-      let marginBottom = newHeight + 44 + 'px';
-      this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
-      this.renderer.setElementStyle(this.footerElement, 'marginBottom', e['keyboardHeight'] + 'px');
-      this.updateScroll(this.scrollTimeout);
-    });
-  }
-
   async changePicture(event?: any) {
     if (event) event.preventDefault();
     const actionsheetCtrl = await this.actionsheetCtrl.create({
@@ -145,6 +128,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
     return await actionsheetCtrl.present();
   }
 
+
   async takePicture() {
     await this.loadingService.show();
     try {
@@ -154,7 +138,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
         this.cameraService.generateFromImage(picture, quality, (data: any) => {
           this.cameraService.chosenPicture =
             parseFloat(this.cameraService.getImageSize(picture)) >
-            parseFloat(this.cameraService.getImageSize(data))
+              parseFloat(this.cameraService.getImageSize(data))
               ? data
               : picture;
         });
@@ -177,7 +161,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
         this.cameraService.generateFromImage(picture, quality, (data: any) => {
           this.cameraService.chosenPicture =
             parseFloat(this.cameraService.getImageSize(picture)) >
-            parseFloat(this.cameraService.getImageSize(data))
+              parseFloat(this.cameraService.getImageSize(data))
               ? data
               : picture;
           this.sendImageMessage();
@@ -190,6 +174,23 @@ export class UserChatsPage implements OnInit, OnDestroy {
       await this.loadingService.hide();
       alert(error);
     }
+  }
+
+  addKeyboardListeners() {
+    this.keyboardHideSub = this.keyboard.onKeyboardHide().subscribe(() => {
+      let newHeight = this.textareaHeight - this.initialTextAreaHeight + 44;
+      let marginBottom = newHeight + 'px';
+      this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
+      this.renderer.setElementStyle(this.footerElement, 'marginBottom', '0px');
+    });
+
+    this.keybaordShowSub = this.keyboard.onKeyboardShow().subscribe(e => {
+      let newHeight = e['keyboardHeight'] + this.textareaHeight - this.initialTextAreaHeight;
+      let marginBottom = newHeight + 44 + 'px';
+      this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
+      this.renderer.setElementStyle(this.footerElement, 'marginBottom', e['keyboardHeight'] + 'px');
+      this.updateScroll(this.scrollTimeout);
+    });
   }
 
   async sendImageMessage() {

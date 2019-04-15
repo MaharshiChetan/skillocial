@@ -59,7 +59,9 @@ export class CreatePostPage implements OnInit, OnDestroy {
 
   buildForm(): any {
     if (this.postId) {
-
+      this.postForm = this.formBuilder.group({
+        textualContent: this.post.textualContent,
+      });
     } else {
       this.postForm = this.formBuilder.group({
         textualContent: [null],

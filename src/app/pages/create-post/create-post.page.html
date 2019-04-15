@@ -20,7 +20,7 @@
           <form [formGroup]="postForm">
             <ion-item no-padding>
               <ion-thumbnail slot="start" class="container">
-                <div class="img-placeholder" *ngIf="!cameraService.chosenPicture"
+                <div class="img-placeholder" *ngIf="!cameraService.chosenPicture || userPost?.imageUrl"
                   (click)="cameraService.changePicture()">
                   <div class="centered">
                     <ion-icon name="camera" class="camera-icon"></ion-icon>

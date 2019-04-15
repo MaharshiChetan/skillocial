@@ -17,7 +17,7 @@
   <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <!-- <ion-grid no-padding>
+  <ion-grid no-padding>
     <ion-row>
       <ion-col>
         <ion-card no-margin>
@@ -53,7 +53,7 @@
             </ion-row>
             <ion-row>
               <ion-col text-right no-padding>
-                <ion-button color="secondary">
+                <ion-button color="secondary" style="font-size: inherit">
                   DISCOVER PEERS
                 </ion-button>
               </ion-col>
@@ -62,11 +62,17 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid> -->
+  </ion-grid>
 
   <div *ngIf="!post" text-center padding-top>
     <ion-spinner></ion-spinner>
   </div>
 
   <app-posts *ngIf="post" [posts]="posts"></app-posts>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
+    <ion-fab-button color="secondary" [routerLink]="['/create-post']" class="no-outline">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
