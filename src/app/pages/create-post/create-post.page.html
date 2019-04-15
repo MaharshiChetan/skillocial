@@ -20,15 +20,22 @@
           <form [formGroup]="postForm">
             <ion-item no-padding>
               <ion-thumbnail slot="start" class="container">
-                <div class="img-placeholder" *ngIf="!cameraService.chosenPicture || userPost?.imageUrl"
-                  (click)="cameraService.changePicture()">
+                <div
+                  class="img-placeholder"
+                  *ngIf="!cameraService.chosenPicture || userPost?.imageUrl"
+                  (click)="cameraService.changePicture()"
+                >
                   <div class="centered">
                     <ion-icon name="camera" class="camera-icon"></ion-icon>
                   </div>
                 </div>
-                <img alt="" *ngIf="cameraService.chosenPicture || userPost?.imageUrl"
-                  [src]="cameraService.chosenPicture || userPost?.imageUrl" class="cover-image"
-                  (click)="cameraService.changePicture()" />
+                <img
+                  alt=""
+                  *ngIf="cameraService.chosenPicture || userPost?.imageUrl"
+                  [src]="cameraService.chosenPicture || userPost?.imageUrl"
+                  class="cover-image"
+                  (click)="cameraService.changePicture()"
+                />
               </ion-thumbnail>
               <ion-textarea placeholder="Write Something..." autosize [maxRows]="16" formControlName="textualContent">
               </ion-textarea>

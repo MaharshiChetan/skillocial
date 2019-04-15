@@ -34,3 +34,19 @@ hr {
   border-bottom: 1px solid #c2c2c2;
   margin-bottom: 0px;
 }
+
+h3.no-feed-text {
+  margin-bottom: 0px;
+}
+
+p.start-following-text {
+  margin: 4px 0px 10px;
+  color: #808080;
+}
+
+.no-feed {
+  height: 75%;
+  display: flex !important;
+  align-content: center !important;
+  align-items: center !important;
+}

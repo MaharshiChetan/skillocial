@@ -14,7 +14,10 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
+  <ion-refresher
+    *ngIf="userProfile"
+    (ionRefresh)="getCurrentUserProfile($event)"
+  >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-grid no-padding>
@@ -25,15 +28,28 @@
             <ion-row *ngIf="userProfile">
               <ion-col size-sm="1" size-xs="2" text-center>
                 <ion-avatar [routerLink]="['/profile']" class="no-outline">
-                  <img alt="" class="cover-image" defaultImage="/assets/default-user.jpeg"
-                    [lazyLoad]="userProfile?.profilePhoto" errorImage="/assets/default-user.jpeg" />
+                  <img
+                    alt=""
+                    class="cover-image"
+                    defaultImage="/assets/default-user.jpeg"
+                    [lazyLoad]="userProfile?.profilePhoto"
+                    errorImage="/assets/default-user.jpeg"
+                  />
                 </ion-avatar>
               </ion-col>
               <ion-col>
-                <ion-card-header [routerLink]="['/profile']" class="fullName no-outline">
+                <ion-card-header
+                  [routerLink]="['/profile']"
+                  class="fullName no-outline"
+                >
                   {{ userProfile?.fullName }}
                 </ion-card-header>
-                <ion-button color="medium" size="small" fill="clear" class="share-thought-btn">
+                <ion-button
+                  color="medium"
+                  size="small"
+                  fill="clear"
+                  class="share-thought-btn"
+                >
                   What's on your mind?
                 </ion-button>
                 <hr />
@@ -41,13 +57,22 @@
             </ion-row>
             <ion-row *ngIf="!userProfile">
               <ion-col size-sm="1" size-xs="2" text-center>
-                <ion-avatar><img alt="" src="" class="skeleton-color" /></ion-avatar>
+                <ion-avatar
+                  ><img alt="" src="" class="skeleton-color"
+                /></ion-avatar>
               </ion-col>
               <ion-col>
                 <ion-card-header class="fullName">
-                  <ion-skeleton-text class="skeleton18" size="large" width="170px"></ion-skeleton-text>
+                  <ion-skeleton-text
+                    class="skeleton18"
+                    size="large"
+                    width="170px"
+                  ></ion-skeleton-text>
                 </ion-card-header>
-                <ion-skeleton-text class="skeleton14 share-thought-btn" width="135px"></ion-skeleton-text>
+                <ion-skeleton-text
+                  class="skeleton14 share-thought-btn"
+                  width="135px"
+                ></ion-skeleton-text>
                 <hr />
               </ion-col>
             </ion-row>
@@ -68,10 +93,31 @@
     <ion-spinner></ion-spinner>
   </div>
 
+  <ion-row *ngIf="followings?.length === 0" text-center padding class="no-feed">
+    <ion-col text-center>
+      <i class="far fa-sad-tear text20"></i>
+      <h3 class="no-feed-text">No Feed</h3>
+      <p class="start-following-text">
+        Start following your favourite artists
+      </p>
+      <ion-button
+        color="secondary"
+        expand="block"
+        [routerLink]="['/search-user']"
+      >
+        Get Started
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
   <app-posts *ngIf="post" [posts]="posts"></app-posts>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
-    <ion-fab-button color="secondary" [routerLink]="['/create-post']" class="no-outline">
+    <ion-fab-button
+      color="secondary"
+      [routerLink]="['/create-post']"
+      class="no-outline"
+    >
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

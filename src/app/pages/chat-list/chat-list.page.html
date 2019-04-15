@@ -10,8 +10,8 @@
   <ion-refresher *ngIf="displayMessages" (ionRefresh)="getDisplayMessages($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-row *ngIf="displayMessages?.length === 0 && !messages" text-center padding>
-    <ion-col text-center class="no-chat">
+  <ion-row *ngIf="displayMessages?.length === 0 && !messages" text-center padding class="no-chat">
+    <ion-col text-center>
       <i class="far fa-sad-tear text20"></i>
       <h3 class="no-message">No messages</h3>
       <p class="start-conversation-text">
@@ -23,43 +23,34 @@
     </ion-col>
   </ion-row>
   <ion-list>
-    <ion-searchbar
-      animated
-      *ngIf="messages"
-      [(ngModel)]="searchTerm"
-      [showCancelButton]="shouldShowCancel"
-      (ionChange)="setFilteredItems()"
-      (ionCancel)="onCancel($event)"
-    >
+    <ion-searchbar animated *ngIf="messages" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel"
+      (ionChange)="setFilteredItems()" (ionCancel)="onCancel($event)">
     </ion-searchbar>
 
-    <ion-item
-      class="click no-outline"
-      *ngFor="let message of displayMessages"
-      [routerLink]="['/user-chats/' + message.id]"
-      (press)="showActionSheet(message)"
-    >
+    <ion-item class="click no-outline" *ngFor="let message of displayMessages"
+      [routerLink]="['/user-chats/' + message.id]" (press)="showActionSheet(message)">
       <ion-avatar slot="start" *ngIf="message">
-        <img
-          alt=""
-          defaultImage="/assets/default-user.jpeg"
-          [lazyLoad]="message?.thumbnail || message?.profilePhoto"
-          [errorImage]="message?.profilePhoto"
-          class="cover-image skeleton-color"
-          onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
-        />
+        <img alt="" defaultImage="/assets/default-user.jpeg" [lazyLoad]="message?.thumbnail || message?.profilePhoto"
+          [errorImage]="message?.profilePhoto" class="cover-image skeleton-color"
+          onerror="this.onerror=null;this.src='assets/default-user.jpeg';" />
       </ion-avatar>
 
       <ion-label>
         <h2 *ngIf="message.username" class="text">{{ message.username }}</h2>
-        <p *ngIf="userProfile.uid !== message.sentBy && message.message">{{ message?.message }}</p>
-        <p *ngIf="userProfile.uid !== message.sentBy && message.imageUrl">Photo</p>
+        <p *ngIf="userProfile.uid !== message.sentBy && message.message">
+          {{ message?.message }}
+        </p>
+        <p *ngIf="userProfile.uid !== message.sentBy && message.imageUrl">
+          Photo
+        </p>
         <p *ngIf="message.message && userProfile.uid === message.sentBy">
           You: {{ message?.message }}
         </p>
-        <p *ngIf="message.message && userProfile.uid === message.imageUrl">You: Photo</p>
+        <p *ngIf="message.message && userProfile.uid === message.imageUrl">
+          You: Photo
+        </p>
       </ion-label>
-      <ion-note slot="end">{{ message.timeStamp | date: 'h:mm a' }}</ion-note>
+      <ion-note slot="end">{{ message.timeStamp | date: "h:mm a" }}</ion-note>
     </ion-item>
     <!--
                 <img
@@ -73,9 +64,9 @@
                   src="http://www.join4jason.com/images/orange-dot.png?crc=208854078"
                 />
               -->
-    <ion-infinite-scroll>
+    <!-- <ion-infinite-scroll>
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    </ion-infinite-scroll> -->
   </ion-list>
 
   <ion-list *ngIf="!displayMessages" slot="fixed">

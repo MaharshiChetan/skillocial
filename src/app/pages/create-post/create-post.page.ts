@@ -1,22 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { LoadingService } from 'src/app/services/loading/loading.service';
-import { NavController } from '@ionic/angular';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { CameraService } from 'src/app/services/camera/camera.service';
-import { UserService } from 'src/app/services/user/user.service';
-import { User } from 'src/app/models/user';
-import { ActivatedRoute } from '@angular/router';
-import { PostService } from 'src/app/services/post/post.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Post } from 'src/app/models/post';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { ToastService } from 'src/app/services/toast/toast.service';
-import * as firebase from 'firebase';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { LoadingService } from "src/app/services/loading/loading.service";
+import { NavController } from "@ionic/angular";
+import { AngularFireStorage } from "@angular/fire/storage";
+import { CameraService } from "src/app/services/camera/camera.service";
+import { UserService } from "src/app/services/user/user.service";
+import { User } from "src/app/models/user";
+import { ActivatedRoute } from "@angular/router";
+import { PostService } from "src/app/services/post/post.service";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { Post } from "src/app/models/post";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { ToastService } from "src/app/services/toast/toast.service";
+import * as firebase from "firebase";
 
 @Component({
-  selector: 'app-create-post',
-  templateUrl: './create-post.page.html',
-  styleUrls: ['./create-post.page.scss'],
+  selector: "app-create-post",
+  templateUrl: "./create-post.page.html",
+  styleUrls: ["./create-post.page.scss"]
 })
 export class CreatePostPage implements OnInit, OnDestroy {
   currentUserProfile: User;
@@ -41,7 +41,7 @@ export class CreatePostPage implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
-    this.postId = this.route.snapshot.paramMap.get('id');
+    this.postId = this.route.snapshot.paramMap.get("id");
     if (this.postId) this.getPost();
   }
 
@@ -60,28 +60,26 @@ export class CreatePostPage implements OnInit, OnDestroy {
   buildForm(): any {
     if (this.postId) {
       this.postForm = this.formBuilder.group({
-        textualContent: this.post.textualContent,
+        textualContent: this.post.textualContent
       });
     } else {
       this.postForm = this.formBuilder.group({
-        textualContent: [null],
+        textualContent: [null]
       });
     }
   }
 
   async addPost() {
     if (!this.cameraService.chosenPicture && !this.postId) {
-      await this.toastService.showToast('Please select photo for your post!', 'top');
+      await this.toastService.showToast("Please select photo for your post!", "top");
       return;
     }
-    await this.loadingService.show('Creating post...');
+    await this.loadingService.show("Creating post...");
     let imageId = this.post ? this.post.imageId : this.afStore.createId();
 
-    const imageStore = this.afStorage.storage
-      .ref('/userPostImages')
-      .child(`${this.currentUserProfile.uid}/${imageId}`);
+    const imageStore = this.afStorage.storage.ref("/userPostImages").child(`${this.currentUserProfile.uid}/${imageId}`);
     if (this.cameraService.chosenPicture) {
-      await imageStore.putString(this.cameraService.chosenPicture, 'data_url');
+      await imageStore.putString(this.cameraService.chosenPicture, "data_url");
       const imageUrl = await imageStore.getDownloadURL();
       this.updatePostDetails(imageUrl, imageId);
     } else {

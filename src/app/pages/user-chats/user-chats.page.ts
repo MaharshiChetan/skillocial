@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild, Renderer, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IonContent, Platform, ActionSheetController } from '@ionic/angular';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
-import { UserService } from 'src/app/services/user/user.service';
-import { User } from 'src/app/models/user';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { LoadingService } from 'src/app/services/loading/loading.service';
-import { CameraService } from 'src/app/services/camera/camera.service';
-import { ChatService } from 'src/app/services/chat/chat.service';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { Component, OnInit, ViewChild, Renderer, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { IonContent, Platform, ActionSheetController } from "@ionic/angular";
+import { Keyboard } from "@ionic-native/keyboard/ngx";
+import { UserService } from "src/app/services/user/user.service";
+import { User } from "src/app/models/user";
+import { AngularFireDatabase } from "@angular/fire/database";
+import { LoadingService } from "src/app/services/loading/loading.service";
+import { CameraService } from "src/app/services/camera/camera.service";
+import { ChatService } from "src/app/services/chat/chat.service";
+import { AngularFireStorage } from "@angular/fire/storage";
 
 @Component({
-  selector: 'app-user-chats',
-  templateUrl: './user-chats.page.html',
-  styleUrls: ['./user-chats.page.scss'],
+  selector: "app-user-chats",
+  templateUrl: "./user-chats.page.html",
+  styleUrls: ["./user-chats.page.scss"]
 })
 export class UserChatsPage implements OnInit, OnDestroy {
   uid: string;
@@ -34,7 +34,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
 
   messages: any;
   chatSubscription: any;
-  message: string = '';
+  message: string = "";
 
   constructor(
     public cameraService: CameraService,
@@ -48,27 +48,23 @@ export class UserChatsPage implements OnInit, OnDestroy {
     private platform: Platform,
     private db: AngularFireDatabase,
     private actionsheetCtrl: ActionSheetController
-  ) { }
+  ) {}
 
   async ngOnInit() {
-    this.uid = this.route.snapshot.paramMap.get('id');
+    this.uid = this.route.snapshot.paramMap.get("id");
     this.currentUserProfile = await this.userService.getCurrentUser();
     this.getUserProfile();
     this.getCurrentUserProfile();
     //
-    if (this.platform.is('ios')) {
+    if (this.platform.is("ios")) {
       this.addKeyboardListeners();
     }
 
     this.scrollContentElement = this.content.getScrollElement();
-    this.footerElement = document
-      .getElementsByTagName('app-user-chats')[0]
-      .getElementsByTagName('ion-footer')[0];
-    this.inputElement = document
-      .getElementsByTagName('app-user-chats')[0]
-      .getElementsByTagName('textarea')[0];
+    this.footerElement = document.getElementsByTagName("app-user-chats")[0].getElementsByTagName("ion-footer")[0];
+    this.inputElement = document.getElementsByTagName("app-user-chats")[0].getElementsByTagName("textarea")[0];
 
-    this.textareaHeight = Number(this.inputElement.style.height.replace('px', ''));
+    this.textareaHeight = Number(this.inputElement.style.height.replace("px", ""));
     this.initialTextAreaHeight = this.textareaHeight;
     this.updateScroll(500);
   }
@@ -81,13 +77,11 @@ export class UserChatsPage implements OnInit, OnDestroy {
   }
 
   getUserProfile() {
-    const subscription = this.userService
-      .getUserByUID(`${this.uid}`)
-      .subscribe((userProfile: User) => {
-        subscription.unsubscribe();
-        this.otherUserProfile = userProfile;
-        this.getMessages();
-      });
+    const subscription = this.userService.getUserByUID(`${this.uid}`).subscribe((userProfile: User) => {
+      subscription.unsubscribe();
+      this.otherUserProfile = userProfile;
+      this.getMessages();
+    });
   }
 
   getCurrentUserProfile() {
@@ -102,32 +96,31 @@ export class UserChatsPage implements OnInit, OnDestroy {
   async changePicture(event?: any) {
     if (event) event.preventDefault();
     const actionsheetCtrl = await this.actionsheetCtrl.create({
-      header: 'Upload picture',
+      header: "Upload picture",
       buttons: [
         {
-          text: 'Camera',
-          icon: !this.platform.is('ios') ? 'camera' : null,
+          text: "Camera",
+          icon: !this.platform.is("ios") ? "camera" : null,
           handler: () => {
             this.takePicture();
-          },
+          }
         },
         {
-          text: !this.platform.is('ios') ? 'Gallery' : 'Camera roll',
-          icon: !this.platform.is('ios') ? 'image' : null,
+          text: !this.platform.is("ios") ? "Gallery" : "Camera roll",
+          icon: !this.platform.is("ios") ? "image" : null,
           handler: () => {
             this.getPicture();
-          },
+          }
         },
         {
-          text: 'Cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          role: 'destructive',
-        },
-      ],
+          text: "Cancel",
+          icon: !this.platform.is("ios") ? "close" : null,
+          role: "destructive"
+        }
+      ]
     });
     return await actionsheetCtrl.present();
   }
-
 
   async takePicture() {
     await this.loadingService.show();
@@ -137,8 +130,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
         const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
         this.cameraService.generateFromImage(picture, quality, (data: any) => {
           this.cameraService.chosenPicture =
-            parseFloat(this.cameraService.getImageSize(picture)) >
-              parseFloat(this.cameraService.getImageSize(data))
+            parseFloat(this.cameraService.getImageSize(picture)) > parseFloat(this.cameraService.getImageSize(data))
               ? data
               : picture;
         });
@@ -160,8 +152,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
         const quality = 6 < parseFloat(this.cameraService.getImageSize(picture)) ? 0.5 : 0.8;
         this.cameraService.generateFromImage(picture, quality, (data: any) => {
           this.cameraService.chosenPicture =
-            parseFloat(this.cameraService.getImageSize(picture)) >
-              parseFloat(this.cameraService.getImageSize(data))
+            parseFloat(this.cameraService.getImageSize(picture)) > parseFloat(this.cameraService.getImageSize(data))
               ? data
               : picture;
           this.sendImageMessage();
@@ -179,16 +170,16 @@ export class UserChatsPage implements OnInit, OnDestroy {
   addKeyboardListeners() {
     this.keyboardHideSub = this.keyboard.onKeyboardHide().subscribe(() => {
       let newHeight = this.textareaHeight - this.initialTextAreaHeight + 44;
-      let marginBottom = newHeight + 'px';
-      this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
-      this.renderer.setElementStyle(this.footerElement, 'marginBottom', '0px');
+      let marginBottom = newHeight + "px";
+      this.renderer.setElementStyle(this.scrollContentElement, "marginBottom", marginBottom);
+      this.renderer.setElementStyle(this.footerElement, "marginBottom", "0px");
     });
 
     this.keybaordShowSub = this.keyboard.onKeyboardShow().subscribe(e => {
-      let newHeight = e['keyboardHeight'] + this.textareaHeight - this.initialTextAreaHeight;
-      let marginBottom = newHeight + 44 + 'px';
-      this.renderer.setElementStyle(this.scrollContentElement, 'marginBottom', marginBottom);
-      this.renderer.setElementStyle(this.footerElement, 'marginBottom', e['keyboardHeight'] + 'px');
+      let newHeight = e["keyboardHeight"] + this.textareaHeight - this.initialTextAreaHeight;
+      let marginBottom = newHeight + 44 + "px";
+      this.renderer.setElementStyle(this.scrollContentElement, "marginBottom", marginBottom);
+      this.renderer.setElementStyle(this.footerElement, "marginBottom", e["keyboardHeight"] + "px");
       this.updateScroll(this.scrollTimeout);
     });
   }
@@ -199,9 +190,9 @@ export class UserChatsPage implements OnInit, OnDestroy {
         await this.loadingService.show();
         let imageId = this.db.createPushId();
         const imageStore = this.afStorage.storage
-          .ref('/chatImages')
+          .ref("/chatImages")
           .child(`${this.currentUserProfile.uid}/${this.otherUserProfile.uid}/${imageId}`);
-        await imageStore.putString(this.cameraService.chosenPicture, 'data_url');
+        await imageStore.putString(this.cameraService.chosenPicture, "data_url");
         const imageUrl = await imageStore.getDownloadURL();
         const image = { imageUrl: imageUrl, imageId: imageId };
         this.chatService.sendImageMessage(this.currentUserProfile, this.otherUserProfile, image);
@@ -225,13 +216,9 @@ export class UserChatsPage implements OnInit, OnDestroy {
 
   sendMessage(event: Event) {
     event.preventDefault();
-    if (this.message !== '') {
-      this.chatService.sendMessage(
-        this.currentUserProfile,
-        this.otherUserProfile,
-        this.message.trim()
-      );
-      this.message = '';
+    if (this.message !== "") {
+      this.chatService.sendMessage(this.currentUserProfile, this.otherUserProfile, this.message.trim());
+      this.message = "";
       this.updateScroll(this.scrollTimeout);
       this.textareaHeight = this.initialTextAreaHeight;
     }
@@ -243,7 +230,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
   }
 
   footerTouchStart(event: any) {
-    if (event.target.localName !== 'textarea') {
+    if (event.target.localName !== "textarea") {
       event.preventDefault();
       this.updateScroll(this.scrollTimeout);
     }

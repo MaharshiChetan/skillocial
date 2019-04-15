@@ -27,5 +27,8 @@ p.start-conversation-text {
 }
 
 .no-chat {
-  padding: 50% 0%;
+  height: 100%;
+  display: flex !important;
+  align-content: center !important;
+  align-items: center !important;
 }
