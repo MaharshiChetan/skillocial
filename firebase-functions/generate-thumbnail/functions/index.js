@@ -60,7 +60,7 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async object =
   const metadata = {
     contentType: contentType,
     // To enable Client-side caching you can set the Cache-Control headers here. Uncomment below.
-    'Cache-Control': 'public,max-age=3600',
+    'Cache-Control': 'public,max-age=3600'
   };
 
   // Create the temp directory where the storage file will be downloaded.
@@ -69,11 +69,9 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async object =
   await file.download({ destination: tempLocalFile });
   console.log('The file has been downloaded to', tempLocalFile);
   // Generate a thumbnail using ImageMagick.
-  await spawn(
-    'convert',
-    [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile],
-    { capture: ['stdout', 'stderr'] }
-  );
+  await spawn('convert', [tempLocalFile, '-thumbnail', `${THUMB_MAX_WIDTH}x${THUMB_MAX_HEIGHT}>`, tempLocalThumbFile], {
+    capture: ['stdout', 'stderr']
+  });
   console.log('Thumbnail created at', tempLocalThumbFile);
   // Uploading the Thumbnail.
   await bucket.upload(tempLocalThumbFile, { destination: thumbFilePath, metadata: metadata });
@@ -84,7 +82,7 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async object =
   // Get the Signed URLs for the thumbnail and original image.
   const config = {
     action: 'read',
-    expires: '05-01-2500',
+    expires: '05-01-2500'
   };
   const results = await Promise.all([thumbFile.getSignedUrl(config), file.getSignedUrl(config)]);
   console.log('Got Signed URLs.');
@@ -94,23 +92,35 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async object =
   const fileUrl = originalResult[0];
   // Add the URLs to the Database
   if (fileDir === 'userProfilePhoto') {
-    await admin.firestore().collection('users').doc(fileName).update({ thumbnail: thumbFileUrl });
-    // await admin.database().ref(`users/${fileName}/personalData`).update({ thumbnail: thumbFileUrl });
-    return console.log('Thumbnail URLs saved to database.');
+    await admin
+      .firestore()
+      .collection('users')
+      .doc(fileName)
+      .update({ thumbnail: thumbFileUrl });
+    return console.log('Thumbnail URLs saved to users collection of firestore}.');
   } else if (fileDir.startsWith('titleImages')) {
     const uid = path.basename(fileDir);
-    await admin.firestore().collection('titles').doc(fileName).update({ thumbnail: thumbFileUrl });
-    // await admin.database().ref(`titles/${uid}/${fileName}`).update({ thumbnail: thumbFileUrl });
-    return console.log('Thumbnail URLs saved to database.');
+    await admin
+      .firestore()
+      .collection('titles')
+      .doc(fileName)
+      .update({ thumbnail: thumbFileUrl });
+    return console.log('Thumbnail URLs saved to titles collection of firestore.');
   } else if (fileDir.startsWith('userPostImages')) {
     const uid = path.basename(fileDir);
-    await admin.firestore().collection('posts').doc(fileName).update({ thumbnail: thumbFileUrl });
-    // await admin.database().ref(`userPosts/${uid}/${fileName}`).update({ thumbnail: thumbFileUrl });
-    return console.log('Thumbnail URLs saved to database.');
+    await admin
+      .firestore()
+      .collection('posts')
+      .doc(fileName)
+      .update({ thumbnail: thumbFileUrl });
+    return console.log('Thumbnail URLs saved to posts collection of firestore.');
   } else if (fileDir.startsWith('eventImages')) {
-    await admin.firestore().collection('events').doc(fileName).update({ thumbnail: thumbFileUrl });
-    // await admin.database().ref(`events/${fileName}`).update({ thumbnail: thumbFileUrl });
-    return console.log('Thumbnail URLs saved to database.');
+    await admin
+      .firestore()
+      .collection('events')
+      .doc(fileName)
+      .update({ thumbnail: thumbFileUrl });
+    return console.log('Thumbnail URLs saved to events collection of firestore.');
   }
   // else if (fileDir.startsWith('eventPostsImages')) {
   //   const eventId = path.basename(fileDir);
