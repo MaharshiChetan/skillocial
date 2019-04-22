@@ -11,7 +11,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss'],
+  styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
   userProfile: any;
@@ -20,21 +20,21 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   formErrors = {
     fullName: '',
     username: '',
-    bio: '',
+    bio: ''
   };
 
   validationMessages = {
     fullName: {
-      required: 'Name is required.',
+      required: 'Name is required.'
     },
     username: {
       required: 'Username is required.',
       pattern: 'Username can only use letters, numbers and underscores.',
-      maxlength: 'Username cannot be more than 25 characters long.',
+      maxlength: 'Username cannot be more than 25 characters long.'
     },
     bio: {
-      maxlength: 'Bio cannot be more than 120 characters long.',
-    },
+      maxlength: 'Bio cannot be more than 120 characters long.'
+    }
   };
   updatedProfile: boolean = false;
 
@@ -69,13 +69,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.userProfile.username,
         Validators.compose([
           Validators.required,
-          Validators.pattern(
-            '^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:.(?!.))){0,40}(?:[A-Za-z0-9_]))?)$'
-          ),
-          Validators.maxLength(25),
-        ]),
+          Validators.pattern('^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:.(?!.))){0,40}(?:[A-Za-z0-9_]))?)$'),
+          Validators.maxLength(25)
+        ])
       ],
-      bio: [this.userProfile.bio],
+      bio: [this.userProfile.bio]
     });
     this.userProfileForm.valueChanges.subscribe(data => this.onValueChanged(data));
     this.onValueChanged(); // reset validation messages
@@ -105,18 +103,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     const userProfile = this.userProfileForm.value;
 
     if (this.userProfile.username !== userProfile.username) {
-      const subscription = this.userService
-        .checkUsername(userProfile.username)
-        .subscribe(async (user: User[]) => {
-          if (user.length > 0 && user[0].uid !== this.userProfile.uid) {
-            await this.loadingService.hide();
-            subscription.unsubscribe();
-            await this.toastService.showToast(`Username ${userProfile.username} is already taken!`);
-          } else {
-            subscription.unsubscribe();
-            this.updateUserProfile(userProfile);
-          }
-        });
+      const subscription = this.userService.checkUsername(userProfile.username).subscribe(async (user: User[]) => {
+        subscription.unsubscribe();
+        if (user.length > 0 && user[0].uid !== this.userProfile.uid) {
+          await this.loadingService.hide();
+          await this.toastService.showToast(`Username ${userProfile.username} is already taken!`);
+        } else {
+          this.updateUserProfile(userProfile);
+        }
+      });
     } else {
       this.updateUserProfile(userProfile);
     }
@@ -124,22 +119,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   async getCurrentUserProfile() {
     this.currentUserProfile = await this.userService.getCurrentUser();
-    const subscription = this.userService
-      .getUserByUID(this.currentUserProfile.uid)
-      .subscribe((user: User) => {
-        this.userProfile = user;
-        console.log(user);
+    const subscription = this.userService.getUserByUID(this.currentUserProfile.uid).subscribe((user: User) => {
+      this.userProfile = user;
+      console.log(user);
 
-        subscription.unsubscribe();
-      });
+      subscription.unsubscribe();
+    });
   }
 
   async updateUserProfile(userProfile: any) {
     try {
       if (this.cameraService.chosenPicture) {
-        const imageStore = this.afStorage.storage
-          .ref('userProfilePhoto')
-          .child(this.userProfile.uid);
+        const imageStore = this.afStorage.storage.ref('userProfilePhoto').child(this.userProfile.uid);
         await imageStore.putString(this.cameraService.chosenPicture, 'data_url');
         const imageUrl = await imageStore.getDownloadURL();
         userProfile.profilePhoto = imageUrl;
@@ -147,6 +138,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       userProfile.uid = this.userProfile.uid;
       await this.userService.updateUser(userProfile, this.userProfile.uid);
       await this.userService.storeUserData(userProfile);
+      alert(JSON.stringify(userProfile));
       await this.loadingService.hide();
       this.updatedProfile = true;
       await this.toastService.showToast('Successfully updated your profile!', 'top');

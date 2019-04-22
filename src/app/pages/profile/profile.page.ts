@@ -50,19 +50,17 @@ export class ProfilePage implements OnInit {
   async ngOnInit() {
     this.uid = this.route.snapshot.paramMap.get('id');
     this.currentUserProfile = await this.userService.getCurrentUser();
-    if (this.uid) {
-      this.getUserProfile();
-    } else {
+    if (!this.uid) {
       this.uid = this.currentUserProfile.uid;
-      this.getUserProfile();
     }
+    this.getUserProfile();
   }
 
   getUserProfile(refresher?: any) {
     const subscription = this.userService.getUserByUID(this.uid).subscribe((user: User) => {
+      subscription.unsubscribe();
       this.userProfile = user;
       if (refresher) refresher.target.complete();
-      subscription.unsubscribe();
     });
     this.getFollowCount();
     this.isUserFollowing();
