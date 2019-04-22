@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { ChatService } from 'src/app/services/chat/chat.service';
-import { ToastService } from 'src/app/services/toast/toast.service';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
   selector: 'app-chat-bubble',
   templateUrl: './chat-bubble.component.html',
-  styleUrls: ['./chat-bubble.component.scss'],
+  styleUrls: ['./chat-bubble.component.scss']
 })
 export class ChatBubbleComponent implements OnInit {
   @Input('messages') messages: any;
@@ -18,7 +18,7 @@ export class ChatBubbleComponent implements OnInit {
     private clipboard: Clipboard,
     private chatService: ChatService,
     private actionSheetCtrl: ActionSheetController,
-    private toastService: ToastService
+    public photoViewer: PhotoViewer
   ) {}
 
   ngOnInit() {}
@@ -39,14 +39,14 @@ export class ChatBubbleComponent implements OnInit {
             } else {
               this.clipboard.copy(message.imageUrl);
             }
-          },
+          }
         },
         {
           text: 'Delete',
           icon: 'trash',
           handler: () => {
             this.deleteMessage(message.id);
-          },
+          }
         },
         {
           text: 'Cancel',
@@ -54,18 +54,14 @@ export class ChatBubbleComponent implements OnInit {
           role: 'destructive',
           handler: () => {
             console.log('the user has cancelled the interaction.');
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     return actionsheet.present();
   }
 
   deleteMessage(messageId: string) {
-    this.chatService.deleteMessage(
-      this.currentUserProfile.uid,
-      this.otherUserProfile.uid,
-      messageId
-    );
+    this.chatService.deleteMessage(this.currentUserProfile.uid, this.otherUserProfile.uid, messageId);
   }
 }

@@ -22,7 +22,7 @@
               <ion-thumbnail slot="start" class="container">
                 <div
                   class="img-placeholder"
-                  *ngIf="!cameraService.chosenPicture || userPost?.imageUrl"
+                  *ngIf="!post?.imageUrl && !cameraService.chosenPicture"
                   (click)="cameraService.changePicture()"
                 >
                   <div class="centered">
@@ -31,8 +31,8 @@
                 </div>
                 <img
                   alt=""
-                  *ngIf="cameraService.chosenPicture || userPost?.imageUrl"
-                  [src]="cameraService.chosenPicture || userPost?.imageUrl"
+                  *ngIf="cameraService.chosenPicture || post?.imageUrl"
+                  [src]="cameraService.chosenPicture || post?.imageUrl"
                   class="cover-image"
                   (click)="cameraService.changePicture()"
                 />

@@ -25,6 +25,7 @@
         [lazyLoad]="message.thumbnail || message.imageUrl"
         [errorImage]="message.imageUrl"
         class="cover-image"
+        (click)="this.photoViewer.show(message.imageUrl)"
       />
       <div class="message-detail-img left">
         <span>{{ message.timeStamp | amCalendar }}</span>
@@ -47,6 +48,7 @@
         [lazyLoad]="message.thumbnail || message.imageUrl"
         [errorImage]="message.imageUrl"
         class="cover-image"
+        (click)="this.photoViewer.show(message.imageUrl)"
       />
       <div class="message-detail-img right">
         <span>{{ message.timeStamp | amCalendar }}</span>

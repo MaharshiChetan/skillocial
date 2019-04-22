@@ -9,13 +9,7 @@
 
 <ion-content style="background: #f5f6f9">
   <ion-grid *ngIf="battleList">
-    <ion-card
-      no-margin
-      *ngFor="let i of battleList"
-      [routerLink]="['/battle-zone']"
-      class="no-outline"
-      mode="md"
-    >
+    <ion-card no-margin *ngFor="let i of battleList" [routerLink]="['/battle-zone']" class="no-outline" mode="md">
       <ion-row>
         <ion-col text-center>
           <img src="https://i.ytimg.com/vi/_3DJXAD-8d4/maxresdefault.jpg" />
