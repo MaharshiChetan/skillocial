@@ -32,7 +32,10 @@ export class PaymentCalculationComponent implements OnInit {
 
   async ngOnInit() {
     this.event = this.navParams.get('event');
+    console.log(this.event);
+
     this.viewer = this.navParams.get('viewer');
+    console.log(this.viewer);
     if (this.viewer) {
       this.viewerPayment();
     } else {
@@ -121,34 +124,33 @@ export class PaymentCalculationComponent implements OnInit {
       }
     };
 
-    var successCallback = function(payment_id: any) {
-      // alert('payment_id: ' + payment_id);
-      this.paymentSuccessfull(payment_id);
+    var paymentSuccessfull = async (paymentID: any) => {
+      try {
+        const paymentDetails = {
+          paymentID: paymentID,
+          eventId: this.event.id,
+          uid: this.currentUserProfile.uid,
+          timeStamp: firestore.FieldValue.serverTimestamp(),
+          subscriptionType: this.viewer ? 'viewer' : 'participate',
+          centralGST: this.centralGST,
+          internetHandlingFees: this.internetHandlingFees,
+          stateGST: this.stateGST,
+          totalFees: this.totalFees,
+          baseAmount: this.baseAmount,
+          selectedCategories: this.viewer ? 'viewer' : this.selectedCategories
+        };
+        await this.eventPaymentService.addPayment(paymentDetails);
+      } catch (error) {
+        alert(error);
+      }
+      this.showPaymentSuccessAlert();
     };
 
-    var cancelCallback = function(error: any) {
+    var cancelCallback = (error: any) => {
       alert(error.description + ' (Error ' + error.code + ')');
     };
 
-    RazorpayCheckout.open(options, successCallback, cancelCallback);
-  }
-
-  async paymentSuccessfull(paymentID: string) {
-    const paymentDetails = {
-      paymentID,
-      eventId: this.event.id,
-      uid: this.currentUserProfile.uid,
-      timeStamp: firestore.FieldValue.serverTimestamp(),
-      subscriptionType: this.viewer ? 'viewer' : 'participate',
-      centralGST: this.centralGST,
-      internetHandlingFees: this.internetHandlingFees,
-      stateGST: this.stateGST,
-      totalFees: this.totalFees,
-      baseAmount: this.baseAmount,
-      selectedCategories: this.selectedCategories
-    };
-    await this.eventPaymentService.addPayment(paymentDetails);
-    this.showPaymentSuccessAlert();
+    RazorpayCheckout.open(options, paymentSuccessfull, cancelCallback);
   }
 
   async showPaymentSuccessAlert() {
