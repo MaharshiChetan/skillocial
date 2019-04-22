@@ -14,8 +14,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar *ngIf="upcomingEvents?.length !== 0" class="searchbar" [(ngModel)]="searchTerm"
-    (ionChange)="setFilteredItems($event)" animated>
+  <ion-searchbar
+    *ngIf="upcomingEvents?.length !== 0"
+    class="searchbar"
+    [(ngModel)]="searchTerm"
+    (ionChange)="setFilteredItems($event)"
+    animated
+  >
   </ion-searchbar>
 
   <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="getEvents($event)">
@@ -36,14 +41,20 @@
     <ion-row>
       <ion-col *ngFor="let event of upcomingEvents" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
         <ion-card no-margin class="no-outline" [routerLink]="['/event-details', event.id]">
-          <img alt="" defaultImage="assets/placeholder.jpg" [lazyLoad]="event.imageUrl" [errorImage]="event.imageUrl"
-            class="cover-image" style="height: 170px;width: 100%;" />
+          <img
+            alt=""
+            defaultImage="assets/placeholder.jpg"
+            [lazyLoad]="event.imageUrl"
+            [errorImage]="event.imageUrl"
+            class="cover-image"
+            style="height: 170px;width: 100%;"
+          />
           <ion-card-content>
             <ion-grid>
               <ion-row>
                 <ion-col class="date" text-center align-self-center size="2">
                   <ion-text color="danger">
-                    {{ event.startDateTime | date: 'MMM d EEE' }}
+                    {{ event.startDateTime | date: "MMM d EEE" }}
                     <div class="vertical-line"></div>
                   </ion-text>
                 </ion-col>
@@ -51,8 +62,8 @@
                   <h2 class="text12 fw700 text-black">{{ event.name }}</h2>
                   <p>City: {{ event.city }}</p>
                   <p>
-                    Time: {{ event.startDateTime | date: 'h:mm a' }} -
-                    {{ event.endDateTime | date: 'h:mm a' }}
+                    Time: {{ event.startDateTime | date: "h:mm a" }} -
+                    {{ event.endDateTime | date: "h:mm a" }}
                   </p>
                 </ion-col>
                 <ion-col class="book" text-end align-self-center size="3">
@@ -92,7 +103,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" #fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="secondary" [routerLink]="['/create-event']" class="no-outline">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

@@ -19,9 +19,14 @@
   <ion-grid *ngIf="userProfile">
     <ion-row>
       <ion-col size="3.5">
-        <img alt="" defaultImage="/assets/default-user.jpeg" [lazyLoad]="userProfile?.profilePhoto"
-          errorImage="/assets/default-user.jpeg" class="cover-image square-image"
-          (click)="this.photoViewer.show(userProfile.profilePhoto)" />
+        <img
+          alt=""
+          defaultImage="/assets/default-user.jpeg"
+          [lazyLoad]="userProfile?.thumbnail || userProfile?.profilePhoto"
+          errorImage="/assets/default-user.jpeg"
+          class="cover-image square-image"
+          (click)="this.photoViewer.show(userProfile.profilePhoto)"
+        />
       </ion-col>
       <ion-col>
         <ion-row>
@@ -48,8 +53,12 @@
             <ion-button *ngIf="uid === currentUserProfile?.uid" size="small" (click)="editProfile()">
               EDIT PROFILE
             </ion-button>
-            <ion-button *ngIf="uid !== currentUserProfile?.uid" size="small" color="medium"
-              [routerLink]="['/user-chats/' + uid]">
+            <ion-button
+              *ngIf="uid !== currentUserProfile?.uid"
+              size="small"
+              color="medium"
+              [routerLink]="['/user-chats/' + uid]"
+            >
               MESSAGE
             </ion-button>
           </ion-col>
@@ -106,8 +115,13 @@
     <div [ngSwitch]="type">
       <ion-row justify-content-between *ngSwitchCase="'posts'">
         <ion-col *ngIf="posts && posts?.length > 0" no-padding>
-          <ion-card-header class="text-black fw700 no-outline" no-padding padding-top padding-start
-            [routerLink]="'/user-posts/' + uid">
+          <ion-card-header
+            class="text-black fw700 no-outline"
+            no-padding
+            padding-top
+            padding-start
+            [routerLink]="'/user-posts/' + uid"
+          >
             Photos
             <span class="see-all">See all</span>
           </ion-card-header>
@@ -118,16 +132,26 @@
 
       <ion-row justify-content-between *ngSwitchCase="'titles'">
         <ion-col *ngIf="titles && titles?.length > 0" no-padding>
-          <ion-card-header class="text-black fw700 no-outline" no-padding padding-top padding-start
-            [routerLink]="'/titles/' + uid">
+          <ion-card-header
+            class="text-black fw700 no-outline"
+            no-padding
+            padding-top
+            padding-start
+            [routerLink]="'/titles/' + uid"
+          >
             Titles
             <span class="see-all">See all</span>
           </ion-card-header>
           <ion-list class="titles-list">
             <ion-item *ngFor="let title of titles" detail="false">
               <ion-avatar slot="start">
-                <img alt="" defaultImage="/assets/gray-placeholder.png" [lazyLoad]="title?.imageUrl"
-                  errorImage="/assets/gray-placeholder.png" class="cover-image skeleton-color" />
+                <img
+                  alt=""
+                  defaultImage="/assets/gray-placeholder.png"
+                  [lazyLoad]="title?.imageUrl"
+                  errorImage="/assets/gray-placeholder.png"
+                  class="cover-image skeleton-color"
+                />
               </ion-avatar>
               <ion-label>
                 <h3 class="full_name">{{ title.title }}</h3>

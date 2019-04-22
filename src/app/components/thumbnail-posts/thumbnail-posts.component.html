@@ -1,11 +1,6 @@
 <ion-grid *ngIf="posts && posts?.length > 0">
   <ion-row>
-    <ion-col
-      *ngFor="let post of posts"
-      size="4"
-      [routerLink]="['/single-post/' + post.id]"
-      class="no-outline"
-    >
+    <ion-col *ngFor="let post of posts" size="4" [routerLink]="['/single-post/' + post.id]" class="no-outline">
       <img
         alt=""
         defaultImage="/assets/gray-placeholder.png"
@@ -19,10 +14,7 @@
 
 <ion-grid *ngIf="!posts || posts?.length === 0">
   <ion-row>
-    <ion-col
-      *ngFor="let post of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]"
-      size="4"
-    >
+    <ion-col *ngFor="let post of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" size="4">
       <ion-skeleton-text class="square-image"></ion-skeleton-text>
     </ion-col>
   </ion-row>

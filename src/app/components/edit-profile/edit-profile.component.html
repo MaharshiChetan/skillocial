@@ -24,18 +24,11 @@
               <img
                 alt=""
                 class="image cover-image"
-                [src]="
-                  cameraService.chosenPicture || userProfile.thumbnail || userProfile.profilePhoto
-                "
+                [src]="cameraService.chosenPicture || userProfile.thumbnail || userProfile.profilePhoto"
                 onerror="this.src='userProfile.profilePhoto'"
               />
             </ion-avatar>
-            <ion-button
-              fill="clear"
-              color="blue"
-              class="fw700"
-              (click)="cameraService.changePicture()"
-            >
+            <ion-button fill="clear" color="blue" class="fw700" (click)="cameraService.changePicture()">
               Change Photo
             </ion-button>
 
@@ -56,13 +49,7 @@
             </p>
             <ion-item>
               <ion-label position="stacked">Bio</ion-label>
-              <ion-textarea
-                type="text"
-                formControlName="bio"
-                maxlength="200"
-                autosize
-                [maxRows]="7"
-              ></ion-textarea>
+              <ion-textarea type="text" formControlName="bio" maxlength="200" autosize [maxRows]="7"></ion-textarea>
             </ion-item>
             <p text-left color="danger" class="text08 error" *ngIf="formErrors.bio">
               <ion-text color="danger">{{ formErrors.bio }}</ion-text>

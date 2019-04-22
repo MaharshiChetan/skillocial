@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "five-elements-cbdf8"
+    "default": "five-elements-cbdf8",
+    "staging": "five-elements-cbdf8"
   }
 }
