@@ -4,32 +4,36 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Event } from 'src/app/models/event';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EventsService {
   imageStore: any;
   event: Event;
   // imageStore = firebase.storage().ref('/eventImages');
 
-  constructor(private afStore: AngularFirestore) { }
+  constructor(private afStore: AngularFirestore) {}
 
   async createEvent(event: Event) {
     return this.afStore.collection('events').add(event);
   }
 
   async updateEvent(event: Event, id: string) {
-    return this.afStore.collection('events').doc(id).update(event);
+    return this.afStore
+      .collection('events')
+      .doc(id)
+      .update(event);
   }
 
   getEventById(id: string) {
-    return this.afStore.collection<Event>('events').doc(id).valueChanges();
+    return this.afStore
+      .collection<Event>('events')
+      .doc(id)
+      .valueChanges();
   }
 
   getEvents(requestStatus: string) {
     return this.afStore
-      .collection<Event[]>('events', ref =>
-        ref.orderBy('startDate').where('requestStatus', '==', requestStatus)
-      )
+      .collection<Event[]>('events', ref => ref.orderBy('startDate').where('requestStatus', '==', requestStatus))
       .snapshotChanges()
       .pipe(
         map(actions =>
@@ -58,6 +62,9 @@ export class EventsService {
   }
 
   async deleteEvent(id: string) {
-    return this.afStore.collection('events').doc(id).delete();
+    return this.afStore
+      .collection('events')
+      .doc(id)
+      .delete();
   }
 }

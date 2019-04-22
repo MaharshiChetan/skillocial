@@ -98,7 +98,6 @@ export class CommentsComponent implements OnInit {
 
   async addComment(event: Event) {
     event.preventDefault();
-    alert();
     await this.postCommentService.addComment(this.post.id, this.userService.currentUserProfile.uid, this.comment);
     this.comment = '';
     this.getAllPostComments();
