@@ -17,7 +17,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
+  styleUrls: ['./profile.page.scss']
 })
 export class ProfilePage implements OnInit {
   uid: string;
@@ -45,7 +45,7 @@ export class ProfilePage implements OnInit {
     private titleService: TitleService,
     private postService: PostService,
     public photoViewer: PhotoViewer
-  ) { }
+  ) {}
 
   async ngOnInit() {
     this.uid = this.route.snapshot.paramMap.get('id');
@@ -74,9 +74,9 @@ export class ProfilePage implements OnInit {
     const popover = await this.popoverCtrl.create({
       component: PopoverComponent,
       componentProps: {
-        currentUser: this.userProfile.uid === this.currentUserProfile.uid ? true : false,
+        currentUser: this.userProfile.uid === this.currentUserProfile.uid ? true : false
       },
-      event: event,
+      event: event
     });
     await popover.present();
 
@@ -107,12 +107,10 @@ export class ProfilePage implements OnInit {
   }
 
   isUserFollowing() {
-    this.followService
-      .isUserFollowing(this.currentUserProfile.uid, this.uid)
-      .subscribe((data: any) => {
-        this.isFollowing = data ? true : false;
-        this.followService.isFollowing = this.isFollowing;
-      });
+    this.followService.isUserFollowing(this.currentUserProfile.uid, this.uid).subscribe((data: any) => {
+      this.isFollowing = data ? true : false;
+      this.followService.isFollowing = this.isFollowing;
+    });
   }
 
   updateFollowCount() {
@@ -127,7 +125,7 @@ export class ProfilePage implements OnInit {
 
           this.followService.updateFollowCount(this.currentUserProfile.uid, this.uid, {
             followersCount: followers.length,
-            followingsCount: followings.length,
+            followingsCount: followings.length
           });
         });
     });
@@ -161,9 +159,9 @@ export class ProfilePage implements OnInit {
               ++this.followersCount;
               console.log(error);
             }
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     await alertPopup.present();
   }
@@ -172,9 +170,9 @@ export class ProfilePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: EditProfileComponent,
       componentProps: {
-        userProfile: this.userProfile,
+        userProfile: this.userProfile
       },
-      animated: false,
+      animated: false
     });
     await modal.present();
     const data = await modal.onWillDismiss();
@@ -215,9 +213,9 @@ export class ProfilePage implements OnInit {
       component: UsersListComponent,
       componentProps: {
         usersUID: type === 'followers' ? this.followers : this.followings,
-        navTitle: type === 'followers' ? 'Followers' : 'Followings',
+        navTitle: type === 'followers' ? 'Followers' : 'Followings'
       },
-      animated: false,
+      animated: false
     });
     modal.present();
     modal.onWillDismiss().then(data => {

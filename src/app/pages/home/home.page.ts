@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { UserService } from "src/app/services/user/user.service";
-import { User } from "src/app/models/user";
-import { FollowService } from "src/app/services/follow/follow.service";
-import { PostService } from "src/app/services/post/post.service";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/user';
+import { FollowService } from 'src/app/services/follow/follow.service';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.page.html",
-  styleUrls: ["./home.page.scss"]
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss']
 })
 export class HomePage implements OnInit {
   currentUserProfile: any;
