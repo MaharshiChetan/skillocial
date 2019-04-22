@@ -15,7 +15,7 @@
           <h2 class="full_name text-black no-outline text1" [routerLink]="['/profile/' + post.userDetails.uid]">
             {{ post.userDetails.username }}
           </h2>
-          <p class="text-gray">{{ post.createdAt | date: "mediumDate" }} at {{ post.createdAt | date: "shortTime" }}</p>
+          <p class="text-gray">{{ post.createdAt | date: 'mediumDate' }} at {{ post.createdAt | date: 'shortTime' }}</p>
         </ion-label>
         <ion-buttons>
           <ion-button *ngIf="post.myPost" fill="clear" (click)="presentActionSheet(post)">
@@ -33,6 +33,7 @@
           [errorImage]="post.imageUrl"
           [useSrcset]="true"
           offset="100"
+          (click)="this.photoViewer.show(post.imageUrl)"
         />
       </div>
       <ion-card-content class="text-black" no-padding>
@@ -41,7 +42,7 @@
             <div *ngIf="post.textualContent">
               {{ showMore ? post.textualContent : post.textualContent.substring(0, 120) }}
               <div (click)="changeContentLength()" class="text-gray">
-                {{ showMore ? "Read less..." : "Read more..." }}
+                {{ showMore ? 'Read less...' : 'Read more...' }}
               </div>
             </div>
           </ion-col>

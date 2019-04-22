@@ -43,7 +43,6 @@ export class HomePage implements OnInit {
     this.post = false;
     const postSubscription = this.postService.getRecentPosts(uid).subscribe((post: any) => {
       postSubscription.unsubscribe();
-      console.log(post);
       this.posts.push(...post);
       this.post = true;
     });

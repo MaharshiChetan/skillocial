@@ -11,7 +11,7 @@ export class LoadingService {
   async show(message?: any) {
     this.loading = await this.loadingCtrl.create({
       message: message || 'Please wait...',
-      showBackdrop: true,
+      backdropDismiss: true
     });
     return this.loading.present();
   }

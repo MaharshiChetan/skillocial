@@ -1,28 +1,23 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Post } from "src/app/models/post";
-import {
-  NavController,
-  ModalController,
-  Platform,
-  ActionSheetController,
-  AlertController
-} from "@ionic/angular";
-import { PostService } from "src/app/services/post/post.service";
-import { LoadingService } from "src/app/services/loading/loading.service";
-import { PostLikeService } from "src/app/services/post-like/post-like.service";
-import { PostCommentService } from "src/app/services/post-comment/post-comment.service";
-import { CommentsComponent } from "../comments/comments.component";
-import { UserService } from "src/app/services/user/user.service";
-import { User } from "src/app/models/user";
-import { UsersListComponent } from "../users-list/users-list.component";
+import { Component, OnInit, Input } from '@angular/core';
+import { Post } from 'src/app/models/post';
+import { NavController, ModalController, Platform, ActionSheetController, AlertController } from '@ionic/angular';
+import { PostService } from 'src/app/services/post/post.service';
+import { LoadingService } from 'src/app/services/loading/loading.service';
+import { PostLikeService } from 'src/app/services/post-like/post-like.service';
+import { PostCommentService } from 'src/app/services/post-comment/post-comment.service';
+import { CommentsComponent } from '../comments/comments.component';
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/user';
+import { UsersListComponent } from '../users-list/users-list.component';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
-  selector: "app-posts",
-  templateUrl: "./posts.component.html",
-  styleUrls: ["./posts.component.scss"]
+  selector: 'app-posts',
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-  @Input("posts") posts: any;
+  @Input('posts') posts: any;
   showMore: boolean = false;
   uid: string;
   currentUserProfile: User;
@@ -38,8 +33,9 @@ export class PostsComponent implements OnInit {
     private loadingService: LoadingService,
     private postLikeService: PostLikeService,
     private postCommentService: PostCommentService,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    public photoViewer: PhotoViewer
+  ) {}
 
   ngOnInit() {
     this.getUserProfile();
@@ -81,7 +77,7 @@ export class PostsComponent implements OnInit {
       component: UsersListComponent,
       componentProps: {
         usersUID: users,
-        navTitle: "Likes"
+        navTitle: 'Likes'
       },
       animated: false
     });
@@ -105,26 +101,26 @@ export class PostsComponent implements OnInit {
 
   async presentActionSheet(post: any) {
     const actionsheet = await this.actionsheetCtrl.create({
-      header: "Take Action",
+      header: 'Take Action',
       buttons: [
         {
-          text: "Edit",
-          icon: !this.platform.is("ios") ? "create" : null,
+          text: 'Edit',
+          icon: !this.platform.is('ios') ? 'create' : null,
           handler: () => {
             this.editPost(post);
           }
         },
         {
-          text: "Delete",
-          icon: !this.platform.is("ios") ? "trash" : null,
+          text: 'Delete',
+          icon: !this.platform.is('ios') ? 'trash' : null,
           handler: () => {
             this.showConfirmAlert(post);
           }
         },
         {
-          text: "Cancel",
-          icon: !this.platform.is("ios") ? "close" : null,
-          role: "destructive"
+          text: 'Cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          role: 'destructive'
         }
       ]
     });
@@ -133,17 +129,17 @@ export class PostsComponent implements OnInit {
 
   async showConfirmAlert(post: any) {
     const confirm = await this.alertCtrl.create({
-      header: "Confirm Deletion",
-      message: "Delete this post?",
+      header: 'Confirm Deletion',
+      message: 'Delete this post?',
       buttons: [
         {
-          text: "Cancel",
+          text: 'Cancel',
           handler: () => {
-            console.log("Disagree clicked");
+            console.log('Disagree clicked');
           }
         },
         {
-          text: "Delete",
+          text: 'Delete',
           handler: () => {
             this.deletePost(post);
           }
@@ -154,12 +150,12 @@ export class PostsComponent implements OnInit {
   }
 
   async editPost(post: Post) {
-    await this.navCtrl.navigateForward(["create-post/" + post.id]);
+    await this.navCtrl.navigateForward(['create-post/' + post.id]);
   }
 
   async deletePost(post: Post) {
     try {
-      await this.loadingService.show("Deleting post...");
+      await this.loadingService.show('Deleting post...');
       this.postService.deletePost(post.id);
       this.postLikeService.removePostLikes(post.id);
       this.postCommentService.removePostComments(post.id);

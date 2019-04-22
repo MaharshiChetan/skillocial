@@ -10,26 +10,26 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   formErrors = {
     email: '',
-    password: '',
+    password: ''
   };
 
   validationMessages = {
     email: {
       required: 'Email is required.',
-      email: 'Email must be a valid email',
+      email: 'Email must be a valid email'
     },
     password: {
       required: 'Password is required.',
       pattern: 'Password must be include at one letter and one number.',
       minlength: 'Password must be at least 6 characters long.',
-      maxlength: 'Password cannot be more than 25 characters long.',
-    },
+      maxlength: 'Password cannot be more than 25 characters long.'
+    }
   };
 
   constructor(
@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -64,9 +64,9 @@ export class LoginPage implements OnInit {
           Validators.required,
           Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
           Validators.minLength(6),
-          Validators.maxLength(25),
-        ]),
-      ],
+          Validators.maxLength(25)
+        ])
+      ]
     });
 
     this.loginForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -101,22 +101,22 @@ export class LoginPage implements OnInit {
           name: 'email',
           type: 'email',
           placeholder: 'Email',
-          value: this.loginForm.get('email').valid ? this.loginForm.get('email').value : null,
-        },
+          value: this.loginForm.get('email').valid ? this.loginForm.get('email').value : null
+        }
       ],
       buttons: [
         {
           text: 'Cancel',
           role: 'destructive',
-          cssClass: 'secondary',
+          cssClass: 'secondary'
         },
         {
           text: 'Confirm',
           handler: async (data: any) => {
             this.sendResetPasswordLink(data.email);
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     await alert.present();
   }
@@ -138,9 +138,7 @@ export class LoginPage implements OnInit {
     const loginCredentials: LoginCredentials = this.loginForm.value;
     await this.loadingService.show('Signing In...');
     try {
-      const userCredentials: firebase.auth.UserCredential = await this.authService.emailLogin(
-        loginCredentials
-      );
+      const userCredentials: firebase.auth.UserCredential = await this.authService.emailLogin(loginCredentials);
       if (userCredentials.user.emailVerified === true) {
         const userProfileSubscription = this.userService
           .getUserByUID(userCredentials.user.uid)

@@ -138,7 +138,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       userProfile.uid = this.userProfile.uid;
       await this.userService.updateUser(userProfile, this.userProfile.uid);
       await this.userService.storeUserData(userProfile);
-      alert(JSON.stringify(userProfile));
       await this.loadingService.hide();
       this.updatedProfile = true;
       await this.toastService.showToast('Successfully updated your profile!', 'top');
