@@ -6,7 +6,7 @@ import { PostService } from 'src/app/services/post/post.service';
 @Component({
   selector: 'app-single-post',
   templateUrl: './single-post.page.html',
-  styleUrls: ['./single-post.page.scss'],
+  styleUrls: ['./single-post.page.scss']
 })
 export class SinglePostPage implements OnInit {
   posts: Post[];
@@ -20,6 +20,7 @@ export class SinglePostPage implements OnInit {
   }
 
   getPosts(event?: any) {
+    this.posts = null;
     const subscription = this.postService.getPostById(this.postId).subscribe((post: Post) => {
       subscription.unsubscribe();
       this.posts = [post];

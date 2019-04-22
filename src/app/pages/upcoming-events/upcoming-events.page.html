@@ -54,7 +54,7 @@
               <ion-row>
                 <ion-col class="date" text-center align-self-center size="2">
                   <ion-text color="danger">
-                    {{ event.startDateTime | date: "MMM d EEE" }}
+                    {{ event.startDateTime | date: 'MMM d EEE' }}
                     <div class="vertical-line"></div>
                   </ion-text>
                 </ion-col>
@@ -62,8 +62,8 @@
                   <h2 class="text12 fw700 text-black">{{ event.name }}</h2>
                   <p>City: {{ event.city }}</p>
                   <p>
-                    Time: {{ event.startDateTime | date: "h:mm a" }} -
-                    {{ event.endDateTime | date: "h:mm a" }}
+                    Time: {{ event.startDateTime | date: 'h:mm a' }} -
+                    {{ event.endDateTime | date: 'h:mm a' }}
                   </p>
                 </ion-col>
                 <ion-col class="book" text-end align-self-center size="3">
