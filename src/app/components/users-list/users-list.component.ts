@@ -7,7 +7,7 @@ import { ActiveUsersInEventService } from 'src/app/services/active-users-in-even
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss'],
+  styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
   users: any = [];
@@ -16,14 +16,8 @@ export class UsersListComponent implements OnInit {
   eventId: string;
   currentUserProfile: any;
   noUsers: boolean = false;
-  constructor(
-    private navParams: NavParams,
-    private userService: UserService,
-    private modalCtrl: ModalController,
-    private alertCtrl: AlertController,
-    private loadingService: LoadingService,
-    private activeUsersInEventService: ActiveUsersInEventService
-  ) {}
+
+  constructor(private navParams: NavParams, private userService: UserService, private modalCtrl: ModalController) {}
 
   async ngOnInit() {
     this.usersUID = this.navParams.get('usersUID');
@@ -39,12 +33,10 @@ export class UsersListComponent implements OnInit {
       if (i >= this.usersUID.length) {
         break;
       }
-      const subscription = this.userService
-        .getUserByUID(`${this.usersUID[i].uid}`)
-        .subscribe(data => {
-          subscription.unsubscribe();
-          this.users.push(data);
-        });
+      const subscription = this.userService.getUserByUID(`${this.usersUID[i].uid}`).subscribe(data => {
+        subscription.unsubscribe();
+        this.users.push(data);
+      });
     }
   }
 

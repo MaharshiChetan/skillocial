@@ -99,8 +99,6 @@ export class CreatePostPage implements OnInit, OnDestroy {
     this.post = this.postForm.value;
     this.post.imageUrl = imageUrl;
     this.post.imageId = this.postId ? this.post.imageId || null : imageId;
-    this.post.likesCount = this.postId ? this.post.likesCount || null : 0;
-    this.post.commentsCount = this.postId ? this.post.commentsCount || null : 0;
     this.post.uid = this.currentUserProfile.uid;
 
     if (this.postId) {

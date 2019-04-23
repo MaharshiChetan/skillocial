@@ -3,22 +3,27 @@ import { ModalController, NavController, AlertController } from '@ionic/angular'
 import { EditProfileComponent } from 'src/app/components/edit-profile/edit-profile.component';
 import { UserService } from 'src/app/services/user/user.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { BlockUserService } from 'src/app/services/block-user/block-user.service';
+import { User } from 'src/app/models/user';
+import { UsersListComponent } from 'src/app/components/users-list/users-list.component';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
+  styleUrls: ['./settings.page.scss']
 })
 export class SettingsPage implements OnInit {
-  currentUserProfile: any;
+  currentUserProfile: User;
+  blockedUsers: any;
 
   constructor(
     private modalCtrl: ModalController,
     private userService: UserService,
     private authService: AuthService,
     private navCtrl: NavController,
-    private alertCtrl: AlertController
-  ) { }
+    private alertCtrl: AlertController,
+    private blockUserService: BlockUserService
+  ) {}
 
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
@@ -29,9 +34,9 @@ export class SettingsPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: EditProfileComponent,
       componentProps: {
-        userProfile: this.currentUserProfile,
+        userProfile: this.currentUserProfile
       },
-      animated: false,
+      animated: false
     });
     await modal.present();
   }
@@ -78,16 +83,39 @@ export class SettingsPage implements OnInit {
       buttons: [
         {
           text: 'Cancel',
-          role: 'desctructive',
+          role: 'desctructive'
         },
         {
           text: 'Sign Out',
           handler: () => {
             this.onLogout();
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     await confirm.present();
+  }
+
+  getBlockedUsers() {
+    const subscription = this.blockUserService.getBlockedUsers(this.currentUserProfile.uid).subscribe(blockedUsers => {
+      subscription.unsubscribe();
+      this.blockedUsers = blockedUsers.length > 0 ? blockedUsers : false;
+      this.showBlockedUsers();
+    });
+  }
+
+  async showBlockedUsers() {
+    const modal = await this.modalCtrl.create({
+      component: UsersListComponent,
+      componentProps: {
+        usersUID: this.blockedUsers,
+        navTitle: 'Blocked Accounts'
+      },
+      animated: false
+    });
+    modal.present();
+    modal.onWillDismiss().then(data => {
+      console.log(data);
+    });
   }
 }

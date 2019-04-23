@@ -13,6 +13,8 @@ import { Title } from '@angular/platform-browser';
 import { PostService } from 'src/app/services/post/post.service';
 import { Post } from 'src/app/models/post';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { BlockUserService } from 'src/app/services/block-user/block-user.service';
+import { firestore } from 'firebase';
 
 @Component({
   selector: 'app-profile',
@@ -44,6 +46,7 @@ export class ProfilePage implements OnInit {
     private alertCtrl: AlertController,
     private titleService: TitleService,
     private postService: PostService,
+    private blockUserService: BlockUserService,
     public photoViewer: PhotoViewer
   ) {}
 
@@ -72,7 +75,8 @@ export class ProfilePage implements OnInit {
     const popover = await this.popoverCtrl.create({
       component: PopoverComponent,
       componentProps: {
-        currentUser: this.userProfile.uid === this.currentUserProfile.uid ? true : false
+        currentUser: this.userProfile.uid === this.currentUserProfile.uid ? true : false,
+        userProfile: this.userProfile
       },
       event: event
     });
@@ -88,10 +92,83 @@ export class ProfilePage implements OnInit {
         this.unfollow();
       } else if (value.data.name === 'Follow') {
         this.follow();
+      } else if (value.data.name === 'Block') {
+        this.blockUser();
+      } else if (value.data.name === 'Unblock') {
+        console.log(value.data.blockedUser);
+        this.unblockUser(value.data.blockedUser);
       } else {
         await this.navCtrl.navigateForward([value.data.route]);
       }
     }
+  }
+
+  async blockUser() {
+    let alertPopup = await this.alertCtrl.create({
+      header: `Block ${this.userProfile.username}`,
+      message: `They won't be able to find your profile or posts on Skillocial. Skillocial won't let them know you blocked them.`,
+      buttons: [
+        { text: 'Cancel', role: 'destructive' },
+        {
+          text: 'Block',
+          handler: async () => {
+            try {
+              const blockUserDetails = {
+                blockedByUID: this.currentUserProfile.uid,
+                blockedUID: this.userProfile.uid,
+                uid: this.userProfile.uid,
+                timeStamp: firestore.FieldValue.serverTimestamp()
+              };
+              await this.blockUserService.blockUser(blockUserDetails);
+              this.successBlockAlert();
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+      ]
+    });
+    await alertPopup.present();
+  }
+
+  async unblockUser(blockedUser: any) {
+    let alertPopup = await this.alertCtrl.create({
+      header: `Unblock ${this.userProfile.username}`,
+      message: `They will now be able to find your profile or posts on Skillocial. Skillocial won't let them know you unblocked them.`,
+      buttons: [
+        { text: 'Cancel', role: 'destructive' },
+        {
+          text: 'Unblock',
+          handler: async () => {
+            try {
+              await this.blockUserService.unblockUser(blockedUser[0].id);
+              this.successUnblockAlert();
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        }
+      ]
+    });
+    await alertPopup.present();
+  }
+
+  async successBlockAlert() {
+    let alertPopup = await this.alertCtrl.create({
+      header: `${this.userProfile.username} Blocked`,
+      message: `You can unblock them anytime from their profile`,
+      buttons: [{ text: 'OK', role: 'destructive' }]
+    });
+    await alertPopup.present();
+  }
+
+  async successUnblockAlert() {
+    let alertPopup = await this.alertCtrl.create({
+      header: `${this.userProfile.username} Unblocked`,
+      message: `You can block them anytime from their profile`,
+      buttons: [{ text: 'OK', role: 'destructive' }]
+    });
+    await alertPopup.present();
   }
 
   getFollowCount() {
