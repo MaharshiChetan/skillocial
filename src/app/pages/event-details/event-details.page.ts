@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Event } from 'src/app/models/event';
-import { IonContent, ModalController, NavController, ActionSheetController } from '@ionic/angular';
+import { IonContent, ModalController, NavController, ActionSheetController, IonFab } from '@ionic/angular';
 import { EventsService } from 'src/app/services/event/event.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user/user.service';
@@ -11,6 +11,9 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 import { ParticipationCategoriesComponent } from 'src/app/components/participation-categories/participation-categories.component';
 import { PaymentCalculationComponent } from 'src/app/components/payment-calculation/payment-calculation.component';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @Component({
   selector: 'app-event-details',
@@ -28,6 +31,7 @@ export class EventDetailsPage implements OnInit {
   goingUsersCount: any;
   goingUsers: any;
   user: User;
+  fileTransfer: FileTransferObject;
 
   constructor(
     private eventService: EventsService,
@@ -38,8 +42,13 @@ export class EventDetailsPage implements OnInit {
     private userService: UserService,
     private activeUsersInEventService: ActiveUsersInEventService,
     private modalCtrl: ModalController,
-    public photoViewer: PhotoViewer
-  ) {}
+    public photoViewer: PhotoViewer,
+    private socialSharing: SocialSharing,
+    private transfer: FileTransfer,
+    private file: File
+  ) {
+    this.fileTransfer = this.transfer.create();
+  }
 
   async ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
@@ -238,4 +247,53 @@ export class EventDetailsPage implements OnInit {
   async popBack() {
     await this.navCtrl.navigateBack(['tabs/upcoming-events']);
   }
+
+  async shareOnWhatsApp(fab: IonFab) {
+    await this.loadingService.show();
+    this.fileTransfer
+      .download(this.event.imageUrl, this.file.dataDirectory + this.event.name + '.jpeg')
+      .then(async image => {
+        await this.loadingService.hide();
+        this.socialSharing
+          .shareViaWhatsApp(
+            `*Event Name*:- ${this.event.name}\n*Event Description*:- ${this.event.description}\n`,
+            image.toURL()
+          )
+          .then(async data => {
+            await this.loadingService.hide();
+          })
+          .catch(async error => {
+            await this.loadingService.hide();
+          });
+      })
+      .catch(async e => {
+        await this.loadingService.hide();
+      });
+  }
+
+  async shareOnInstagram() {
+    await this.loadingService.show();
+    this.fileTransfer
+      .download(this.event.imageUrl, this.file.dataDirectory + this.event.name + '.jpeg')
+      .then(async image => {
+        await this.loadingService.hide();
+        this.socialSharing
+          .shareViaInstagram(
+            `*Event Name:-* ${this.event.name}\n*Event Description:-* ${this.event.description}`,
+            image.toURL()
+          )
+          .then(async data => {
+            await this.loadingService.hide();
+          })
+          .catch(async error => {
+            await this.loadingService.hide();
+            alert(error);
+          });
+      })
+      .catch(async e => {
+        await this.loadingService.hide();
+      });
+  }
+
+  shareOnFacebook() {}
 }

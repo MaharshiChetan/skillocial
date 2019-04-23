@@ -32,6 +32,9 @@ import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-ima
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +42,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
   imports: [
     BrowserModule,
     IonicModule.forRoot({
-      mode: 'ios',
+      mode: 'ios'
     }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'skillocial'),
@@ -48,9 +51,9 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     LazyLoadImageModule.forRoot({
-      preset: intersectionObserverPreset,
+      preset: intersectionObserverPreset
     }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
@@ -69,8 +72,11 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     Base64,
     Keyboard,
     Clipboard,
-    PhotoViewer
+    PhotoViewer,
+    SocialSharing,
+    File,
+    FileTransfer
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

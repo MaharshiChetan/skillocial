@@ -11,8 +11,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
 const routes: Routes = [
   {
     path: '',
-    component: EventDetailsPage,
-  },
+    component: EventDetailsPage
+  }
 ];
 
 @NgModule({
@@ -22,10 +22,10 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     LazyLoadImageModule.forRoot({
-      preset: intersectionObserverPreset,
+      preset: intersectionObserverPreset
     }),
-    ComponentsModule,
+    ComponentsModule
   ],
-  declarations: [EventDetailsPage],
+  declarations: [EventDetailsPage]
 })
 export class EventDetailsPageModule {}

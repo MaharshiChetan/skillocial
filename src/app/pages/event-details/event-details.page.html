@@ -28,7 +28,7 @@
             [lazyLoad]="event.imageUrl"
             [errorImage]="event.imageUrl"
             class="original cover-image"
-            (click)="this.photoViewer.show(userProfile.profilePhoto)"
+            (click)="this.photoViewer.show(event.imageUrl)"
           />
           <ion-card-content no-padding>
             <ion-grid no-padding>
@@ -237,13 +237,13 @@
       <ion-icon name="share"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button color="instagram">
+      <ion-fab-button color="instagram" (click)="shareOnInstagram()">
         <ion-icon name="logo-instagram"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="whatsapp">
+      <ion-fab-button color="whatsapp" (click)="shareOnWhatsApp()">
         <ion-icon name="logo-whatsapp"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="facebook">
+      <ion-fab-button color="facebook" (click)="shareOnFacebook()">
         <ion-icon name="logo-facebook"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SearchUserPage } from './search-user.page';
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 
 const routes: Routes = [
   {
@@ -19,7 +20,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset
+    })
   ],
   declarations: [SearchUserPage]
 })

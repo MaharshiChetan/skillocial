@@ -26,10 +26,10 @@ export class PopoverComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.navParams.get('currentUser');
     this.userProfile = this.navParams.get('userProfile');
+    this.fillPopoverOptions();
     if (!this.currentUser) {
       this.isBlockedUser();
     }
-    this.fillPopoverOptions();
   }
 
   isBlockedUser() {
@@ -54,8 +54,8 @@ export class PopoverComponent implements OnInit {
       this.options = [
         this.followService.isFollowing ? { name: 'Unfollow' } : { name: 'Follow' },
         { name: 'Message', route: 'user-chats' },
-        { name: 'Share' },
-        { name: 'Report', route: 'report' },
+        // { name: 'Share' },
+        // { name: 'Report', route: 'report' },
         { name: this.blockedUser ? 'Unblock' : 'Block', blockedUser: this.blockedUser }
       ];
     }
