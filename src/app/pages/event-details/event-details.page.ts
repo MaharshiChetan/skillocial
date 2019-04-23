@@ -248,7 +248,7 @@ export class EventDetailsPage implements OnInit {
     await this.navCtrl.navigateBack(['tabs/upcoming-events']);
   }
 
-  async shareOnWhatsApp(fab: IonFab) {
+  async shareOnWhatsApp() {
     await this.loadingService.show();
     this.fileTransfer
       .download(this.event.imageUrl, this.file.dataDirectory + this.event.name + '.jpeg')
