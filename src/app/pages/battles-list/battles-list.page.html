@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Battles List</ion-title>
@@ -9,7 +9,7 @@
 
 <ion-content style="background: #f5f6f9">
   <ion-grid *ngIf="battleList">
-    <ion-card no-margin *ngFor="let i of battleList" [routerLink]="['/battle-zone']" class="no-outline" mode="md">
+    <ion-card no-margin *ngFor="let i of battleList" [routerLink]="['/battle-zone']" class="no-outline">
       <ion-row>
         <ion-col text-center>
           <img src="https://i.ytimg.com/vi/_3DJXAD-8d4/maxresdefault.jpg" />
@@ -29,7 +29,7 @@
   </ion-grid>
 
   <ion-grid *ngIf="!battleList">
-    <ion-card no-margin *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]" mode="md">
+    <ion-card no-margin *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]">
       <ion-row>
         <ion-col text-center>
           <ion-avatar style="margin: auto">

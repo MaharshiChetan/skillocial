@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Titles</ion-title>
@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-grid *ngIf="titles">
-    <ion-card no-margin mode="md" *ngFor="let title of titles">
+    <ion-card no-margin *ngFor="let title of titles">
       <ion-item detail="false" lines="none">
         <ion-avatar slot="start">
           <img
@@ -39,7 +39,7 @@
   </ion-grid>
 
   <ion-grid *ngIf="!titles">
-    <ion-card no-margin mode="md" *ngFor="let title of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
+    <ion-card no-margin *ngFor="let title of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]">
       <ion-item detail="false" lines="none">
         <ion-avatar slot="start">
           <ion-skeleton-text></ion-skeleton-text>

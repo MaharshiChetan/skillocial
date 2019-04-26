@@ -6,7 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
   currentUserProfile: User;
@@ -36,9 +36,7 @@ export class UserService {
   }
 
   checkUsername(username: string) {
-    return this.afStore
-      .collection('users', ref => ref.where('username', '==', username).limit(1))
-      .valueChanges();
+    return this.afStore.collection('users', ref => ref.where('username', '==', username).limit(1)).valueChanges();
   }
 
   getUserByUID(uid: string) {
@@ -79,7 +77,7 @@ export class UserService {
       uid: userData.uid,
       username: userData.email.substring(0, userData.email.lastIndexOf('@')),
       loginType: type,
-      bio: "Hey! I'm using skillocial.",
+      bio: "Hey! I'm using skillocial."
     };
   }
 }

@@ -247,6 +247,7 @@ export class ProfilePage implements OnInit {
       componentProps: {
         userProfile: this.userProfile
       },
+      backdropDismiss: true,
       animated: false
     });
     await modal.present();
@@ -290,6 +291,7 @@ export class ProfilePage implements OnInit {
         usersUID: type === 'followers' ? this.followers : this.followings,
         navTitle: type === 'followers' ? 'Followers' : 'Followings'
       },
+      backdropDismiss: true,
       animated: false
     });
     modal.present();

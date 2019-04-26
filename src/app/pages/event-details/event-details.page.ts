@@ -98,7 +98,7 @@ export class EventDetailsPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: PaymentCalculationComponent,
       componentProps: { event: this.event, viewer: true },
-      backdropDismiss: false,
+      backdropDismiss: true,
       animated: false
     });
     modal.present();
@@ -111,6 +111,7 @@ export class EventDetailsPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ParticipationCategoriesComponent,
       componentProps: { event: this.event },
+      backdropDismiss: true,
       animated: false
     });
     modal.present();
@@ -236,6 +237,7 @@ export class EventDetailsPage implements OnInit {
         usersUID: type === 'interestedUsers' ? this.interestedUsers : this.goingUsers,
         navTitle: type === 'interestedUsers' ? 'Interested' : 'Going'
       },
+      backdropDismiss: true,
       animated: false
     });
     modal.present();

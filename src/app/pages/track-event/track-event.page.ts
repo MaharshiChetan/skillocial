@@ -8,7 +8,7 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 @Component({
   selector: 'app-track-event',
   templateUrl: './track-event.page.html',
-  styleUrls: ['./track-event.page.scss'],
+  styleUrls: ['./track-event.page.scss']
 })
 export class TrackEventPage implements OnInit {
   eventId: string;
@@ -47,7 +47,7 @@ export class TrackEventPage implements OnInit {
           this.activeUsers[type] = activeUsers;
           subscription.unsubscribe();
           this.activeUsersInEventService.updateActiveUsersCount(this.eventId, {
-            [type]: activeUsers.length,
+            [type]: activeUsers.length
           });
           this.showModal(activeUsers, navTitle);
           await this.loadingService.hide();
@@ -61,9 +61,10 @@ export class TrackEventPage implements OnInit {
       componentProps: {
         usersUID: activeUsers,
         navTitle: navTitle,
-        eventId: this.eventId,
+        eventId: this.eventId
       },
-      animated: false,
+      backdropDismiss: true,
+      animated: false
     });
     modal.present();
     modal.onWillDismiss().then(data => {

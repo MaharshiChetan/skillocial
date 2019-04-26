@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button (click)="popBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ event?.name }}</ion-title>
     <ion-buttons slot="primary">
       <ion-button [routerLink]="['/battle-categories']">
         <ion-icon slot="icon-only" color="danger" class="glow" name="radio-button-on"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-back-button (click)="popBack()"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ event?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -104,10 +104,11 @@
           <ion-row text-center class="fw700">
             <ion-col
               padding
-              class="click text-black no-outline text1"
+              class="ion-activatable text-black no-outline text1"
               *ngIf="interestedUsersCount || interestedUsersCount == 0"
               (click)="showInterestedUsers()"
             >
+              <ion-ripple-effect></ion-ripple-effect>
               Interested ({{ interestedUsersCount || 0 }})
             </ion-col>
             <ion-col *ngIf="!interestedUsersCount && interestedUsersCount != 0">
@@ -115,10 +116,11 @@
             </ion-col>
             <ion-col
               padding
-              class="click text-black no-outline text1"
+              class="ion-activatable text-black no-outline text1"
               *ngIf="goingUsersCount || goingUsersCount == 0"
               (click)="showGoingUsers()"
             >
+              <ion-ripple-effect></ion-ripple-effect>
               Going ({{ goingUsersCount || 0 }})
             </ion-col>
             <ion-col *ngIf="!goingUsersCount && goingUsersCount != 0">

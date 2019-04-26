@@ -36,6 +36,7 @@ export class SettingsPage implements OnInit {
       componentProps: {
         userProfile: this.currentUserProfile
       },
+      backdropDismiss: true,
       animated: false
     });
     await modal.present();
@@ -111,6 +112,7 @@ export class SettingsPage implements OnInit {
         usersUID: this.blockedUsers,
         navTitle: 'Blocked Accounts'
       },
+      backdropDismiss: true,
       animated: false
     });
     modal.present();

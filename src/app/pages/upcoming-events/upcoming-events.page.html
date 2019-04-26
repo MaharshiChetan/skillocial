@@ -1,9 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="secondary">
-      <ion-button [routerLink]="['/profile/' + userProfile?.uid]">
-        <ion-icon slot="icon-only" name="contact"></ion-icon>
-      </ion-button>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button [routerLink]="['/chat-list']">
@@ -39,8 +37,9 @@
 
   <ion-grid no-padding>
     <ion-row>
-      <ion-col *ngFor="let event of upcomingEvents" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
-        <ion-card no-margin class="no-outline" [routerLink]="['/event-details', event.id]">
+      <ion-col *ngFor="let event of upcomingEvents" size-xs="12" size-sm="6" size-lg="6" size-xl="4">
+        <ion-card no-margin class="ion-activatable no-outline" [routerLink]="['/event-details', event.id]">
+          <ion-ripple-effect></ion-ripple-effect>
           <img
             alt=""
             defaultImage="assets/placeholder.jpg"
@@ -74,7 +73,7 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col *ngFor="let i of [1, 2, 3]" size-xs="12" size-sm="6" size-lg="4" size-xl="3">
+      <ion-col *ngFor="let i of [1, 2, 3]" size-xs="12" size-sm="6" size-lg="6" size-xl="4">
         <ion-card no-margin *ngIf="!upcomingEvents">
           <ion-skeleton-text style="height: 170px;width: 100%;border-radius: 0px;margin: 0px"></ion-skeleton-text>
           <ion-card-content>

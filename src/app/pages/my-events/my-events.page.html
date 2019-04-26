@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>My Events</ion-title>
@@ -30,11 +30,11 @@
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="secondary" (click)="navigateToTrackEvent(event)">
-          <ion-icon style="font-size: 25px" name="analytics" mode="md"></ion-icon>
+          <ion-icon style="font-size: 25px" name="analytics"></ion-icon>
           <ion-label>Track</ion-label>
         </ion-item-option>
         <ion-item-option color="medium" (click)="editEvent(event.id)">
-          <ion-icon style="font-size: 25px" name="create" mode="md"></ion-icon>
+          <ion-icon style="font-size: 25px" name="create"></ion-icon>
           <ion-label>Edit</ion-label>
         </ion-item-option>
       </ion-item-options>

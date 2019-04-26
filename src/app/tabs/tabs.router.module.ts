@@ -12,32 +12,40 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren:
-              '../pages/upcoming-events/upcoming-events.module#UpcomingEventsPageModule',
-          },
-        ],
+            loadChildren: '../pages/upcoming-events/upcoming-events.module#UpcomingEventsPageModule'
+          }
+        ]
       },
       {
         path: 'home',
-        children: [{ path: '', loadChildren: '../pages/home/home.module#HomePageModule' }],
+        children: [{ path: '', loadChildren: '../pages/home/home.module#HomePageModule' }]
       },
       {
         path: 'notifications',
         children: [
           {
             path: '',
-            loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule',
-          },
-        ],
+            loadChildren: '../pages/notifications/notifications.module#NotificationsPageModule'
+          }
+        ]
       },
-      { path: '', redirectTo: '/tabs/home', pathMatch: 'full' },
-    ],
+      {
+        path: 'profile',
+        children: [
+          {
+            path: '',
+            loadChildren: '../pages/profile/profile.module#ProfilePageModule'
+          }
+        ]
+      },
+      { path: '', redirectTo: '/tabs/home', pathMatch: 'full' }
+    ]
   },
-  { path: '', redirectTo: '/tabs/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/tabs/home', pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}

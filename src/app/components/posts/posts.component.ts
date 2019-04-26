@@ -79,6 +79,7 @@ export class PostsComponent implements OnInit {
         usersUID: users,
         navTitle: 'Likes'
       },
+      backdropDismiss: true,
       animated: false
     });
     modal.present();
@@ -176,6 +177,7 @@ export class PostsComponent implements OnInit {
         post: post,
         currentUserProfile: this.currentUserProfile
       },
+      backdropDismiss: true,
       animated: false
     });
     await modal.present();

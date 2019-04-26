@@ -1,16 +1,16 @@
 <ion-header>
   <ion-toolbar color="black">
-    <ion-buttons slot="primary">
-      <ion-button [disabled]="!userProfileForm.valid" (click)="submitForm()">
-        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Edit Profile</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [disabled]="!userProfileForm.valid" (click)="submitForm()">
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

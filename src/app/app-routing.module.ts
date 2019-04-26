@@ -5,12 +5,6 @@ import { AuthGuard } from './guards/auth-gaurd/auth-gaurd';
 
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
-  // {
-  //   path: 'event-details/5uiXhmvuvVCoUL4RqqJL',
-  //   loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule',
-  //   canActivate: [AuthGuard],
-  // },
-  // { path: '', redirectTo: '/event-details/5uiXhmvuvVCoUL4RqqJL', pathMatch: 'full' },
   {
     path: 'register',
     loadChildren: './pages/register/register.module#RegisterPageModule'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, AlertController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { LoginCredentials } from 'src/app/models/loginCredentials';
@@ -34,7 +34,6 @@ export class LoginPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private menuCtrl: MenuController,
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private loadingService: LoadingService,
@@ -43,16 +42,8 @@ export class LoginPage implements OnInit {
     private userService: UserService
   ) {}
 
-  ionViewWillEnter() {
-    this.menuCtrl.enable(false);
-  }
-
   async ngOnInit() {
     this.buildForm();
-    const user = await this.userService.getCurrentUser();
-    if (user) {
-      await this.navCtrl.navigateRoot(['tabs']);
-    }
   }
 
   buildForm() {

@@ -1,14 +1,17 @@
 <ion-header>
   <ion-toolbar color="black">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ userProfile?.username }}</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="presentPopover()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ userProfile?.username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -100,9 +103,9 @@
     <ion-row>
       <ion-col>
         <ion-segment [(ngModel)]="type">
-          <!-- <ion-segment-button value="skills">
+          <ion-segment-button value="skills">
             <ion-icon name="snow"></ion-icon>
-          </ion-segment-button> -->
+          </ion-segment-button>
           <ion-segment-button value="posts">
             <ion-icon name="images"></ion-icon>
           </ion-segment-button>

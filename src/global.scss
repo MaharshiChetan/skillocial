@@ -227,10 +227,6 @@ ion-item {
   outline: none;
 }
 
-.click:active {
-  background: rgba(0, 0, 0, 0.2);
-}
-
 // menu //
 // Menu user profile
 ion-toolbar.user-profile {
@@ -325,11 +321,7 @@ ion-menu {
   ion-header {
     ion-toolbar {
       &.ion-color-dark {
-        --ion-color-base: linear-gradient(
-          135deg,
-          var(--ion-color-dark),
-          var(--ion-color-primary)
-        ) !important;
+        --ion-color-base: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary)) !important;
       }
     }
   }

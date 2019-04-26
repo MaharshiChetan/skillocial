@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar color="black">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Event</ion-title>
     <ion-buttons slot="primary">
       <ion-button [disabled]="!eventForm.valid" (click)="updateEvent()">
         <ion-icon slot="icon-only" name="checkmark"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Create Event</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,10 +25,7 @@
           *ngIf="cameraService.chosenPicture || eventDetails?.imageUrl"
           [src]="cameraService.chosenPicture || eventDetails?.imageUrl"
         />
-        <div
-          *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl"
-          class="img-placeholder"
-        ></div>
+        <div *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl" class="img-placeholder"></div>
         <div *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl" class="centered">
           <ion-icon name="camera" class="camera-icon"></ion-icon>
           <h6 no-margin>Upload Image</h6>
@@ -88,19 +85,11 @@
 
       <ion-item>
         <ion-label>Start Time</ion-label>
-        <ion-datetime
-          displayFormat="h:mm A"
-          pickerFormat="h mm A"
-          formControlName="startTime"
-        ></ion-datetime>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="startTime"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label>End Time</ion-label>
-        <ion-datetime
-          displayFormat="h:mm A"
-          pickerFormat="h mm A"
-          formControlName="endTime"
-        ></ion-datetime>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="endTime"></ion-datetime>
       </ion-item>
 
       <ion-item-group *ngIf="participationCategories?.length > 0">

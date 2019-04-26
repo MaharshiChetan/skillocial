@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, MenuController, LoadingController, AlertController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { RegisterCredentials } from 'src/app/models/registerCredentials';
@@ -11,7 +11,7 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  styleUrls: ['./register.page.scss']
 })
 export class RegisterPage implements OnInit {
   registerForm: FormGroup;
@@ -19,43 +19,38 @@ export class RegisterPage implements OnInit {
     fullName: '',
     username: '',
     email: '',
-    password: '',
+    password: ''
   };
 
   validationMessages = {
     fullName: {
-      required: 'Name is required.',
+      required: 'Name is required.'
     },
     username: {
       required: 'Username is required.',
       pattern: 'Username can only use letters, numbers and underscores.',
-      maxlength: 'Username cannot be more than 25 characters long.',
+      maxlength: 'Username cannot be more than 25 characters long.'
     },
     email: {
       required: 'Email is required.',
-      email: 'Email must be a valid email',
+      email: 'Email must be a valid email'
     },
     password: {
       required: 'Password is required.',
       pattern: 'Password must include at least one letter and one number.',
       minlength: 'Password must be at least 6 characters long.',
-      maxlength: 'Password cannot be more than 25 characters long.',
-    },
+      maxlength: 'Password cannot be more than 25 characters long.'
+    }
   };
   constructor(
     public navCtrl: NavController,
-    public menuCtrl: MenuController,
     public loadingService: LoadingService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private userService: UserService
-  ) { }
-
-  ionViewWillEnter() {
-    this.menuCtrl.enable(false);
-  }
+  ) {}
 
   ngOnInit() {
     this.buildForm();
@@ -68,11 +63,9 @@ export class RegisterPage implements OnInit {
         null,
         Validators.compose([
           Validators.required,
-          Validators.pattern(
-            '^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:.(?!.))){0,40}(?:[A-Za-z0-9_]))?)$'
-          ),
-          Validators.maxLength(25),
-        ]),
+          Validators.pattern('^([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:.(?!.))){0,40}(?:[A-Za-z0-9_]))?)$'),
+          Validators.maxLength(25)
+        ])
       ],
       email: [null, Validators.compose([Validators.required, Validators.email])],
       password: [
@@ -81,9 +74,9 @@ export class RegisterPage implements OnInit {
           Validators.required,
           Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
           Validators.minLength(6),
-          Validators.maxLength(25),
-        ]),
-      ],
+          Validators.maxLength(25)
+        ])
+      ]
     });
 
     this.registerForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -114,9 +107,7 @@ export class RegisterPage implements OnInit {
     let user: User = this.registerForm.value;
     await this.loadingService.show('Signing Up...');
     try {
-      const userCredentials: firebase.auth.UserCredential = await this.authService.emailSignUp(
-        registerCredentials
-      );
+      const userCredentials: firebase.auth.UserCredential = await this.authService.emailSignUp(registerCredentials);
       delete user['password'];
       user.uid = userCredentials.user.uid;
       user.loginType = 'email-password';
@@ -149,7 +140,7 @@ export class RegisterPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Verification Sent!',
       message: 'Please verify your email before logging in.',
-      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => { } }],
+      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => {} }]
     });
     await alert.present();
   }

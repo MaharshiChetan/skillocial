@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar color="black">
-    <ion-buttons slot="secondary">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
       <ion-back-button (click)="popBack()"></ion-back-button>
     </ion-buttons>
     <ion-title>Chats</ion-title>
@@ -23,16 +23,32 @@
     </ion-col>
   </ion-row>
   <ion-list>
-    <ion-searchbar animated *ngIf="messages" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel"
-      (ionChange)="setFilteredItems()" (ionCancel)="onCancel($event)">
+    <ion-searchbar
+      animated
+      *ngIf="messages"
+      [(ngModel)]="searchTerm"
+      [showCancelButton]="shouldShowCancel"
+      (ionChange)="setFilteredItems()"
+      (ionCancel)="onCancel($event)"
+    >
     </ion-searchbar>
 
-    <ion-item class="click no-outline" *ngFor="let message of displayMessages"
-      [routerLink]="['/user-chats/' + message.id]" (press)="showActionSheet(message)">
+    <ion-item
+      class="ion-activatable no-outline"
+      *ngFor="let message of displayMessages"
+      [routerLink]="['/user-chats/' + message.id]"
+      (press)="showActionSheet(message)"
+    >
+      <ion-ripple-effect></ion-ripple-effect>
       <ion-avatar slot="start" *ngIf="message">
-        <img alt="" defaultImage="/assets/default-user.jpeg" [lazyLoad]="message?.thumbnail || message?.profilePhoto"
-          [errorImage]="message?.profilePhoto" class="cover-image skeleton-color"
-          onerror="this.onerror=null;this.src='assets/default-user.jpeg';" />
+        <img
+          alt=""
+          defaultImage="/assets/default-user.jpeg"
+          [lazyLoad]="message?.thumbnail || message?.profilePhoto"
+          [errorImage]="message?.profilePhoto"
+          class="cover-image skeleton-color"
+          onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
+        />
       </ion-avatar>
 
       <ion-label>
@@ -43,14 +59,12 @@
         <p *ngIf="userProfile.uid !== message.sentBy && message.imageUrl">
           Photo
         </p>
-        <p *ngIf="message.message && userProfile.uid === message.sentBy">
-          You: {{ message?.message }}
-        </p>
+        <p *ngIf="message.message && userProfile.uid === message.sentBy">You: {{ message?.message }}</p>
         <p *ngIf="message.message && userProfile.uid === message.imageUrl">
           You: Photo
         </p>
       </ion-label>
-      <ion-note slot="end">{{ message.timeStamp | date: "h:mm a" }}</ion-note>
+      <ion-note slot="end">{{ message.timeStamp | date: 'h:mm a' }}</ion-note>
     </ion-item>
     <!--
                 <img

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
@@ -34,8 +34,7 @@
     </ion-item>
 
     <ion-infinite-scroll *ngIf="users?.length > 0" (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content loadingText="Loading more users...">
-      </ion-infinite-scroll-content>
+      <ion-infinite-scroll-content loadingText="Loading more users..."> </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-list>
 

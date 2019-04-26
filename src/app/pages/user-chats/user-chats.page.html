@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ otherUserProfile?.username }}</ion-title>
     <ion-buttons slot="primary">
       <ion-button [routerLink]="['/chat-settings']">
         <ion-icon slot="icon-only" name="settings"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ otherUserProfile?.username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -53,7 +53,7 @@
             color="primary"
             (touchstart)="sendMessage($event)"
           >
-            <ion-icon mode="md" name="send"></ion-icon>
+            <ion-icon name="send"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>

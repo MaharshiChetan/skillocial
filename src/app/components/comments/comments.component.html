@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
@@ -14,8 +14,8 @@
     <ion-spinner></ion-spinner>
   </div>
   <ion-list>
-    <div *ngFor="let comment of comments" class="click" (press)="showActionSheet(post.id, comment)">
-      <ion-item *ngIf="comment.userProfile">
+    <div *ngFor="let comment of comments" (press)="showActionSheet(post.id, comment)">
+      <ion-item *ngIf="comment.userProfile" class="ion-activatable">
         <ion-ripple-effect></ion-ripple-effect>
         <ion-avatar slot="start" [routerLink]="['profile/' + comment?.userProfile?.uid]" class="no-outline">
           <img
@@ -74,7 +74,7 @@
             color="primary"
             (touchstart)="addComment($event)"
           >
-            <ion-icon mode="md" name="send"></ion-icon>
+            <ion-icon name="send"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-col>

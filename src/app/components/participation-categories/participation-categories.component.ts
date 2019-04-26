@@ -9,7 +9,7 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
 @Component({
   selector: 'app-participation-categories',
   templateUrl: './participation-categories.component.html',
-  styleUrls: ['./participation-categories.component.scss'],
+  styleUrls: ['./participation-categories.component.scss']
 })
 export class ParticipationCategoriesComponent implements OnInit {
   event: any;
@@ -40,15 +40,15 @@ export class ParticipationCategoriesComponent implements OnInit {
           text: 'Request On Spot Entry',
           handler: async () => {
             this.sendOnSpotRequest();
-          },
+          }
         },
         {
           text: 'Pay Now',
           handler: () => {
             this.showPayment();
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
     await alert.present();
   }
@@ -59,8 +59,8 @@ export class ParticipationCategoriesComponent implements OnInit {
     const modal = await this.modalCtrl.create({
       component: PaymentCalculationComponent,
       componentProps: { event: this.event },
-      backdropDismiss: false,
-      animated: false,
+      backdropDismiss: true,
+      animated: false
     });
     modal.present();
     modal.onWillDismiss().then(async data => {
