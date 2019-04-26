@@ -50,7 +50,7 @@
         <ion-row>
           <ion-col text-right no-padding class="like-counts">
             <ion-button fill="clear" *ngIf="post.likesCount > 0" (click)="showModal(post.likes)" no-margin>
-              <i style="margin-right: 0.3em; font-size: 20px; color: #f4344f" class="fas fa-heart icon"></i>
+              <i style="margin-right: 0.3em; font-size: 20px; color: #f4344f" class="fas fa-heart "></i>
               {{ post.likesCount }}
             </ion-button>
           </ion-col>
@@ -59,20 +59,17 @@
       <ion-row text-center align-items-center>
         <ion-col no-padding>
           <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking" no-margin>
-            <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart icon"></i>
+            <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart "></i>
             {{ post.likesCount }} Likes
           </ion-button>
           <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking" no-margin>
-            <i
-              class="animated bounceIn fas fa-heart icon"
-              style="margin-right: 0.3em; font-size: 20px; color: #f4344f"
-            ></i>
+            <i class="animated bounceIn fas fa-heart " style="margin-right: 0.3em; font-size: 20px; color: #f4344f"></i>
             {{ post.likesCount }} Likes
           </ion-button>
         </ion-col>
         <ion-col no-padding>
           <ion-button fill="clear" (click)="openCommentsModal(post)" no-margin>
-            <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment icon"></i>
+            <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment "></i>
             {{ post.commentsCount }} Comments
           </ion-button>
         </ion-col>
@@ -107,13 +104,13 @@
       <ion-row text-center align-items-center>
         <ion-col no-padding>
           <ion-button fill="clear" no-margin>
-            <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart icon"></i>
+            <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart "></i>
             0 Likes
           </ion-button>
         </ion-col>
         <ion-col no-padding>
           <ion-button fill="clear" no-margin>
-            <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment icon"></i>
+            <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment "></i>
             0 Comments
           </ion-button>
         </ion-col>
