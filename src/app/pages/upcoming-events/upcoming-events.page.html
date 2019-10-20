@@ -12,21 +12,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-searchbar
-    *ngIf="upcomingEvents?.length !== 0"
-    class="searchbar"
-    [(ngModel)]="searchTerm"
-    (ionChange)="setFilteredItems($event)"
-    animated
-  >
+  <ion-searchbar *ngIf="upcomingEvents?.length !== 0" class="searchbar" [(ngModel)]="searchTerm"
+    (ionChange)="setFilteredItems($event)" animated>
   </ion-searchbar>
 
-  <ion-refresher *ngIf="upcomingEvents" (ionRefresh)="getEvents($event)">
+  <ion-refresher slot="fixed" *ngIf="upcomingEvents" (ionRefresh)="getEvents($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-row *ngIf="upcomingEvents?.length === 0" text-center padding>
-    <ion-col text-center class="no-event">
+  <ion-row *ngIf="upcomingEvents?.length === 0" class="ion-padding ion-text-center">
+    <ion-col class="ion-text-center no-event">
       <i class="far fa-sad-tear text20"></i>
       <h3 class="no-events">No Events</h3>
       <ion-button color="secondary" expand="block" [routerLink]="['/create-event']">
@@ -35,23 +30,18 @@
     </ion-col>
   </ion-row>
 
-  <ion-grid no-padding>
+  <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col *ngFor="let event of upcomingEvents" size-xs="12" size-sm="6" size-lg="6" size-xl="4">
-        <ion-card no-margin class="ion-activatable no-outline" [routerLink]="['/event-details', event.id]">
+        <ion-card class="ion-no-margin ion-margin-top ion-margin-horizontal ion-activatable no-outline"
+          [routerLink]="['/event-details', event.id]">
           <ion-ripple-effect></ion-ripple-effect>
-          <img
-            alt=""
-            defaultImage="assets/placeholder.jpg"
-            [lazyLoad]="event.imageUrl"
-            [errorImage]="event.imageUrl"
-            class="cover-image"
-            style="height: 170px;width: 100%;"
-          />
+          <img alt="" defaultImage="assets/placeholder.jpg" [lazyLoad]="event.imageUrl" [errorImage]="event.imageUrl"
+            class="cover-image" style="height: 170px;width: 100%;" />
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <ion-col class="date" text-center align-self-center size="2">
+                <ion-col class="ion-align-self-center ion-text-center date" size="2">
                   <ion-text color="danger">
                     {{ event.startDateTime | date: 'MMM d EEE' }}
                     <div class="vertical-line"></div>
@@ -65,7 +55,7 @@
                     {{ event.endDateTime | date: 'h:mm a' }}
                   </p>
                 </ion-col>
-                <ion-col class="book" text-end align-self-center size="3">
+                <ion-col class="ion-align-self-center ion-text-end book" size="3">
                   <ion-button color="danger">Book</ion-button>
                 </ion-col>
               </ion-row>
@@ -74,12 +64,12 @@
         </ion-card>
       </ion-col>
       <ion-col *ngFor="let i of [1, 2, 3]" size-xs="12" size-sm="6" size-lg="6" size-xl="4">
-        <ion-card no-margin *ngIf="!upcomingEvents">
+        <ion-card class="ion-no-margin ion-margin-top ion-margin-horizontal" *ngIf="!upcomingEvents">
           <ion-skeleton-text style="height: 170px;width: 100%;border-radius: 0px;margin: 0px"></ion-skeleton-text>
           <ion-card-content>
             <ion-grid>
               <ion-row>
-                <ion-col class="date" text-center align-self-center size="2">
+                <ion-col class="ion-align-self-center ion-text-center date" size="2">
                   <ion-text color="danger">
                     <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
                     <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
@@ -91,7 +81,7 @@
                   <ion-skeleton-text class="skeleton14" width="140px"></ion-skeleton-text>
                   <ion-skeleton-text class="skeleton14" width="110px"></ion-skeleton-text>
                 </ion-col>
-                <ion-col class="book" text-end align-self-center size="3">
+                <ion-col class="ion-align-self-center ion-text-end book" size="3">
                   <ion-button color="danger">Book</ion-button>
                 </ion-col>
               </ion-row>

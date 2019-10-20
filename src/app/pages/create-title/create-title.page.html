@@ -13,15 +13,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid text-center>
+  <ion-grid class="ion-text-center">
     <ion-row>
-      <ion-col no-padding>
+      <ion-col class="ion-no-padding">
         <ion-avatar (click)="cameraService.changePicture()">
-          <img
-            alt=""
-            class="image cover-image"
-            [src]="cameraService.chosenPicture || title?.imageUrl || defaultPicture"
-          />
+          <img alt="" class="image cover-image"
+            [src]="cameraService.chosenPicture || title?.imageUrl || defaultPicture" />
         </ion-avatar>
         <ion-button fill="clear" color="blue" class="fw700" (click)="cameraService.changePicture()">
           Change Photo

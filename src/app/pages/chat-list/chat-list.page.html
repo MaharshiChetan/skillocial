@@ -7,11 +7,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher *ngIf="displayMessages" (ionRefresh)="getDisplayMessages($event)">
+  <ion-refresher slot="fixed" *ngIf="displayMessages" (ionRefresh)="getDisplayMessages($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-row *ngIf="displayMessages?.length === 0 && !messages" text-center padding class="no-chat">
-    <ion-col text-center>
+  <ion-row *ngIf="displayMessages?.length === 0 && !messages" class="ion-text-center ion-padding no-chat">
+    <ion-col class="ion-text-center">
       <i class="far fa-sad-tear text20"></i>
       <h3 class="no-message">No messages</h3>
       <p class="start-conversation-text">
@@ -23,32 +23,17 @@
     </ion-col>
   </ion-row>
   <ion-list>
-    <ion-searchbar
-      animated
-      *ngIf="messages"
-      [(ngModel)]="searchTerm"
-      [showCancelButton]="shouldShowCancel"
-      (ionChange)="setFilteredItems()"
-      (ionCancel)="onCancel($event)"
-    >
+    <ion-searchbar animated *ngIf="messages" [(ngModel)]="searchTerm" [showCancelButton]="shouldShowCancel"
+      (ionChange)="setFilteredItems()" (ionCancel)="onCancel($event)">
     </ion-searchbar>
 
-    <ion-item
-      class="ion-activatable no-outline"
-      *ngFor="let message of displayMessages"
-      [routerLink]="['/user-chats/' + message.id]"
-      (press)="showActionSheet(message)"
-    >
+    <ion-item class="ion-activatable no-outline" *ngFor="let message of displayMessages"
+      [routerLink]="['/user-chats/' + message.id]" (press)="showActionSheet(message)">
       <ion-ripple-effect></ion-ripple-effect>
       <ion-avatar slot="start" *ngIf="message">
-        <img
-          alt=""
-          defaultImage="/assets/default-user.jpeg"
-          [lazyLoad]="message?.thumbnail || message?.profilePhoto"
-          [errorImage]="message?.profilePhoto"
-          class="cover-image skeleton-color"
-          onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
-        />
+        <img alt="" defaultImage="/assets/default-user.jpeg" [lazyLoad]="message?.thumbnail || message?.profilePhoto"
+          [errorImage]="message?.profilePhoto" class="cover-image skeleton-color"
+          onerror="this.onerror=null;this.src='assets/default-user.jpeg';" />
       </ion-avatar>
 
       <ion-label>

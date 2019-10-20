@@ -50,7 +50,7 @@ export class RegisterPage implements OnInit {
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -111,7 +111,7 @@ export class RegisterPage implements OnInit {
       delete user['password'];
       user.uid = userCredentials.user.uid;
       user.loginType = 'email-password';
-      user.profilePhoto = 'https://profile.actionsprout.com/default.jpeg';
+      user.profilePhoto = 'https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg';
       user.bio = "Hey! I'm using skillocial.";
 
       await this.authService.sendEmailVerification();
@@ -140,7 +140,7 @@ export class RegisterPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: 'Verification Sent!',
       message: 'Please verify your email before logging in.',
-      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => {} }]
+      buttons: [{ text: 'OK', role: 'destructive', handler: async (data: any) => { } }]
     });
     await alert.present();
   }

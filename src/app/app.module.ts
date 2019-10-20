@@ -41,7 +41,9 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'skillocial'),
     AngularFirestoreModule,
@@ -77,4 +79,4 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

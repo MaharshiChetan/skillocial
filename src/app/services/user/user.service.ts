@@ -73,7 +73,7 @@ export class UserService {
     return {
       fullName: userData.displayName,
       email: userData.email,
-      profilePhoto: userData.photoURL || 'https://profile.actionsprout.com/default.jpeg',
+      profilePhoto: userData.photoURL || 'https://lakewangaryschool.sa.edu.au/wp-content/uploads/2017/11/placeholder-profile-sq.jpg',
       uid: userData.uid,
       username: userData.email.substring(0, userData.email.lastIndexOf('@')),
       loginType: type,

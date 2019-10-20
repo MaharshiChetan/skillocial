@@ -13,16 +13,13 @@
 </ion-header>
 
 <ion-content>
-  <app-chat-bubble
-    [messages]="messages"
-    [otherUserProfile]="otherUserProfile"
-    [currentUserProfile]="currentUserProfile"
-  ></app-chat-bubble>
+  <app-chat-bubble [messages]="messages" [otherUserProfile]="otherUserProfile"
+    [currentUserProfile]="currentUserProfile"></app-chat-bubble>
 </ion-content>
 
 <ion-footer (touchstart)="footerTouchStart($event)">
   <ion-toolbar>
-    <ion-row align-items-center>
+    <ion-row class="ion-align-items-center">
       <ion-col size="1">
         <ion-buttons>
           <ion-button class="toolbar-button" (touchstart)="changePicture($event)">
@@ -32,27 +29,15 @@
       </ion-col>
 
       <ion-col style="padding-right: 0px">
-        <textarea
-          class="no-outline"
-          (ngModelChange)="textAreaChange()"
-          autosize
-          rows="1"
-          [maxRows]="10"
-          [(ngModel)]="message"
-          placeholder="Write your message"
-        >
+        <textarea class="no-outline" (ngModelChange)="textAreaChange()" autosize rows="1" [maxRows]="10"
+          [(ngModel)]="message" placeholder="Write your message">
         </textarea>
       </ion-col>
 
       <ion-col size="1" style="padding-left: 0px">
         <ion-buttons>
-          <ion-button
-            class="toolbar-button"
-            fill="clear"
-            [disabled]="!message"
-            color="primary"
-            (touchstart)="sendMessage($event)"
-          >
+          <ion-button class="toolbar-button" fill="clear" [disabled]="!message" color="primary"
+            (touchstart)="sendMessage($event)">
             <ion-icon name="send"></ion-icon>
           </ion-button>
         </ion-buttons>

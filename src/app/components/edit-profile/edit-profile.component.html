@@ -14,19 +14,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content text-center>
-  <ion-grid no-padding>
+<ion-content class="ion-text-center">
+  <ion-grid class="ion-no-padding">
     <ion-row>
-      <ion-col no-padding *ngIf="userProfile">
+      <ion-col class="ion-no-padding" *ngIf="userProfile">
         <form [formGroup]="userProfileForm">
           <ion-list>
             <ion-avatar (click)="cameraService.changePicture()">
-              <img
-                alt=""
-                class="image cover-image"
+              <img alt="" class="image cover-image"
                 [src]="cameraService.chosenPicture || userProfile.thumbnail || userProfile.profilePhoto"
-                onerror="this.src='userProfile.profilePhoto'"
-              />
+                onerror="this.src='userProfile.profilePhoto'" />
             </ion-avatar>
             <ion-button fill="clear" color="blue" class="fw700" (click)="cameraService.changePicture()">
               Change Photo

@@ -3,29 +3,22 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-searchbar
-      [(ngModel)]="username"
-      showCancelButton="true"
-      (ionChange)="searchUser()"
-      (ionCancel)="onCancel($event)"
-    >
+    <ion-searchbar [(ngModel)]="username" showCancelButton="true" (ionChange)="searchUser()"
+      (ionCancel)="onCancel($event)">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list no-margin>
-    <div *ngIf="users?.length === 0" text-center padding-top><ion-spinner></ion-spinner></div>
+  <ion-list class="ion-no-margin">
+    <div *ngIf="users?.length === 0" class="ion-text-center ion-padding-top">
+      <ion-spinner></ion-spinner>
+    </div>
     <ion-item *ngFor="let user of users" [routerLink]="['/profile/' + user.uid]" detail="false">
       <ion-ripple-effect></ion-ripple-effect>
       <ion-avatar slot="start">
-        <img
-          alt=""
-          class="cover-image skeleton-color"
-          defaultImage="/assets/default-user.jpeg"
-          [lazyLoad]="user.thumbnail || user.profilePhoto"
-          [errorImage]="user.profilePhoto"
-        />
+        <img alt="" class="cover-image skeleton-color" defaultImage="/assets/default-user.jpeg"
+          [lazyLoad]="user.thumbnail || user.profilePhoto" [errorImage]="user.profilePhoto" />
       </ion-avatar>
       <ion-label>
         <h3 class="full_name">{{ user.fullName }}</h3>

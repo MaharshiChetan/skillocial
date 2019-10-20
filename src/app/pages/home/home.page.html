@@ -12,24 +12,20 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
+  <ion-refresher slot="fixed" *ngIf="userProfile" (ionRefresh)="getCurrentUserProfile($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-grid no-padding>
+  <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col>
-        <ion-card no-margin>
+        <ion-card class="ion-no-margin">
           <ion-grid>
             <ion-row *ngIf="userProfile">
-              <ion-col size-sm="1" size-xs="2" text-center>
+              <ion-col size-sm="1" size-xs="2" class="ion-text-center">
                 <ion-avatar [routerLink]="['/profile']" class="no-outline">
-                  <img
-                    alt=""
-                    class="cover-image"
-                    defaultImage="/assets/default-user.jpeg"
+                  <img alt="" class="cover-image" defaultImage="/assets/default-user.jpeg"
                     [lazyLoad]="userProfile?.thumbnail || userProfile?.profilePhoto"
-                    errorImage="/assets/default-user.jpeg"
-                  />
+                    errorImage="/assets/default-user.jpeg" />
                 </ion-avatar>
               </ion-col>
               <ion-col>
@@ -43,8 +39,8 @@
               </ion-col>
             </ion-row>
             <ion-row *ngIf="!userProfile">
-              <ion-col size-sm="1" size-xs="2" text-center>
-                <ion-avatar><img alt="" src="" class="skeleton-color"/></ion-avatar>
+              <ion-col size-sm="1" size-xs="2" class="ion-text-center">
+                <ion-avatar><img alt="" src="" class="skeleton-color" /></ion-avatar>
               </ion-col>
               <ion-col>
                 <ion-card-header class="fullName">
@@ -55,7 +51,7 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col text-right no-padding>
+              <ion-col class="ion-text-right ion-no-padding">
                 <ion-button color="secondary" style="font-size: inherit" [routerLink]="['/search-user']">
                   DISCOVER PEERS
                 </ion-button>
@@ -67,12 +63,12 @@
     </ion-row>
   </ion-grid>
 
-  <div *ngIf="!post" text-center padding-top>
+  <div *ngIf="!post" class="ion-text-center ion-padding-top">
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-row *ngIf="followings?.length === 0" text-center padding class="no-feed">
-    <ion-col text-center>
+  <ion-row *ngIf="followings?.length === 0" class="ion-padding ion-text-center no-feed">
+    <ion-col class="ion-text-center">
       <i class="far fa-sad-tear text20"></i>
       <h3 class="no-feed-text">No Feed</h3>
       <p class="start-following-text">

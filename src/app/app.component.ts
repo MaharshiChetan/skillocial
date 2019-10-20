@@ -14,33 +14,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/tabs/home',
-      icon: 'home',
-      class: ''
-    },
-    {
-      title: 'My Events',
-      url: '/my-events',
-      icon: 'calendar',
-      class: 'far fa-calendar-alt'
-    },
-    {
-      title: 'Notification',
-      url: '/tabs/notifications',
-      icon: 'notifications-outline',
-      class: 'far fa-bell'
-    },
-    {
-      title: 'Profile',
-      url: '/tabs/profile',
-      icon: 'contact',
-      class: 'far fa-user'
-    }
-  ];
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

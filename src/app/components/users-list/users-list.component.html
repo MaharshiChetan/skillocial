@@ -10,22 +10,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-list no-margin>
-    <ion-item
-      *ngFor="let user of users"
-      (click)="dismissModal()"
-      [routerLink]="['/profile/' + user.uid]"
-      detail="false"
-    >
+  <ion-list class="ion-no-margin">
+    <ion-item *ngFor="let user of users" (click)="dismissModal()" [routerLink]="['/profile/' + user.uid]"
+      detail="false">
       <ion-ripple-effect></ion-ripple-effect>
       <ion-avatar slot="start">
-        <img
-          alt=""
-          class="cover-image skeleton-color"
-          defaultImage="/assets/default-user.jpeg"
-          [lazyLoad]="user.thumbnail || user.profilePhoto"
-          [errorImage]="user.profilePhoto"
-        />
+        <img alt="" class="cover-image skeleton-color" defaultImage="/assets/default-user.jpeg"
+          [lazyLoad]="user.thumbnail || user.profilePhoto" [errorImage]="user.profilePhoto" />
       </ion-avatar>
       <ion-label>
         <h3 class="full_name">{{ user.fullName }}</h3>

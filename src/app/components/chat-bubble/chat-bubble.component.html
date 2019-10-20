@@ -1,15 +1,12 @@
-<div *ngIf="!messages" text-center padding-top><ion-spinner></ion-spinner></div>
+<div *ngIf="!messages" class="ion-text-center ion-padding-top">
+  <ion-spinner></ion-spinner>
+</div>
 <div *ngFor="let message of messages" class="message-wrapper">
   <div *ngIf="message.sentBy === otherUserProfile.uid">
-    <img
-      alt=""
-      class="profile-pic left cover-image no-outline"
-      [defaultImage]="grayPlaceholder"
+    <img alt="" class="profile-pic left cover-image no-outline" [defaultImage]="grayPlaceholder"
       [lazyLoad]="otherUserProfile.thumbnail || otherUserProfile.profilePhoto"
-      [errorImage]="otherUserProfile.profilePhoto"
-      onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
-      [routerLink]="['/profile/' + otherUserProfile.uid]"
-    />
+      [errorImage]="otherUserProfile.profilePhoto" onerror="this.onerror=null;this.src='assets/default-user.jpeg';"
+      [routerLink]="['/profile/' + otherUserProfile.uid]" />
 
     <div *ngIf="message.message" class="chat-bubble left" (press)="presentPopover(message)">
       <div class="message" [innerHTML]="message.message" autolinker></div>
@@ -19,14 +16,8 @@
       </div>
     </div>
     <div *ngIf="message.imageUrl" class="chat-bubble-img left" (press)="presentPopover(message)">
-      <img
-        alt=""
-        defaultImage="/assets/gray-placeholder.png"
-        [lazyLoad]="message.thumbnail || message.imageUrl"
-        [errorImage]="message.imageUrl"
-        class="cover-image"
-        (click)="this.photoViewer.show(message.imageUrl)"
-      />
+      <img alt="" defaultImage="/assets/gray-placeholder.png" [lazyLoad]="message.thumbnail || message.imageUrl"
+        [errorImage]="message.imageUrl" class="cover-image" (click)="this.photoViewer.show(message.imageUrl)" />
       <div class="message-detail-img left">
         <span>{{ message.timeStamp | amCalendar }}</span>
       </div>
@@ -42,14 +33,8 @@
       </div>
     </div>
     <div *ngIf="message.imageUrl" class="chat-bubble-img right" (press)="presentPopover(message)">
-      <img
-        alt=""
-        defaultImage="/assets/gray-placeholder.png"
-        [lazyLoad]="message.thumbnail || message.imageUrl"
-        [errorImage]="message.imageUrl"
-        class="cover-image"
-        (click)="this.photoViewer.show(message.imageUrl)"
-      />
+      <img alt="" defaultImage="/assets/gray-placeholder.png" [lazyLoad]="message.thumbnail || message.imageUrl"
+        [errorImage]="message.imageUrl" class="cover-image" (click)="this.photoViewer.show(message.imageUrl)" />
       <div class="message-detail-img right">
         <span>{{ message.timeStamp | amCalendar }}</span>
       </div>

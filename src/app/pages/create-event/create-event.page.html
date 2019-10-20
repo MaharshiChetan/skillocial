@@ -12,23 +12,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content text-center>
+<ion-content class="ion-text-center">
   <form [formGroup]="eventForm">
-    <ion-list no-margin>
+    <ion-list class="ion-no-margin">
       <ion-list-header>
         <ion-label>Event Details</ion-label>
       </ion-list-header>
       <div class="container" (click)="cameraService.changePicture()">
-        <img
-          alt=""
-          class="cover-image"
-          *ngIf="cameraService.chosenPicture || eventDetails?.imageUrl"
-          [src]="cameraService.chosenPicture || eventDetails?.imageUrl"
-        />
+        <img alt="" class="cover-image" *ngIf="cameraService.chosenPicture || eventDetails?.imageUrl"
+          [src]="cameraService.chosenPicture || eventDetails?.imageUrl" />
         <div *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl" class="img-placeholder"></div>
         <div *ngIf="!cameraService.chosenPicture && !eventDetails?.imageUrl" class="centered">
           <ion-icon name="camera" class="camera-icon"></ion-icon>
-          <h6 no-margin>Upload Image</h6>
+          <h6 class="ion-no-margin">Upload Image</h6>
         </div>
       </div>
 
@@ -65,22 +61,14 @@
       </ion-list-header>
       <ion-item>
         <ion-label>Start Date</ion-label>
-        <ion-datetime
-          pickerFormat="DD MMM YYYY"
-          [min]="eventDateAndTime.min"
-          [max]="eventDateAndTime.max"
-          formControlName="startDate"
-        ></ion-datetime>
+        <ion-datetime pickerFormat="DD MMM YYYY" [min]="eventDateAndTime.min" [max]="eventDateAndTime.max"
+          formControlName="startDate"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>End Date</ion-label>
-        <ion-datetime
-          displayFormat="DD MMM YYYY"
-          [min]="eventDateAndTime.min"
-          [max]="eventDateAndTime.max"
-          formControlName="endDate"
-        ></ion-datetime>
+        <ion-datetime displayFormat="DD MMM YYYY" [min]="eventDateAndTime.min" [max]="eventDateAndTime.max"
+          formControlName="endDate"></ion-datetime>
       </ion-item>
 
       <ion-item>
@@ -96,18 +84,14 @@
         <ion-list-header>
           <ion-label>Participation Categories</ion-label>
         </ion-list-header>
-        <ion-item
-          *ngFor="let category of participationCategories; let i = index"
-          (click)="presentActionSheet(category, i)"
-          button
-          detail="false"
-        >
+        <ion-item *ngFor="let category of participationCategories; let i = index"
+          (click)="presentActionSheet(category, i)" button detail="false">
           <ion-ripple-effect></ion-ripple-effect>
           {{ category.name }}
           <div slot="end">&#x20b9; {{ category.fees }}</div>
         </ion-item>
       </ion-item-group>
-      <div padding>
+      <div class="ion-padding">
         <ion-button expand="block" (click)="addParticipationCategories()">
           Add Categories For Participation
         </ion-button>

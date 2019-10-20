@@ -1,10 +1,10 @@
-<ion-content padding class="animated fadeIn login auth-page">
+<ion-content class="ion-padding animated fadeIn login auth-page">
   <div class="theme-bg"></div>
   <div class="auth-content">
     <!-- Logo -->
-    <div padding-horizontal text-center class="animated fadeInDown">
+    <div class="ion-text-center ion-padding-horizontal animated fadeInDown">
       <div class="logo"></div>
-      <h4 no-margin>
+      <h4 class="ion-text-center ion-no-margin">
         <ion-text color="light" class="fw700">
           Skillocial
         </ion-text>
@@ -13,30 +13,30 @@
 
     <!-- Login form -->
     <form [formGroup]="loginForm" class="list-form">
-      <ion-item no-padding class="animated fadeInUp">
+      <ion-item class="ion-no-padding" class="animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Email
         </ion-label>
         <ion-input color="secondary" type="email" formControlName="email"></ion-input>
       </ion-item>
-      <p ion-text class="text08" *ngIf="formErrors.email">
+      <p class="text08" *ngIf="formErrors.email">
         <ion-text color="warning">{{ formErrors.email }}</ion-text>
       </p>
 
-      <ion-item no-padding class="animated fadeInUp">
+      <ion-item class="ion-no-padding" class="animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock" item-start></ion-icon>
           Password
         </ion-label>
         <ion-input color="secondary" type="password" formControlName="password"></ion-input>
       </ion-item>
-      <p ion-text class="text08" *ngIf="formErrors.password">
+      <p class="text08" *ngIf="formErrors.password">
         <ion-text color="warning">{{ formErrors.password }}</ion-text>
       </p>
     </form>
 
-    <p text-right (click)="forgotPassword()" class="paz">
+    <p class="ion-text-right paz" (click)="forgotPassword()">
       <ion-text color="light">
         <strong>Forgot Pass?</strong>
       </ion-text>
@@ -49,7 +49,7 @@
         Signin
       </ion-button>
 
-      <p text-center>
+      <p class="ion-text-center">
         <ion-text color="light">
           Or Signin with:
         </ion-text>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Other links -->
-    <div text-center margin-top>
+    <div class="ion-text-center ion-margin-top">
       <span [routerLink]="['/register']" class="paz" class="no-outline">
         <ion-text color="light"> New here? <strong>Sign Up</strong> </ion-text>
       </span>

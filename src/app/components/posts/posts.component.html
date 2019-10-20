@@ -1,15 +1,11 @@
 <ion-row *ngFor="let post of posts">
-  <ion-col no-padding *ngIf="post.userDetails">
-    <ion-card no-margin>
+  <ion-col class="ion-no-padding" *ngIf="post.userDetails">
+    <ion-card class="ion-no-margin">
       <ion-item lines="none">
         <ion-avatar [routerLink]="['/profile/' + post.userDetails.uid]" class="no-outline" slot="start">
-          <img
-            alt=""
-            class="cover-image"
-            [defaultImage]="'assets/gray-placeholder.png'"
+          <img alt="" class="cover-image" [defaultImage]="'assets/gray-placeholder.png'"
             [lazyLoad]="post.userDetails.thumbnail || post.userDetails.profilePhoto"
-            [errorImage]="post.userDetails.profilePhoto"
-          />
+            [errorImage]="post.userDetails.profilePhoto" />
         </ion-avatar>
         <ion-label>
           <h2 class="full_name text-black no-outline text1" [routerLink]="['/profile/' + post.userDetails.uid]">
@@ -25,18 +21,11 @@
       </ion-item>
 
       <div class="container">
-        <img
-          alt=""
-          class="contain-image post-image"
-          [defaultImage]="grayPlaceholder || post.thumbnail || post.imageUrl"
-          [lazyLoad]="post.imageUrl"
-          [errorImage]="post.imageUrl"
-          [useSrcset]="true"
-          offset="100"
-          (click)="this.photoViewer.show(post.imageUrl)"
-        />
+        <img alt="" class="contain-image post-image" [defaultImage]="grayPlaceholder || post.thumbnail || post.imageUrl"
+          [lazyLoad]="post.imageUrl" [errorImage]="post.imageUrl" [useSrcset]="true" offset="100"
+          (click)="this.photoViewer.show(post.imageUrl)" />
       </div>
-      <ion-card-content class="text-black" no-padding>
+      <ion-card-content class="text-black" class="ion-no-padding">
         <ion-row>
           <ion-col class="textual-content text09">
             <div *ngIf="post.textualContent">
@@ -48,40 +37,40 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col text-right no-padding class="like-counts">
-            <ion-button fill="clear" *ngIf="post.likesCount > 0" (click)="showModal(post.likes)" no-margin>
+          <ion-col class="ion-no-padding ion-text-right like-counts">
+            <ion-button fill="clear" *ngIf="post.likesCount > 0" (click)="showModal(post.likes)" class="ion-no-margin">
               <i style="margin-right: 0.3em; font-size: 20px; color: #f4344f" class="fas fa-heart "></i>
               {{ post.likesCount }}
             </ion-button>
           </ion-col>
         </ion-row>
       </ion-card-content>
-      <ion-row text-center align-items-center>
-        <ion-col no-padding>
-          <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking" no-margin>
+      <ion-row class="ion-text-center ion-align-items-center">
+        <ion-col class="ion-no-padding">
+          <ion-button fill="clear" (click)="likePost(post)" *ngIf="!post?.isLiking" class="ion-no-margin">
             <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart "></i>
             {{ post.likesCount }} Likes
           </ion-button>
-          <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking" no-margin>
+          <ion-button fill="clear" (click)="unlikePost(post)" *ngIf="post?.isLiking" class="ion-no-margin">
             <i class="animated bounceIn fas fa-heart " style="margin-right: 0.3em; font-size: 20px; color: #f4344f"></i>
             {{ post.likesCount }} Likes
           </ion-button>
         </ion-col>
-        <ion-col no-padding>
-          <ion-button fill="clear" (click)="openCommentsModal(post)" no-margin>
+        <ion-col class="ion-no-padding">
+          <ion-button fill="clear" (click)="openCommentsModal(post)" class="ion-no-margin">
             <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment "></i>
             {{ post.commentsCount }} Comments
           </ion-button>
         </ion-col>
-        <ion-col text-center no-padding>
-          <p class="text-gray" no-margin>{{ post.createdAt | amTimeAgo }}</p>
+        <ion-col class="ion-text-center ion-no-padding">
+          <p class="ion-no-margin text-gray">{{ post.createdAt | amTimeAgo }}</p>
         </ion-col>
       </ion-row>
     </ion-card>
   </ion-col>
 
-  <ion-col no-padding *ngIf="posts?.length === 0 || !posts || !post.userDetails">
-    <ion-card no-margin>
+  <ion-col class="ion-no-padding" *ngIf="posts?.length === 0 || !posts || !post.userDetails">
+    <ion-card class="ion-no-margin">
       <ion-item lines="none">
         <ion-avatar slot="start">
           <ion-skeleton-text></ion-skeleton-text>
@@ -92,7 +81,7 @@
         </ion-label>
       </ion-item>
       <ion-skeleton-text style="width: 100%; height:280px; border-radius: 0px;"></ion-skeleton-text>
-      <ion-card-content no-padding>
+      <ion-card-content class="ion-no-padding">
         <ion-row>
           <ion-col>
             <ion-skeleton-text style="width: 90%; height:13px;"></ion-skeleton-text>
@@ -101,20 +90,20 @@
           </ion-col>
         </ion-row>
       </ion-card-content>
-      <ion-row text-center align-items-center>
-        <ion-col no-padding>
-          <ion-button fill="clear" no-margin>
+      <ion-row class="ion-text-center ion-align-items-center">
+        <ion-col class="ion-no-padding">
+          <ion-button fill="clear" class="ion-no-margin">
             <i style="margin-right: 0.3em; font-size: 20px;" class="far fa-heart "></i>
             0 Likes
           </ion-button>
         </ion-col>
-        <ion-col no-padding>
-          <ion-button fill="clear" no-margin>
+        <ion-col class="ion-no-padding">
+          <ion-button fill="clear" class="ion-no-margin">
             <i style="margin-right: 0.3em; font-size: 20px" class="far fa-comment "></i>
             0 Comments
           </ion-button>
         </ion-col>
-        <ion-col text-center no-padding>
+        <ion-col class="ion-text-center ion-no-padding">
           <ion-skeleton-text style="width: 90%; height:14px;"></ion-skeleton-text>
         </ion-col>
       </ion-row>

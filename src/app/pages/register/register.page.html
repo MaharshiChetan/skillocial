@@ -1,9 +1,9 @@
-<ion-content padding class="animated fadeIn login auth-page">
+<ion-content class="ion-padding animated fadeIn login auth-page">
   <div class="auth-content">
     <!-- Logo -->
-    <div padding-horizontal text-center class="animated fadeInDown">
+    <div class="ion-padding-horizontal ion-text-center animated fadeInDown">
       <div class="logo"></div>
-      <h3 no-margin>
+      <h3 class="ion-no-margin">
         <ion-text color="light" class="fw700">
           <ion-text>Register</ion-text>
         </ion-text>
@@ -12,7 +12,7 @@
 
     <!-- Register form -->
     <form [formGroup]="registerForm" class="list-form">
-      <ion-item no-padding class="animated fadeInUp">
+      <ion-item class="ion-no-padding" class="animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="person" item-start></ion-icon>
           Full Name
@@ -23,7 +23,7 @@
         <ion-text color="warning">{{ formErrors.fullName }}</ion-text>
       </p>
 
-      <ion-item no-padding class="animated fadeInUp">
+      <ion-item class="ion-no-padding" class="animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="contact" item-start></ion-icon>
           Username
@@ -34,7 +34,7 @@
         <ion-text color="warning">{{ formErrors.username }}</ion-text>
       </p>
 
-      <ion-item no-padding class="animated fadeInUp">
+      <ion-item class="ion-no-padding" class="animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Email
@@ -45,7 +45,7 @@
         <ion-text color="warning">{{ formErrors.email }}</ion-text>
       </p>
 
-      <ion-item no-padding class="animated fadeInUp">
+      <ion-item class="ion-no-padding" class="animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock" item-start></ion-icon>
           Password
@@ -57,21 +57,14 @@
       </p>
     </form>
 
-    <div margin-top>
-      <ion-button
-        icon-left
-        size="medium"
-        expand="full"
-        shape="round"
-        color="secondary"
-        (click)="signUp()"
-        [disabled]="!registerForm.valid"
-      >
+    <div class="ion-margin-top">
+      <ion-button icon-left size="medium" expand="full" shape="round" color="secondary" (click)="signUp()"
+        [disabled]="!registerForm.valid">
         <ion-icon name="log-in"></ion-icon>
         Sign Up
       </ion-button>
 
-      <p text-center>
+      <p class="ion-text-center">
         <ion-text color="light">
           Or Sign Up with:
         </ion-text>
@@ -81,7 +74,7 @@
     </div>
 
     <!-- Other links -->
-    <div text-center margin-top>
+    <div class="ion-text-center ion-margin-top">
       <span [routerLink]="['/login']" routerDirection="back" class="no-outline">
         <ion-text color="light"> Already have an account? <strong>Login</strong> </ion-text>
       </span>

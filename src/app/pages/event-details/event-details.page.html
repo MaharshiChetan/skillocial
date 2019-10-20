@@ -13,27 +13,21 @@
 </ion-header>
 
 <ion-content class="gray-background">
-  <ion-refresher *ngIf="event" (ionRefresh)="getEvent($event)">
+  <ion-refresher slot="fixed" *ngIf="event" (ionRefresh)="getEvent($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-grid *ngIf="event" no-padding>
+  <ion-grid *ngIf="event" class="ion-no-padding">
     <ion-row>
-      <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" no-padding> -->
-      <ion-col no-padding>
-        <ion-card no-margin class="no-outline event-card">
-          <img
-            alt=""
-            defaultImage="/assets/placeholder.jpg"
-            [lazyLoad]="event.imageUrl"
-            [errorImage]="event.imageUrl"
-            class="original cover-image"
-            (click)="this.photoViewer.show(event.imageUrl)"
-          />
-          <ion-card-content no-padding>
-            <ion-grid no-padding>
+      <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" class="ion-no-padding"> -->
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin no-outline event-card">
+          <img alt="" defaultImage="/assets/placeholder.jpg" [lazyLoad]="event.imageUrl" [errorImage]="event.imageUrl"
+            class="original cover-image" (click)="this.photoViewer.show(event.imageUrl)" />
+          <ion-card-content class="ion-no-padding">
+            <ion-grid class="ion-no-padding">
               <ion-row class="date-time">
-                <ion-col class="fw700" text-center align-self-center size="2">
+                <ion-col class="ion-align-self-center ion-text-center fw700" size="2">
                   <ion-text color="danger">
                     {{ event.startDateTime | date: 'MMM d EEE' }}
                   </ion-text>
@@ -47,7 +41,7 @@
                     {{ event.endDateTime | date: 'h:mm a' }}
                   </p>
                 </ion-col>
-                <ion-col class="book" text-end align-self-center size="3">
+                <ion-col class="ion-align-self-center ion-text-end book" size="3">
                   <ion-button color="danger" (click)="bookTicket()">Book</ion-button>
                 </ion-col>
               </ion-row>
@@ -57,9 +51,9 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="no-padding-right no-padding-left">
-        <ion-card no-margin style="border-radius: 0px">
-          <ion-row text-center class="white-background">
+      <ion-col class="ion-no-padding ion-margin-vertical">
+        <ion-card class="ion-no-margin" style="border-radius: 0px">
+          <ion-row class="ion-text-center white-background">
             <ion-col>
               <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')">
                 <i class="far fa-star text15" style="color: #989aa2; margin: 8px 0px;"></i>
@@ -83,7 +77,7 @@
           </ion-row>
           <hr />
           <ion-row class="time-location text-black">
-            <ion-col size="1" text-center>
+            <ion-col size="1" class="ion-text-center">
               <ion-icon class="text15" name="md-time"></ion-icon>
             </ion-col>
             <ion-col>
@@ -92,7 +86,7 @@
             </ion-col>
           </ion-row>
           <ion-row class="time-location text-black">
-            <ion-col size="1" text-center>
+            <ion-col size="1" class="ion-text-center">
               <ion-icon class="text15" name="pin"></ion-icon>
             </ion-col>
             <ion-col>
@@ -101,29 +95,21 @@
             </ion-col>
           </ion-row>
           <hr />
-          <ion-row text-center class="fw700">
-            <ion-col
-              padding
-              class="ion-activatable text-black no-outline text1"
-              *ngIf="interestedUsersCount || interestedUsersCount == 0"
-              (click)="showInterestedUsers()"
-            >
+          <ion-row class="ion-text-center fw700">
+            <ion-col class="ion-padding ion-activatable text-black no-outline text1"
+              *ngIf="interestedUsersCount || interestedUsersCount == 0" (click)="showInterestedUsers()">
               <ion-ripple-effect></ion-ripple-effect>
               Interested ({{ interestedUsersCount || 0 }})
             </ion-col>
-            <ion-col *ngIf="!interestedUsersCount && interestedUsersCount != 0">
+            <ion-col class="ion-text-center" *ngIf="!interestedUsersCount && interestedUsersCount != 0">
               <ion-spinner></ion-spinner>
             </ion-col>
-            <ion-col
-              padding
-              class="ion-activatable text-black no-outline text1"
-              *ngIf="goingUsersCount || goingUsersCount == 0"
-              (click)="showGoingUsers()"
-            >
+            <ion-col class="ion-padding ion-activatable text-black no-outline text1"
+              *ngIf="goingUsersCount || goingUsersCount == 0" (click)="showGoingUsers()">
               <ion-ripple-effect></ion-ripple-effect>
               Going ({{ goingUsersCount || 0 }})
             </ion-col>
-            <ion-col *ngIf="!goingUsersCount && goingUsersCount != 0">
+            <ion-col class="ion-text-center" *ngIf="!goingUsersCount && goingUsersCount != 0">
               <ion-spinner></ion-spinner>
             </ion-col>
           </ion-row>
@@ -131,9 +117,9 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="no-padding-right no-padding-left no-padding-top">
-        <ion-card no-margin class="no-outline" style="border-radius: 0px">
-          <ion-card-header no-padding padding-top padding-start>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin no-outline" style="border-radius: 0px">
+          <ion-card-header class="ion-no-padding ion-padding-top ion-padding-start">
             <ion-card-subtitle color="primary" class="text1">Details</ion-card-subtitle>
           </ion-card-header>
 
@@ -145,15 +131,15 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="!event" no-padding>
+  <ion-grid *ngIf="!event" class="ion-no-padding">
     <ion-row>
-      <ion-col no-padding>
-        <ion-card no-margin class="event-card">
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin event-card">
           <ion-skeleton-text style="height: 170px; width: 100%"></ion-skeleton-text>
-          <ion-card-content no-padding>
-            <ion-grid no-padding>
+          <ion-card-content class="ion-no-padding">
+            <ion-grid class="ion-no-padding">
               <ion-row class="date-time">
-                <ion-col text-center align-self-center size="2">
+                <ion-col class="ion-align-self-center ion-ion-text-center" size="2">
                   <ion-text>
                     <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
                     <ion-skeleton-text class="skeleton12"></ion-skeleton-text>
@@ -165,7 +151,7 @@
                   <ion-skeleton-text class="skeleton14" width="140px"></ion-skeleton-text>
                   <ion-skeleton-text class="skeleton14" width="110px"></ion-skeleton-text>
                 </ion-col>
-                <ion-col class="book" text-end align-self-center size="3">
+                <ion-col class="ion-align-self-center ion-text-end book" size="3">
                   <ion-button color="danger">Book</ion-button>
                 </ion-col>
               </ion-row>
@@ -175,9 +161,9 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="no-padding-right no-padding-left">
-        <ion-card no-margin style="border-radius: 0px">
-          <ion-row text-center class="white-background">
+      <ion-col class="ion-no-padding ion-margin-vertical">
+        <ion-card class="ion-no-margin" style="border-radius: 0px">
+          <ion-row class="ion-text-center white-background">
             <ion-col>
               <i class="far fa-star text15" style="color: #989aa2; margin: 8px 0px;"></i>
               <div style="margin-bottom: 4px">INTERESTED</div>
@@ -189,7 +175,7 @@
           </ion-row>
           <hr />
           <ion-row class="time-location">
-            <ion-col size="1" text-center align-self-center>
+            <ion-col size="1" class="ion-align-self-center ion-text-center">
               <ion-icon class="text15" name="md-time"></ion-icon>
             </ion-col>
             <ion-col>
@@ -197,7 +183,7 @@
             </ion-col>
           </ion-row>
           <ion-row class="time-location ">
-            <ion-col size="1" text-center>
+            <ion-col size="1" class="ion-text-center">
               <ion-icon class="text15" name="pin"></ion-icon>
             </ion-col>
             <ion-col>
@@ -206,11 +192,11 @@
             </ion-col>
           </ion-row>
           <hr />
-          <ion-row text-center>
-            <ion-col>
+          <ion-row class="ion-text-center">
+            <ion-col class="ion-text-center">
               <ion-spinner></ion-spinner>
             </ion-col>
-            <ion-col>
+            <ion-col class="ion-text-center">
               <ion-spinner></ion-spinner>
             </ion-col>
           </ion-row>
@@ -218,9 +204,9 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col class="no-padding-right no-padding-left no-padding-top">
-        <ion-card no-margin style="border-radius: 0px">
-          <ion-card-header no-padding padding-top padding-start>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin" style="border-radius: 0px">
+          <ion-card-header class="ion-no-padding ion-padding-top ion-padding-start">
             <ion-card-subtitle color="primary" class="text1">Details</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
