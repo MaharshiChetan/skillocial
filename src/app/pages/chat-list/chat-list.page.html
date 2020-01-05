@@ -12,7 +12,10 @@
   </ion-refresher>
   <ion-row *ngIf="displayMessages?.length === 0 && !messages" class="ion-text-center ion-padding no-chat">
     <ion-col class="ion-text-center">
-      <i class="far fa-sad-tear text20"></i>
+      <fa-icon
+        class="text20"
+        [icon]="['far', 'sad-tear']">
+      </fa-icon>
       <h3 class="no-message">No messages</h3>
       <p class="start-conversation-text">
         Start your first conversation

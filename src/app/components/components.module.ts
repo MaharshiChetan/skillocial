@@ -16,6 +16,7 @@ import { PostsComponent } from './posts/posts.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ParticipationCategoriesComponent } from './participation-categories/participation-categories.component';
 import { PaymentCalculationComponent } from './payment-calculation/payment-calculation.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PaymentCalculationComponent } from './payment-calculation/payment-calcu
     RouterModule,
     MomentModule,
     AutosizeModule,
+    FontAwesomeModule
   ],
   exports: [
     SocialLoginComponent,

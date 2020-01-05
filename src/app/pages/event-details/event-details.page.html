@@ -19,7 +19,6 @@
 
   <ion-grid *ngIf="event" class="ion-no-padding">
     <ion-row>
-      <!-- <ion-col size-xs="12" size-sm="6" size-lg="4" size-xl="3" class="ion-no-padding"> -->
       <ion-col class="ion-no-padding">
         <ion-card class="ion-no-margin no-outline event-card">
           <img alt="" defaultImage="/assets/placeholder.jpg" [lazyLoad]="event.imageUrl" [errorImage]="event.imageUrl"
@@ -56,21 +55,27 @@
           <ion-row class="ion-text-center white-background">
             <ion-col>
               <div *ngIf="!isInterested" (click)="addInterestedOrGoing('interested')">
-                <i class="far fa-star text15" style="color: #989aa2; margin: 8px 0px;"></i>
+                <fa-icon class="text15" style="color: #989aa2; margin: 8px 0px;" [icon]="['far', 'star']" slot="end">
+                </fa-icon>
                 <div style="margin-bottom: 4px">INTERESTED</div>
               </div>
               <div *ngIf="isInterested" (click)="removeInterestedOrGoing('interested')">
-                <i class="fas fa-star text15" style="color: #ff0062; margin: 8px 0px;"></i>
+                <fa-icon class="text15" style="color: #ff0062; margin: 8px 0px;" [icon]="['fas', 'star']" slot="end">
+                </fa-icon>
                 <div class="fw700 text-black" style="margin-bottom: 4px">INTERESTED</div>
               </div>
             </ion-col>
             <ion-col>
               <div *ngIf="!isGoing" (click)="addInterestedOrGoing('going')">
-                <i class="far fa-check-circle text15" style="color: #989aa2; margin: 8px 0px"></i>
+                <fa-icon class="text15" style="color: #989aa2; margin: 8px 0px;" [icon]="['far', 'check-circle']"
+                  slot="end">
+                </fa-icon>
                 <div style="margin-bottom: 4px">GOING</div>
               </div>
               <div *ngIf="isGoing" (click)="removeInterestedOrGoing('going')">
-                <i class="fas fa-check-circle text15" style="color: #ff0062; margin: 8px 0px;"></i>
+                <fa-icon class="text15" style="color: #ff0062; margin: 8px 0px;" [icon]="['fas', 'check-circle']"
+                  slot="end">
+                </fa-icon>
                 <div class="fw700 text-black" style="margin-bottom: 4px">GOING</div>
               </div>
             </ion-col>
@@ -131,7 +136,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="!event" class="ion-no-padding">
+  <ion-grid class="ion-no-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
         <ion-card class="ion-no-margin event-card">
@@ -165,12 +170,19 @@
         <ion-card class="ion-no-margin" style="border-radius: 0px">
           <ion-row class="ion-text-center white-background">
             <ion-col>
-              <i class="far fa-star text15" style="color: #989aa2; margin: 8px 0px;"></i>
-              <div style="margin-bottom: 4px">INTERESTED</div>
+              <div>
+                <fa-icon class="text15" style="color: #989aa2; margin: 8px 0px;" [icon]="['far', 'star']" slot="end">
+                </fa-icon>
+                <div style="margin-bottom: 4px">INTERESTED</div>
+              </div>
             </ion-col>
             <ion-col>
-              <i class="far fa-check-circle text15" style="color: #989aa2; margin: 8px 0px"></i>
-              <div style="margin-bottom: 4px">GOING</div>
+              <div>
+                <fa-icon class="text15" style="color: #989aa2; margin: 8px 0px;" [icon]="['far', 'check-circle']"
+                  slot="end">
+                </fa-icon>
+                <div style="margin-bottom: 4px">GOING</div>
+              </div>
             </ion-col>
           </ion-row>
           <hr />

@@ -67,18 +67,21 @@
     <ion-spinner></ion-spinner>
   </div>
 
-  <ion-row *ngIf="followings?.length === 0" class="ion-padding ion-text-center no-feed">
-    <ion-col class="ion-text-center">
-      <i class="far fa-sad-tear text20"></i>
-      <h3 class="no-feed-text">No Feed</h3>
-      <p class="start-following-text">
-        Start following your favourite artists
-      </p>
-      <ion-button color="secondary" expand="block" [routerLink]="['/search-user']">
-        Get Started
-      </ion-button>
-    </ion-col>
-  </ion-row>
+  <ion-grid>
+    <ion-row *ngIf="followings?.length === 0" class="ion-padding ion-text-center no-feed">
+      <ion-col class="ion-text-center">
+        <fa-icon class="text20" [icon]="['far', 'sad-tear']">
+        </fa-icon>
+        <h3 class="no-feed-text">No Feed</h3>
+        <p class="start-following-text">
+          Start following your favourite artists
+        </p>
+        <ion-button color="secondary" fill="outline" expand="block" [routerLink]="['/search-user']">
+          Get Started
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <app-posts *ngIf="post" [posts]="posts"></app-posts>
 

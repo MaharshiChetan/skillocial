@@ -36,6 +36,14 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
+library.add(fas, far, fab);
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -53,7 +61,8 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [
     StatusBar,

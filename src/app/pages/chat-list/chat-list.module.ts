@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ChatListPage } from './chat-list.page';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset,
     }),
+    FontAwesomeModule
   ],
   declarations: [ChatListPage],
 })
