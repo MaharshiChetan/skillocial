@@ -136,7 +136,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="ion-no-padding">
+  <ion-grid *ngIf="!event" class="ion-no-padding">
     <ion-row>
       <ion-col class="ion-no-padding">
         <ion-card class="ion-no-margin event-card">

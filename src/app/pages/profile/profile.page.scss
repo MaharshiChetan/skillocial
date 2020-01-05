@@ -17,10 +17,6 @@
   font-size: 18px;
 }
 
-.about {
-  padding: 15px 0px 0px 5px;
-}
-
 .state-name {
   font-size: 16px;
   color: var(--ion-color-medium, #989aa2);
@@ -35,9 +31,22 @@ ion-card-content {
   padding-right: 0px;
 }
 
+.about-header {
+  padding: 15px 0px 0px 5px;
+}
+
+.social-media-header {
+  padding: 0px 0px 0px 5px;
+}
+
 ion-card-content.about-content {
   line-height: 1.3;
-  padding: 10px 0px 15px 5px;
+  padding: 10px 0px 10px 5px;
+}
+
+ion-card-content.social-media-content {
+  line-height: 1.3;
+  padding: 10px 0px 10px 5px;
 }
 
 .user-stats-section {
@@ -60,4 +69,12 @@ ion-card-content.about-content {
 
 .no-title {
   margin: 20px auto;
+}
+
+.facebook-icon {
+  color: #4267b2
+}
+
+.instagram-icon {
+  color: #f2003c
 }

@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePage } from './profile.page';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [
   {
@@ -26,7 +27,8 @@ const routes: Routes = [
       preset: intersectionObserverPreset,
     }),
     ComponentsModule,
+    FontAwesomeModule
   ],
   declarations: [ProfilePage],
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }

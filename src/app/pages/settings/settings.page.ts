@@ -23,11 +23,10 @@ export class SettingsPage implements OnInit {
     private navCtrl: NavController,
     private alertCtrl: AlertController,
     private blockUserService: BlockUserService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.currentUserProfile = await this.userService.getCurrentUser();
-    console.log(this.currentUserProfile);
   }
 
   async editProfile() {

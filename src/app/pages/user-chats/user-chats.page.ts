@@ -48,7 +48,7 @@ export class UserChatsPage implements OnInit, OnDestroy {
     private platform: Platform,
     private db: AngularFireDatabase,
     private actionsheetCtrl: ActionSheetController
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.uid = this.route.snapshot.paramMap.get("id");
@@ -208,7 +208,6 @@ export class UserChatsPage implements OnInit, OnDestroy {
     this.chatSubscription = this.chatService
       .getMessages(this.currentUserProfile.uid, this.otherUserProfile.uid)
       .subscribe(messages => {
-        console.log(messages);
         this.messages = messages;
         this.updateScroll(this.scrollTimeout);
       });

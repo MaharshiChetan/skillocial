@@ -21,7 +21,7 @@ export class TrackEventPage implements OnInit {
     private modalCtrl: ModalController,
     private activeUsersInEventService: ActiveUsersInEventService,
     private loadingService: LoadingService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('id');
@@ -31,7 +31,6 @@ export class TrackEventPage implements OnInit {
   getActiveUsersCount(event?: any) {
     this.activeUsersInEventService.getActiveUsersCount(this.eventId).subscribe(activeUsersCount => {
       this.activeUsersCount = activeUsersCount;
-      console.log(activeUsersCount);
       if (event) event.target.complete();
     });
   }

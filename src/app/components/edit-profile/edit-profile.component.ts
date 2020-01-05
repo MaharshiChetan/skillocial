@@ -47,10 +47,9 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     private afStorage: AngularFireStorage,
     private userService: UserService,
     private toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    console.log(this.navParams.get('userProfile'));
     this.userProfile = this.navParams.get('userProfile');
     this.buildForm();
     if (!this.userProfile) {
@@ -121,7 +120,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this.currentUserProfile = await this.userService.getCurrentUser();
     const subscription = this.userService.getUserByUID(this.currentUserProfile.uid).subscribe((user: User) => {
       this.userProfile = user;
-      console.log(user);
 
       subscription.unsubscribe();
     });

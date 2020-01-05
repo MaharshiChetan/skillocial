@@ -49,9 +49,7 @@ library.add(fas, far, fab);
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({
-      mode: 'ios'
-    }),
+    IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'skillocial'),
     AngularFirestoreModule,

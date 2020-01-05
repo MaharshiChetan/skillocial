@@ -28,14 +28,12 @@ export class PaymentCalculationComponent implements OnInit {
     private userService: UserService,
     private alertCtrl: AlertController,
     private eventPaymentService: EventPaymentService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.event = this.navParams.get('event');
-    console.log(this.event);
-
     this.viewer = this.navParams.get('viewer');
-    console.log(this.viewer);
+
     if (this.viewer) {
       this.viewerPayment();
     } else {
@@ -54,7 +52,6 @@ export class PaymentCalculationComponent implements OnInit {
       if (category.isChecked) {
         this.selectedCategories.push(category);
         this.totalFees += parseInt(category.fees);
-        console.log(category);
       }
     });
     this.calculatePayment();
@@ -77,12 +74,12 @@ export class PaymentCalculationComponent implements OnInit {
       header: 'Tax Breakup',
       message: `<h6 text-left>Internet handling fees <ion-text float-right>&#x20b9; ${
         this.internetHandlingFees
-      }</ion-text></h6>
+        }</ion-text></h6>
       <p text-left class="text-gray">Base Amount<ion-text float-right>&#x20b9; ${this.baseAmount}</ion-text></p>
       <p text-left class="text-gray">State GST (SGST) @ 9%<ion-text float-right>&#x20b9; ${this.stateGST}</ion-text></p>
       <p text-left class="text-gray">Central GST (CGST) @ 9%<ion-text float-right>&#x20b9; ${
         this.centralGST
-      }</ion-text></p>
+        }</ion-text></p>
       `,
       buttons: [
         {
@@ -118,7 +115,7 @@ export class PaymentCalculationComponent implements OnInit {
         color: '#F37254'
       },
       modal: {
-        ondismiss: function() {
+        ondismiss: function () {
           alert('dismissed');
         }
       }

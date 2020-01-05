@@ -67,27 +67,40 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-margin-vertical ion-padding-bottom ion-text-center user-stats-section">
-      <ion-col>
+      <ion-col class="ion-activatable">
         <ion-ripple-effect></ion-ripple-effect>
         <span class="stat-value fw700">{{ likesCount || 0 }}</span>
         <span class="stat-name text-gray">Likes</span>
       </ion-col>
-      <ion-col (click)="showFollowers()">
+      <ion-col (click)="showFollowers()" class="ion-activatable">
+        <ion-ripple-effect></ion-ripple-effect>
         <span class="stat-value fw700">{{ followersCount || 0 }}</span>
         <span class="stat-name text-gray">Followers</span>
       </ion-col>
-      <ion-col (click)="showFollowings()">
+      <ion-col (click)="showFollowings()" class="ion-activatable">
+        <ion-ripple-effect></ion-ripple-effect>
         <span class="stat-value fw700">{{ followingsCount || 0 }}</span>
         <span class="stat-name text-gray">Following</span>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-card-header class="text-black fw700 about">
+        <ion-card-header class="text-black fw700 about-header">
           About
         </ion-card-header>
         <ion-card-content class="text-black about-content">
           {{ userProfile?.bio || "Hey! I'm using skillocial." }}
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card-header class="text-black fw700 social-media-header">
+          Social media's
+        </ion-card-header>
+        <ion-card-content class="text-black social-media-content">
+          <fa-icon class="text20 ion-margin-end instagram-icon" [icon]="['fab', 'instagram']"></fa-icon>
+          <fa-icon class="text20 ion-margin-end facebook-icon" [icon]="['fab', 'facebook']"></fa-icon>
         </ion-card-content>
       </ion-col>
     </ion-row>
@@ -199,7 +212,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-card-header class="text-black fw700 about" class="ion-no-padding ion-padding-top ion-padding-start">
+        <ion-card-header class="text-black fw700 about-header">
           About
         </ion-card-header>
         <ion-card-content class="text-black about-content">
@@ -207,6 +220,21 @@
           <ion-skeleton-text class="skeleton12" width="200px"></ion-skeleton-text>
           <ion-skeleton-text class="skeleton12" width="240px"></ion-skeleton-text>
           <ion-skeleton-text class="skeleton12" width="280px"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card-header class="text-black fw700 social-media-header">
+          Social media's
+        </ion-card-header>
+        <ion-card-content class="text-black social-media-content">
+          <ion-row>
+            <ion-col>
+              <fa-icon class="text20 ion-margin-end instagram-icon" [icon]="['fab', 'instagram']"></fa-icon>
+              <fa-icon class="text20 ion-margin-end facebook-icon" [icon]="['fab', 'facebook']"></fa-icon>
+            </ion-col>
+          </ion-row>
         </ion-card-content>
       </ion-col>
     </ion-row>
