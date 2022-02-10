@@ -90,7 +90,7 @@
     "ng-lazyload-image": "^5.1.2",
     "ngx-autosize": "^1.7.2",
     "ngx-moment": "^3.5.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"
   },
